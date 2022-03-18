@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom'
 import Home from '../pages'
 import Contract from '../pages/contract'
-import MintFunction from '../pages/mintFunction'
+import MintFunction from '../pages/MintFunction'
 
 const Routes = () => {
   return (
