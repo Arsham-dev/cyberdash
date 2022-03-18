@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   buttonContainer: {
+    width: 155,
     [theme.breakpoints.down('sm')]: {
       width: '90%'
     }

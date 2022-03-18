@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core'
 import { useState } from 'react'
 import SwitchSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
@@ -8,7 +9,8 @@ import TransactionModal from './TransactionModal'
 const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const classes = useStyles()
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isConnect, setisConnect] = useState(false)
   return (
     <div className={classes.root}>
       <div className={classes.switchContainer}>
@@ -31,6 +33,25 @@ const MintFunction = () => {
           fontColor="#fff"
           backgroundColor="transpart"
           wrapperBorderRadius={27}
+        />
+      </div>
+      <div
+        className={[
+          classes.contractInfo,
+          isConnect
+            ? classes.contractInfoIsConnect
+            : classes.contractInfoIsNotConnect
+        ].join(' ')}>
+        <Typography className={classes.contractText}>
+          Contract Status
+        </Typography>
+        <div
+          className={[
+            classes.contractValue,
+            isConnect
+              ? classes.contractValueIsConnect
+              : classes.contractValueIsNotConnect
+          ].join(' ')}
         />
       </div>
       <div className={classes.inputContainer}>

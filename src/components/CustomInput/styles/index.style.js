@@ -20,7 +20,8 @@ const useStyles = makeStyles(() => ({
     outline: 'none',
     height: '58px !important',
     border: 'none',
-    fontSize: 20
+    fontSize: 20,
+    backgroundColor: 'transparent'
   },
   icon: {
     marginLeft: 31,

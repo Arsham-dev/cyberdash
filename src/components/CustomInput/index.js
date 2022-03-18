@@ -20,8 +20,8 @@ const CustomInput = ({
       )}
       <div className={classes.inputContainer}>
         {isSelector ? (
-          <select className={classes.input} {...otherProps}>
-            <option value="" disabled selected>
+          <select className={classes.input} defaultValue="" {...otherProps}>
+            <option value="" hidden>
               {placholder}
             </option>
             <option value="volvo">Volvo</option>
