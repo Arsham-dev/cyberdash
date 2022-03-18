@@ -18,6 +18,7 @@ import twitter from '../../assets/images/twitter.svg'
 import linkdin from '../../assets/images/linkdin.svg'
 import youtube from '../../assets/images/youtube.svg'
 import logo from '../../assets/images/logo.svg'
+import gas from '../../assets/images/gas.svg'
 import useStyles from './styles/index.style'
 
 const pages = [
@@ -63,12 +64,38 @@ const ResponsiveAppBar = () => {
           <div>
             <img src={logo} alt="logo" />
           </div>
+
+          <Hidden smDown>
+            <div className={classes.headerButtonContainer}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  className={classes.headerButton}>
+                  {page}
+                </Button>
+              ))}
+            </div>
+          </Hidden>
+          <Hidden smDown>
+            <div className={classes.creditContainer}>
+              <img src={gas} alt="gas" />
+              <Typography
+                className={classes.creditValue}>{`${20} gwei`}</Typography>
+            </div>
+          </Hidden>
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
               justifyContent: 'flex-end'
             }}>
+            <div className={classes.creditContainer}>
+              <img src={gas} alt="gas" />
+              <Typography
+                className={classes.creditValue}>{`${20} gwei`}</Typography>
+            </div>
             <IconButton
               size="medium"
               aria-label="account of current user"
@@ -109,20 +136,6 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-
-          <Hidden smDown>
-            <div className={classes.headerButtonContainer}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                  className={classes.headerButton}>
-                  {page}
-                </Button>
-              ))}
-            </div>
-          </Hidden>
           <Hidden smDown>
             <div className={classes.mediaContiner}>
               <ButtonBase>
