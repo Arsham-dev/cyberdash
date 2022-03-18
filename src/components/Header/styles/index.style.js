@@ -42,6 +42,22 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     columnGap: 6,
     flex: 1
+  },
+  creditContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: 7,
+    justifyContent: 'center',
+    // marginRight: 20
+    flex: 1,
+    [theme.breakpoints.down('sm')]: {
+      flex: 'none',
+      marginRight: 10
+    }
+  },
+  creditValue: {
+    fontSize: 14,
+    color: '#fff'
   }
 }))
 export default useStyles

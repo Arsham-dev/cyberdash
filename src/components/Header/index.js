@@ -19,6 +19,7 @@ import twitter from '../../assets/images/twitter.svg'
 import linkdin from '../../assets/images/linkdin.svg'
 import youtube from '../../assets/images/youtube.svg'
 import logo from '../../assets/images/logo.svg'
+import gas from '../../assets/images/gas.svg'
 import useStyles from './styles/index.style'
 
 const pages = [
@@ -86,6 +87,11 @@ const ResponsiveAppBar = () => {
               display: { xs: 'flex', md: 'none' },
               justifyContent: 'flex-end'
             }}>
+            <div className={classes.creditContainer}>
+              <img src={gas} alt="gas" />
+              <Typography
+                className={classes.creditValue}>{`${20} gwei`}</Typography>
+            </div>
             <IconButton
               size="medium"
               aria-label="account of current user"
@@ -143,7 +149,7 @@ const ResponsiveAppBar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <Button
-                  onClick={metaMask.onClickConnect}
+                  onClick={handleOpenUserMenu}
                   sx={{ p: 0 }}
                   variant="outlined"
                   className={classes.connectWallet}>
