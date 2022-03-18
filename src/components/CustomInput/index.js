@@ -7,6 +7,7 @@ const CustomInput = ({
   toolTip,
   isSelector,
   selectorOptions,
+  placholder,
   ...otherProps
 }) => {
   const classes = useStyles()
@@ -20,6 +21,9 @@ const CustomInput = ({
       <div className={classes.inputContainer}>
         {isSelector ? (
           <select className={classes.input} {...otherProps}>
+            <option value="" disabled selected>
+              {placholder}
+            </option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
             <option value="fiat">Fiat</option>
@@ -29,7 +33,12 @@ const CustomInput = ({
             ))}
           </select>
         ) : (
-          <input className={classes.input} id="input" {...otherProps} />
+          <input
+            className={classes.input}
+            id="input"
+            placeholder={placholder}
+            {...otherProps}
+          />
         )}
         <Tooltip title={toolTip || ''} placement="right-start">
           <InfoOutlinedIcon className={classes.icon} />

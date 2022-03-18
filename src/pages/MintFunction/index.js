@@ -1,10 +1,14 @@
+import { useState } from 'react'
 import SwitchSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
 import useStyles from './styles/index.styles'
+import TransactionModal from './TransactionModal'
 
 const MintFunction = () => {
+  const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const classes = useStyles()
+
   return (
     <div className={classes.root}>
       <div className={classes.switchContainer}>
@@ -31,6 +35,7 @@ const MintFunction = () => {
       </div>
       <div className={classes.inputContainer}>
         <CustomInput
+          placholder="Select mint Function"
           isSelector
           selectorOptions={[]}
           toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
@@ -48,8 +53,15 @@ const MintFunction = () => {
           })}
       </div>
       <div className={classes.buttonContianer}>
-        <CustomButton title="Pre-Sign TX" />
+        <CustomButton
+          title="Pre-Sign TX"
+          onClick={() => settransactionModalIsOpen(true)}
+        />
       </div>
+      <TransactionModal
+        isOpen={transactionModalIsOpen}
+        onClose={() => settransactionModalIsOpen(false)}
+      />
     </div>
   )
 }
