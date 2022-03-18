@@ -1,11 +1,11 @@
 import { Route } from 'react-router-dom'
-import App from '../App'
+import Contract from '../pages/contract'
 
 const Routes = () => {
   return (
     <>
-      <Route exact path="/">
-        <App />
+      <Route exact path="/contract">
+        <Contract />
       </Route>
     </>
   )
