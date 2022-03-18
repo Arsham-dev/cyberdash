@@ -149,7 +149,7 @@ const ResponsiveAppBar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <Button
-                  onClick={handleOpenUserMenu}
+                  onClick={metaMask.onClickConnect}
                   sx={{ p: 0 }}
                   variant="outlined"
                   className={classes.connectWallet}>

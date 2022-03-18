@@ -1,4 +1,4 @@
-import Web3 from 'web3'
+//import Web3 from 'web3'
 import rlp from 'rlp'
 
 class MetaMask {
@@ -18,7 +18,7 @@ class MetaMask {
       const accounts = await this.ethereum.request({ method: 'eth_accounts' })
       const ethereumAddress = accounts[0]
       alert(ethereumAddress)
-      await this.signTx(ethereumAddress)
+      //await this.signTx(ethereumAddress)
       return ethereumAddress
     }
     alert('please install metamask')
@@ -26,10 +26,10 @@ class MetaMask {
   }
 
   signTx = async (address) => {
-    const web3 = new Web3(
-      'https://eth.getblock.io/goerli/?api_key=91953f06-fc0a-4a48-87fc-145e8cf6d385'
-    )
-
+    //const web3 = new Web3(
+    //  'https://eth.getblock.io/goerli/?api_key=91953f06-fc0a-4a48-87fc-145e8cf6d385'
+    //)
+    /*
     const nonce = await web3.eth.getTransactionCount(address)
 
     const CHAIN_ID = 5
@@ -77,6 +77,7 @@ class MetaMask {
     const txDataHexType2 = '0x02' + txDataHex.slice(2)
 
     alert('finish => ' + txDataHexType2)
+    */
   }
   /*
   sendTx = () => {}
