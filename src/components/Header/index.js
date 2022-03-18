@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 import {
   AppBar,
   Box,
@@ -12,7 +14,7 @@ import {
 } from '@material-ui/core'
 
 import MenuIcon from '@material-ui/icons/Menu'
-import { useState, useEffect } from 'react'
+import { MetaMask } from '../../libs/wallets'
 
 const pages = [
   'Pricing',
@@ -31,6 +33,8 @@ const ResponsiveAppBar = () => {
   useEffect(() => {
     setProvider(window.ethereum)
   }, [])
+
+  const metaMask = new MetaMask(provider)
 
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -123,7 +127,10 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <button type="button"> Connect Wallet </button>
+                <button onClick={metaMask.onClickConnect} type="button">
+                  {' '}
+                  Connect Wallet{' '}
+                </button>
               </IconButton>
             </Tooltip>
             <Menu
