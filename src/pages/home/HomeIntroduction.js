@@ -6,11 +6,11 @@ const HomeIntroduction = () => {
   return (
     <div>
       <center>
-        <h1 style={{ color: 'white', fontSize: '63px' }}>
+        <Typography className={classes.title}>
           Follow The
           <br />
           Smart Money
-        </h1>
+        </Typography>
         <div>
           <Typography className={classes.description}>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam

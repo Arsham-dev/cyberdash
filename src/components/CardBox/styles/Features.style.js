@@ -1,11 +1,14 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 380,
     borderRadius: 10,
     '&:hover': {
       backgroundColor: '#0B1E39'
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
     }
   },
   cardTopPart: {

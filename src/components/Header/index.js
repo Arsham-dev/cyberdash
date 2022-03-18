@@ -2,7 +2,9 @@ import {
   AppBar,
   Box,
   Button,
+  ButtonBase,
   Container,
+  Hidden,
   IconButton,
   Menu,
   MenuItem,
@@ -10,9 +12,13 @@ import {
   Tooltip,
   Typography
 } from '@material-ui/core'
-
 import MenuIcon from '@material-ui/icons/Menu'
 import { useState, useEffect } from 'react'
+import twitter from '../../assets/images/twitter.svg'
+import linkdin from '../../assets/images/linkdin.svg'
+import youtube from '../../assets/images/youtube.svg'
+import logo from '../../assets/images/logo.svg'
+import useStyles from './styles/index.style'
 
 const pages = [
   'Pricing',
@@ -27,7 +33,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 const ResponsiveAppBar = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [provider, setProvider] = useState({})
-
+  const classes = useStyles()
   useEffect(() => {
     setProvider(window.ethereum)
   }, [])
@@ -51,17 +57,18 @@ const ResponsiveAppBar = () => {
   }
 
   return (
-    <AppBar position="static" style={{ background: '#0B1E39' }}>
+    <AppBar position="static" className={classes.root}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          />
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        <Toolbar disableGutters className={classes.mobileSize}>
+          <div>
+            <img src={logo} alt="logo" />
+          </div>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+              justifyContent: 'flex-end'
+            }}>
             <IconButton
               size="medium"
               aria-label="account of current user"
@@ -76,12 +83,12 @@ const ResponsiveAppBar = () => {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left'
+                horizontal: 'right'
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left'
+                horizontal: 'right'
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -102,52 +109,67 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
-              </Button>
-            ))}
-          </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <button type="button"> Connect Wallet </button>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}>
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+          <Hidden smDown>
+            <div className={classes.headerButtonContainer}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  className={classes.headerButton}>
+                  {page}
+                </Button>
               ))}
-            </Menu>
-          </Box>
+            </div>
+          </Hidden>
+          <Hidden smDown>
+            <div className={classes.mediaContiner}>
+              <ButtonBase>
+                <img src={twitter} alt="twitter" />
+              </ButtonBase>
+              <ButtonBase>
+                <img src={linkdin} alt="linkdin" />
+              </ButtonBase>
+              <ButtonBase>
+                <img src={youtube} alt="youtube" />
+              </ButtonBase>
+            </div>
+          </Hidden>
+          <Hidden smDown>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <Button
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0 }}
+                  variant="outlined"
+                  className={classes.connectWallet}>
+                  Connect Wallet
+                </Button>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}>
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Hidden>
         </Toolbar>
       </Container>
     </AppBar>

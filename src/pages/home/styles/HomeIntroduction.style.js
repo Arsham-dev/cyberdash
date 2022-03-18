@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
+  title: {
+    color: 'white',
+    fontSize: '63px'
+  },
   description: {
     fontSize: 14,
     color: '#D1D1D1',

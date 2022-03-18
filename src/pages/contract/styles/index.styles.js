@@ -1,11 +1,12 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 72,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    // justifyContent: 'center',
     flex: 1
   },
   title: {
@@ -15,8 +16,12 @@ const useStyles = makeStyles(() => ({
     marginBottom: 47
   },
   searchBoxContainer: {
+    display: 'flex',
     width: 550,
-    marginBottom: 58
+    marginBottom: 58,
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
+    }
     // backgroundColor: "red",
   },
   searchBox: {
@@ -27,10 +32,15 @@ const useStyles = makeStyles(() => ({
     borderRadius: 10,
     outline: '1px solid #707070',
     fontSize: 20,
-    padding: 10
+    padding: 10,
+    [theme.breakpoints.down('sm')]: {
+      height: 40
+    }
   },
   buttonContainer: {
-    width: 155
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
+    }
   },
   button: {
     backgroundColor: '#1956E2',

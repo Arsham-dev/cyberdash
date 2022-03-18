@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   cardContainer: {
-    display: 'grid',
+    display: 'flex',
     columnGap: 19,
     rowGap: 28,
     flexWrap: 'wrap',
