@@ -1,5 +1,4 @@
-import Head from "next/head";
-import HomePage from "./home";
+import HomePage from './home'
 
 const Home = () => {
   return (
@@ -11,7 +10,7 @@ const Home = () => {
       </Head> */}
       <HomePage />
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

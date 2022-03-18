@@ -1,11 +1,14 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 39,
     marginBottom: 28,
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr'
+    gridTemplateColumns: '1fr 1fr',
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: '1fr'
+    }
     // flex: 1,
   },
   logo: {

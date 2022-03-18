@@ -1,27 +1,68 @@
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
-import { useState } from "react";
-import useStyles from "./styles/index.styles";
+import { useState } from 'react'
+import SwitchSelector from 'react-switch-selector'
+import CustomButton from '../../components/CustomButton'
+import CustomInput from '../../components/CustomInput'
+import useStyles from './styles/index.styles'
+import TransactionModal from './TransactionModal'
 
 const MintFunction = () => {
-  const [alignment, setAlignment] = useState("left");
+  const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
+  const classes = useStyles()
 
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  };
-  const classes = useStyles();
   return (
     <div className={classes.root}>
-      <ToggleButtonGroup value={alignment} exclusive onChange={handleChange}>
-        <ToggleButton value="left">
-          {/* <FormatAlignLeftIcon fontSize="small" /> */}
-          asdadsas
-        </ToggleButton>
-        <ToggleButton value="center">
-          {/* <FormatAlignCenterIcon fontSize="small" /> */}
-          asdsad
-        </ToggleButton>
-      </ToggleButtonGroup>
+      <div className={classes.switchContainer}>
+        <SwitchSelector
+          fontSize={16}
+          options={[
+            {
+              selectedBackgroundColor: '#1956E2',
+              label: 'test1',
+              value: 'test1'
+            },
+            {
+              selectedBackgroundColor: '#1956E2',
+              label: 'test2',
+              value: 'test2'
+            }
+          ]}
+          border="1px solid #1956E2"
+          optionBorderRadius={27}
+          fontColor="#fff"
+          backgroundColor="transpart"
+          wrapperBorderRadius={27}
+        />
+      </div>
+      <div className={classes.inputContainer}>
+        <CustomInput
+          placholder="Select mint Function"
+          isSelector
+          selectorOptions={[]}
+          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+        />
+        {Array(6)
+          .fill(null)
+          .map((item, index) => {
+            return (
+              <CustomInput
+                key={`${index.toString()}`}
+                label={item + index.toString()}
+                toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+              />
+            )
+          })}
+      </div>
+      <div className={classes.buttonContianer}>
+        <CustomButton
+          title="Pre-Sign TX"
+          onClick={() => settransactionModalIsOpen(true)}
+        />
+      </div>
+      <TransactionModal
+        isOpen={transactionModalIsOpen}
+        onClose={() => settransactionModalIsOpen(false)}
+      />
     </div>
-  );
-};
-export default MintFunction;
+  )
+}
+export default MintFunction

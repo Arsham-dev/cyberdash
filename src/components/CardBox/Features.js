@@ -1,25 +1,21 @@
-import { Card, CardContent, Typography } from '@material-ui/core'
-import * as React from 'react'
+import { Typography } from '@material-ui/core'
+import useStyles from './styles/Features.style'
+import logo from '../../assets/images/logo.svg'
 
 const Features = ({ title, content }) => {
+  const classes = useStyles()
   return (
-    <Card
-      style={{
-        marginLeft: '10px',
-        marginTop: '10px',
-        background: 'transparent'
-      }}
-      sx={{ maxWidth: 380 }}>
-      <CardContent>
-        <div
-          style={{
-            height: '217px',
-            borderRadius: '10px',
-            width: 'auto',
-            background: 'linear-gradient(to right, #27589D, #0F2B52)'
-          }}>
-          <h1>salam</h1>
+    <div className={classes.root}>
+      <div className={classes.cardTopPart}>
+        <div />
+        <Typography className={classes.cardTopPartTitle} color="inherit">
+          A New Way To Invest In <span style={{ color: '#EF501C' }}>NFTs</span>
+        </Typography>
+        <div>
+          <img src={logo} alt="logo" className={classes.logo} />
         </div>
+      </div>
+      <div className={classes.cardBottomPart}>
         <Typography
           style={{ color: '#FFFFFF' }}
           gutterBottom
@@ -33,8 +29,8 @@ const Features = ({ title, content }) => {
           color="secondary">
           {content}
         </Typography>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }
 

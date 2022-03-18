@@ -30,8 +30,9 @@ class MetaMask {
       'https://eth.getblock.io/goerli/?api_key=91953f06-fc0a-4a48-87fc-145e8cf6d385'
     )
 
-    const CHAIN_ID = 5
     const nonce = await web3.eth.getTransactionCount(address)
+
+    const CHAIN_ID = 5
     const maxPriorityFeePerGas = 2
     const maxFeePerGas = 100
     const gasLimit = 300000
