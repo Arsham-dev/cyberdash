@@ -4,7 +4,8 @@ const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '0 93px 34px 93px'
+    margin: '0 93px 34px 93px',
+    borderTop: '1px solid #0B1E39'
     // flex: 1,
   }
 }))
