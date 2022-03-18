@@ -9,7 +9,10 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       width: '90%'
-    }
+    },
+    transitionProperty: 'background-color',
+    transitionDuration: '0.5s',
+    transitionTimingFunction: 'ease-in-out'
   },
   cardTopPart: {
     display: 'flex',

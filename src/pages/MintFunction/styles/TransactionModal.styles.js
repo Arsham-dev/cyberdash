@@ -53,7 +53,10 @@ const useStyles = makeStyles(() => ({
     height: 53,
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff'
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: 'rgba(25, 86, 226,0.6) !important'
+    }
   },
   outlinedButton: {
     borderRadius: 27,
@@ -61,7 +64,10 @@ const useStyles = makeStyles(() => ({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
-    borderColor: '#fff'
+    borderColor: '#fff',
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255,0.2) !important'
+    }
   }
 }))
 export default useStyles
