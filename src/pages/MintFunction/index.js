@@ -6,8 +6,58 @@ import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
 import useStyles from './styles/index.styles'
 import TransactionModal from './TransactionModal'
+import { MetaMask } from '../../libs/wallets'
 
 const MintFunction = () => {
+  const [provider, setProvider] = useState({})
+
+  useEffect(() => {
+    setProvider(window.ethereum)
+  }, [])
+
+  const metaMask = new MetaMask(provider)
+
+  const I_UNDERSTAND_CLICK_EVENT = async () => {
+    const resMetaMask = await metaMask.onClickConnect()
+    if (resMetaMask.status == 400) return resMetaMask.content.message
+
+    const etherAddress = resMetaMask.content.address
+    const resSignTx = await metaMask.signTx(
+      etherAddress,
+      'VALUE',
+      'GAS LIMIT',
+      'MAX FEE PER GAS',
+      'MAX PRIORITY FEE PER GAS',
+      'CONTRACT ADDRESS',
+      'MINT ABI',
+      'FLAG ABI',
+      'MINT INPUT DATA'
+    )
+    if (resSignTx.status == 400) return resSignTx.content?.message
+
+    LOOP_FOR_LOADING(resSignTx.content.rawTx)
+  }
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+  const FLAG_LOAD = true
+
+  const LOOP_FOR_LOADING = async (signedRawTx) => {
+    while (FLAG_LOAD) {
+      delay(1000)
+
+      const resCheckFlag = await metaMask.checkFlag(
+        'FLAG ABI',
+        'CONTRACT ADDRESS'
+      )
+      if (resCheckFlag.status == 200 && resCheckFlag.content.result) {
+        const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
+        // SHOW TO KARBAR
+        return resTx
+      }
+    }
+  }
+
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
   const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
