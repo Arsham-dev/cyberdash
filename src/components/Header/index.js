@@ -34,8 +34,10 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const ResponsiveAppBar = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [provider, setProvider] = useState({})
   const classes = useStyles()
+
+  const [provider, setProvider] = useState({})
+
   useEffect(() => {
     setProvider(window.ethereum)
   }, [])
