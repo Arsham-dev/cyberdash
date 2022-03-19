@@ -81,6 +81,13 @@ const ResponsiveAppBar = () => {
               ))}
             </div>
           </Hidden>
+          <Hidden smDown>
+            <div className={classes.creditContainer}>
+              <img src={gas} alt="gas" />
+              <Typography
+                className={classes.creditValue}>{`${20} gwei`}</Typography>
+            </div>
+          </Hidden>
           <Box
             sx={{
               flexGrow: 1,
