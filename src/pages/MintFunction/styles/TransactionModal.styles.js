@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     margin: 'auto',
     marginTop: '10vh',
@@ -12,7 +12,10 @@ const useStyles = makeStyles(() => ({
     maxHeight: '90vh',
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: 16
+    borderRadius: 16,
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '80vw'
+    }
   },
   titleContainer: {
     display: 'flex',
@@ -45,7 +48,12 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    columnGap: 36
+    columnGap: 36,
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      rowGap: 15,
+      marginBottom: 25
+    }
   },
   containedButton: {
     backgroundColor: '#1956E2',

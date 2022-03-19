@@ -1,5 +1,5 @@
 //import Web3 from 'web3'
-import rlp from 'rlp'
+// import rlp from 'rlp'
 
 class MetaMask {
   constructor(ethereum) {
