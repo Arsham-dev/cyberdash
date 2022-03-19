@@ -132,7 +132,7 @@ const ResponsiveAppBar = () => {
                   onClick={handleCloseNavMenu}>
                   <Typography
                     style={{ fontFamily: 'Roboto' }}
-                    textAlign="center">
+                    textalign="center">
                     {page}
                   </Typography>
                 </MenuItem>
@@ -180,7 +180,7 @@ const ResponsiveAppBar = () => {
                 onClose={handleCloseUserMenu}>
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography textalign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
               </Menu>

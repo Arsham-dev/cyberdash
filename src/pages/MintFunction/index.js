@@ -1,5 +1,6 @@
 import { Typography } from '@material-ui/core'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import SwitchSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
@@ -8,9 +9,34 @@ import TransactionModal from './TransactionModal'
 
 const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
-  const classes = useStyles()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedFlaqApi, setselectedFlaqApi] = useState(null)
+  const [selectedMintAbi, setselectedMintAbi] = useState(null)
   const [isConnect, setisConnect] = useState(false)
+  const location = useLocation()
+  const history = useHistory()
+  const { flagAbi, mintAbi } = location.state
+  useEffect(() => {
+    if (!location.state) {
+      history.replace('/contract')
+    } else {
+      setselectedMintAbi(
+        !!mintAbi.defaultMintFunction
+          ? mintAbi.allMintFunctions.findIndex(
+              (item) => item.name === mintAbi.defaultMintFunction.name
+            )
+          : null
+      )
+      setselectedFlaqApi(
+        !!flagAbi.defaultFlagFunction
+          ? flagAbi.allFlagFunctions.findIndex(
+              (item) => item.name === flagAbi.defaultFlagFunction.name
+            )
+          : null
+      )
+    }
+  }, [])
+
+  const classes = useStyles()
   return (
     <div className={classes.root}>
       <div className={classes.switchContainer}>
@@ -56,22 +82,81 @@ const MintFunction = () => {
       </div>
       <div className={classes.inputContainer}>
         <CustomInput
-          placholder="Select mint Function"
+          value={
+            selectedFlaqApi
+              ? flagAbi.allFlagFunctions[selectedFlaqApi].name
+              : null
+          }
+          placholder="Select flagAbi"
           isSelector
-          selectorOptions={[]}
+          selectorOptions={flagAbi.allFlagFunctions
+            .filter((item) => item.name)
+            .map((item) => item.name)}
+          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          onChange={(event) =>
+            setselectedFlaqApi(
+              flagAbi.allFlagFunctions.findIndex(
+                (item) => item.name === event.target.value
+              )
+            )
+          }
+        />
+        {selectedFlaqApi &&
+          flagAbi.allFlagFunctions[selectedFlaqApi].inputs.map(
+            (item, index) => {
+              return (
+                <CustomInput
+                  key={item.internalType + item.name}
+                  label={item.name}
+                  toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                />
+              )
+            }
+          )}
+        <CustomInput
+          value={
+            selectedMintAbi
+              ? mintAbi.allMintFunctions[selectedMintAbi].name
+              : null
+          }
+          placholder="Select mintAbi"
+          isSelector
+          selectorOptions={mintAbi.allMintFunctions
+            .filter((item) => item.name)
+            .map((item) => item.name)}
+          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          onChange={(event) =>
+            setselectedMintAbi(
+              mintAbi.allMintFunctions.findIndex(
+                (item) => item.name === event.target.value
+              )
+            )
+          }
+        />
+        {selectedMintAbi &&
+          mintAbi.allMintFunctions[selectedMintAbi].inputs.map(
+            (item, index) => {
+              return (
+                <CustomInput
+                  key={item.internalType + item.name}
+                  label={item.name}
+                  toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                />
+              )
+            }
+          )}
+        <CustomInput
+          label="Max Fee Per Gas"
           toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
         />
-        {Array(6)
-          .fill(null)
-          .map((item, index) => {
-            return (
-              <CustomInput
-                key={`${index.toString()}`}
-                label={item + index.toString()}
-                toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
-              />
-            )
-          })}
+        <CustomInput
+          label="Max Priority Fee Per Gas"
+          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+        />
+        <CustomInput
+          label="Gas Limit"
+          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+        />
       </div>
       <div className={classes.buttonContianer}>
         <CustomButton
