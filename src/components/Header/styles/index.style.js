@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     borderColor: '#fff',
     borderRadius: 27,
-    fontSize: 16
+    fontSize: 16,
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255,0.2) !important'
+    }
   },
   headerButton: {
     color: '#fff',
@@ -51,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
     // marginRight: 20
     flex: 1,
     [theme.breakpoints.down('sm')]: {
-      flex: 'none',
-      marginRight: 10
+      flex: 'none'
+      // marginRight: 10
     }
   },
   creditValue: {
