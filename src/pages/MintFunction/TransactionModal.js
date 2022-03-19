@@ -7,10 +7,11 @@ import {
   Typography
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
+import { toast } from 'react-toastify'
 import useStyles from './styles/TransactionModal.styles'
 import TransactionModalItems from './TransactionModalItems'
 
-const TransactionModal = ({ isOpen, onClose, data }) => {
+const TransactionModal = ({ isOpen, onClose, data, onClick }) => {
   const classes = useStyles()
   const wallet = sessionStorage.getItem('key')
   return (
@@ -38,10 +39,6 @@ const TransactionModal = ({ isOpen, onClose, data }) => {
               Object.entries(data.mintAbi).map((item) => (
                 <TransactionModalItems lable={item[0]} value={item[1]} />
               ))}
-            {/* <TransactionModalItems lable="Nonce:" value={17} /> */}
-            {/* <TransactionModalItems lable="Chain id:" value={1} /> */}
-            {/* <TransactionModalItems lable="Mint Fx Name:" value="mintApe" /> */}
-            {/* <TransactionModalItems lable="Mint Eth Value:" value="0.001 eth" /> */}
             {wallet && (
               <TransactionModalItems
                 lable="Wallet:"
@@ -50,6 +47,7 @@ const TransactionModal = ({ isOpen, onClose, data }) => {
                 )}`}
               />
             )}
+            <TransactionModalItems lable="Value:" value={`${data.value} ETH`} />
             <TransactionModalItems
               lable="Max Fee:"
               value={`${data.maxFee} GWEI`}
@@ -63,6 +61,15 @@ const TransactionModal = ({ isOpen, onClose, data }) => {
           <div className={classes.buttonContainer}>
             <Button
               fullWidth
+              onClick={() =>
+                onClick().then((item) => {
+                  if (item.status === 200) {
+                    toast(item.content.message, { type: 'success' })
+                  } else {
+                    toast(item.content.message, { type: 'error' })
+                  }
+                })
+              }
               variant="contained"
               className={classes.containedButton}>
               I UNDERSTAND

@@ -1,7 +1,6 @@
 import Web3 from 'web3'
 import { ethers } from 'ethers'
 import { AbiCoder } from 'web3-eth-abi'
-import Node from './node'
 
 class MetaMask {
   constructor(ethereum) {
@@ -51,7 +50,7 @@ class MetaMask {
 
       const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
 
-      if (resCheckFlag.status == 400)
+      if (resCheckFlag.status === 400)
         return {
           status: 400,
           content: { message: resCheckFlag.content.message }
@@ -65,19 +64,20 @@ class MetaMask {
 
       const GWEI = 10n ** 9n
 
+      // eslint-disable-next-line no-eval
       const maxFee = GWEI * eval(`${maxFeePerGas}n`)
-
+      // eslint-disable-next-line no-eval
       const maxPriorityFee = GWEI * eval(`${maxPriorityFeePerGas}n`)
 
       value = web3.utils.toWei(String(value), 'ether')
-
+      // eslint-disable-next-line no-eval
       value = eval(`${value}n`)
 
       const data = AbiCoder.encodeFunctionCall([mintAbi], args)
 
       const tx = {
         nonce: nonce,
-        chainId: 5,
+        chainId: 1,
         type: 2,
         value: value,
         data: data,
@@ -109,7 +109,7 @@ class MetaMask {
       const contract = new web3.eth.Contract([flagAbi], contractAddress)
 
       let result = await contract.methods
-
+      // eslint-disable-next-line no-eval
       result = await eval(`result.${flagAbi.name}().call()`)
 
       return { status: 200, content: { result: result } }

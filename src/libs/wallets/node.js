@@ -47,7 +47,7 @@ class Node {
       ]
 
       let DEFAULT_FLAG_FUNCTION = ''
-      const PERHAPS_FLAG_FUNCTION = []
+      // const PERHAPS_FLAG_FUNCTION = []
 
       for (let i = 0; i < abi.length; i++) {
         try {
@@ -103,7 +103,7 @@ class Node {
               continue
             } else if (
               String(abi[i].name).toLowerCase().includes(RETURN_FILTER) &&
-              abi[i].inputs.length == 1
+              abi[i].inputs.length === 1
             )
               DEFAULT_MINT_FUNCTION = abi[i]
             else {

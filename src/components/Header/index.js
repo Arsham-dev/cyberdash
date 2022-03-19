@@ -37,7 +37,7 @@ const ResponsiveAppBar = () => {
   const [provider, setProvider] = useState({})
   const [wallet, setwallet] = useState('')
   const classes = useStyles()
-
+  console.log(wallet)
   useEffect(() => {
     setProvider(window.ethereum)
     setwallet(sessionStorage.getItem('key'))
@@ -48,13 +48,13 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null)
   const handleConnectWallet = () => {
     metaMask.onClickConnect().then((item) => {
-      if (item === 'please install metamask') {
+      if (item.status === 400) {
         toast('please install metamask', { type: 'error' })
       } else {
         toast('Connect Successfully', { type: 'success' })
-        setwallet(item)
+        setwallet(item.content.address)
 
-        sessionStorage.setItem('key', item)
+        sessionStorage.setItem('key', item.content.address)
         // console.log(item)
       }
     })

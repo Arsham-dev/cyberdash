@@ -14,26 +14,41 @@ const MintFunction = () => {
   useEffect(() => {
     setProvider(window.ethereum)
   }, [])
+  const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
+  const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
+  const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
+  const [isConnect, setisConnect] = useState(sessionStorage.getItem('key'))
+  const [data, setdata] = useState({
+    maxPriority: '',
+    maxFee: '',
+    gasLimit: '',
+    value: ''
+  })
+  const location = useLocation()
+  const history = useHistory()
 
+  const flagAbi = location?.state?.flagAbi
+
+  const mintAbi = location?.state?.mintAbi
   const metaMask = new MetaMask(provider)
 
   const I_UNDERSTAND_CLICK_EVENT = async () => {
     const resMetaMask = await metaMask.onClickConnect()
-    if (resMetaMask.status == 400) return resMetaMask.content.message
+    if (resMetaMask.status === 400) return resMetaMask
 
-    const etherAddress = resMetaMask.content.address
+    const etherAddress = resMetaMask.content.addreI_UNDERSTAND_CLICK_EVENTss
     const resSignTx = await metaMask.signTx(
       etherAddress,
-      'VALUE',
-      'GAS LIMIT',
-      'MAX FEE PER GAS',
-      'MAX PRIORITY FEE PER GAS',
-      'CONTRACT ADDRESS',
-      'MINT ABI',
-      'FLAG ABI',
-      'MINT INPUT DATA'
+      data.value,
+      data.gasLimit,
+      data.maxFee,
+      data.maxPriority,
+      sessionStorage.getItem('key'),
+      mintAbi.allMintFunctions[selectedMintAbi],
+      flagAbi.allFlagFunctions[selectedFlaqApi],
+      Object.entries(data.mintAbi).map((item) => item[1])
     )
-    if (resSignTx.status == 400) return resSignTx.content?.message
+    if (resSignTx.status === 400) return resSignTx
 
     LOOP_FOR_LOADING(resSignTx.content.rawTx)
   }
@@ -44,35 +59,26 @@ const MintFunction = () => {
 
   const LOOP_FOR_LOADING = async (signedRawTx) => {
     while (FLAG_LOAD) {
-      delay(1000)
+      await delay(1000)
 
       const resCheckFlag = await metaMask.checkFlag(
-        'FLAG ABI',
-        'CONTRACT ADDRESS'
+        flagAbi.defaultFlagFunction[selectedFlaqApi],
+        sessionStorage.getItem('key')
       )
-      if (resCheckFlag.status == 200 && resCheckFlag.content.result) {
+      if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
         // SHOW TO KARBAR
-        return resTx
+
+        return {
+          status: 200,
+          content: {
+            message: resTx
+          }
+        }
       }
     }
   }
 
-  const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
-  const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
-  const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
-  const [isConnect, setisConnect] = useState(sessionStorage.getItem('key'))
-  const [data, setdata] = useState({
-    maxPriority: '',
-    maxFee: '',
-    gasLimit: ''
-  })
-  const location = useLocation()
-  const history = useHistory()
-
-  const flagAbi = location?.state?.flagAbi
-
-  const mintAbi = location?.state?.mintAbi
   useEffect(() => {
     if (!location.state) {
       history.replace('/contract')
@@ -100,16 +106,17 @@ const MintFunction = () => {
       <div className={classes.switchContainer}>
         <SwitchSelector
           fontSize={16}
+          disabled
           options={[
             {
               selectedBackgroundColor: '#1956E2',
-              label: 'test1',
-              value: 'test1'
+              label: 'Pre-Sign',
+              value: 'Pre-Sign'
             },
             {
               selectedBackgroundColor: '#1956E2',
-              label: 'test2',
-              value: 'test2'
+              label: 'Sign',
+              value: 'Sign'
             }
           ]}
           border="1px solid #1956E2"
@@ -237,6 +244,22 @@ const MintFunction = () => {
           )}
         <CustomInput
           type="text"
+          // inputMode="numeric"
+          pattern="[+-]?([0-9]*[.])?[0-9]*"
+          value={data.value}
+          label="Value"
+          onChange={(event) =>
+            setdata({
+              ...data,
+              value: event.target.validity.valid
+                ? event.target.value
+                : data.value
+            })
+          }
+          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+        />
+        <CustomInput
+          type="text"
           inputMode="numeric"
           pattern="[0-9]*"
           value={data.maxFee}
@@ -301,6 +324,7 @@ const MintFunction = () => {
         isOpen={transactionModalIsOpen}
         onClose={() => settransactionModalIsOpen(false)}
         data={data}
+        onClick={I_UNDERSTAND_CLICK_EVENT}
       />
     </div>
   )
