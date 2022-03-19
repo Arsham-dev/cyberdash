@@ -9,12 +9,20 @@ import TransactionModal from './TransactionModal'
 
 const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
-  const [selectedFlaqApi, setselectedFlaqApi] = useState(null)
-  const [selectedMintAbi, setselectedMintAbi] = useState(null)
-  const [isConnect, setisConnect] = useState(false)
+  const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
+  const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
+  const [isConnect, setisConnect] = useState(sessionStorage.getItem('key'))
+  const [data, setdata] = useState({
+    maxPriority: '',
+    maxFee: '',
+    gasLimit: ''
+  })
   const location = useLocation()
   const history = useHistory()
-  const { flagAbi, mintAbi } = location.state
+
+  const flagAbi = location?.state?.flagAbi
+
+  const mintAbi = location?.state?.mintAbi
   useEffect(() => {
     if (!location.state) {
       history.replace('/contract')
@@ -24,14 +32,14 @@ const MintFunction = () => {
           ? mintAbi.allMintFunctions.findIndex(
               (item) => item.name === mintAbi.defaultMintFunction.name
             )
-          : null
+          : undefined
       )
       setselectedFlaqApi(
         !!flagAbi.defaultFlagFunction
           ? flagAbi.allFlagFunctions.findIndex(
               (item) => item.name === flagAbi.defaultFlagFunction.name
             )
-          : null
+          : undefined
       )
     }
   }, [])
@@ -84,31 +92,47 @@ const MintFunction = () => {
         <CustomInput
           value={
             selectedFlaqApi
-              ? flagAbi.allFlagFunctions[selectedFlaqApi].name
-              : null
+              ? flagAbi?.allFlagFunctions[selectedFlaqApi].name
+              : undefined
           }
           placholder="Select flagAbi"
           isSelector
-          selectorOptions={flagAbi.allFlagFunctions
-            .filter((item) => item.name)
-            .map((item) => item.name)}
+          selectorOptions={
+            flagAbi?.allFlagFunctions
+              .filter((item) => item.name)
+              .map((item) => item.name) || []
+          }
           toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
-          onChange={(event) =>
+          onChange={(event) => {
             setselectedFlaqApi(
-              flagAbi.allFlagFunctions.findIndex(
+              flagAbi?.allFlagFunctions.findIndex(
                 (item) => item.name === event.target.value
               )
             )
-          }
+            setdata({
+              ...data,
+              selectedFlaqApi: event.target.value,
+              flaqApi: undefined
+            })
+          }}
         />
         {selectedFlaqApi &&
-          flagAbi.allFlagFunctions[selectedFlaqApi].inputs.map(
+          flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map(
             (item, index) => {
               return (
                 <CustomInput
                   key={item.internalType + item.name}
                   label={item.name}
                   toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                  onChange={(event) =>
+                    setdata({
+                      ...data,
+                      flagAbi: {
+                        ...data.flagAbi,
+                        [item.name]: event.target.value
+                      }
+                    })
+                  }
                 />
               )
             }
@@ -117,44 +141,95 @@ const MintFunction = () => {
           value={
             selectedMintAbi
               ? mintAbi.allMintFunctions[selectedMintAbi].name
-              : null
+              : undefined
           }
           placholder="Select mintAbi"
           isSelector
-          selectorOptions={mintAbi.allMintFunctions
-            .filter((item) => item.name)
-            .map((item) => item.name)}
+          selectorOptions={
+            mintAbi?.allMintFunctions
+              .filter((item) => item.name)
+              .map((item) => item.name) || []
+          }
           toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
-          onChange={(event) =>
+          onChange={(event) => {
             setselectedMintAbi(
-              mintAbi.allMintFunctions.findIndex(
+              mintAbi?.allMintFunctions.findIndex(
                 (item) => item.name === event.target.value
               )
             )
-          }
+            setdata({
+              ...data,
+              selectedMintAbi: event.target.value,
+              mintAbi: undefined
+            })
+          }}
         />
         {selectedMintAbi &&
-          mintAbi.allMintFunctions[selectedMintAbi].inputs.map(
+          mintAbi?.allMintFunctions[selectedMintAbi].inputs.map(
             (item, index) => {
               return (
                 <CustomInput
                   key={item.internalType + item.name}
                   label={item.name}
                   toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                  onChange={(event) =>
+                    setdata({
+                      ...data,
+                      mintAbi: {
+                        ...data.mintAbi,
+                        [item.name]: event.target.value
+                      }
+                    })
+                  }
                 />
               )
             }
           )}
         <CustomInput
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={data.maxFee}
           label="Max Fee Per Gas"
+          onChange={(event) =>
+            setdata({
+              ...data,
+              maxFee: event.target.validity.valid
+                ? event.target.value
+                : data.maxFee
+            })
+          }
           toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
         />
         <CustomInput
           label="Max Priority Fee Per Gas"
+          inputMode="numeric"
+          type="text"
+          pattern="[0-9]*"
+          value={data.maxPriority}
+          onChange={(event) =>
+            setdata({
+              ...data,
+              maxPriority: event.target.validity.valid
+                ? event.target.value
+                : data.maxPriority
+            })
+          }
           toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
         />
         <CustomInput
           label="Gas Limit"
+          type="text"
+          pattern="[0-9]*"
+          value={data.gasLimit}
+          onChange={(event) =>
+            setdata({
+              ...data,
+              gasLimit: event.target.validity.valid
+                ? event.target.value
+                : data.gasLimit
+            })
+          }
           toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
         />
       </div>
@@ -162,11 +237,20 @@ const MintFunction = () => {
         <CustomButton
           title="Pre-Sign TX"
           onClick={() => settransactionModalIsOpen(true)}
+          disabled={
+            !data.gasLimit ||
+            !data.maxFee ||
+            !data.maxPriority ||
+            !selectedFlaqApi ||
+            !selectedMintAbi
+          }
+          // onClick={() => console.log(data)}
         />
       </div>
       <TransactionModal
         isOpen={transactionModalIsOpen}
         onClose={() => settransactionModalIsOpen(false)}
+        data={data}
       />
     </div>
   )

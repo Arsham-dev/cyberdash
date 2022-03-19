@@ -17,11 +17,11 @@ class MetaMask {
       await this.ethereum.request({ method: 'eth_requestAccounts' })
       const accounts = await this.ethereum.request({ method: 'eth_accounts' })
       const ethereumAddress = accounts[0]
-      alert(ethereumAddress)
+      // alert(ethereumAddress)
       //await this.signTx(ethereumAddress)
       return ethereumAddress
     }
-    alert('please install metamask')
+    // alert('please install metamask')
     return 'please install metamask'
   }
 

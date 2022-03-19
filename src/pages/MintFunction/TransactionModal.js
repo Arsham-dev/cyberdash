@@ -10,9 +10,9 @@ import CloseIcon from '@material-ui/icons/Close'
 import useStyles from './styles/TransactionModal.styles'
 import TransactionModalItems from './TransactionModalItems'
 
-const TransactionModal = ({ isOpen, onClose }) => {
+const TransactionModal = ({ isOpen, onClose, data }) => {
   const classes = useStyles()
-
+  const wallet = sessionStorage.getItem('key')
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">
@@ -34,13 +34,31 @@ const TransactionModal = ({ isOpen, onClose }) => {
             </Typography>
           </div>
           <div className={classes.itemContainer}>
-            <TransactionModalItems lable="Nonce:" value={17} />
-            <TransactionModalItems lable="Chain id:" value={1} />
-            <TransactionModalItems lable="Mint Fx Name:" value="mintApe" />
-            <TransactionModalItems lable="Mint Eth Value:" value="0.001 eth" />
-            <TransactionModalItems lable="Priority Fee:" value="1 gwei" />
-            <TransactionModalItems lable="Max Fee:" value="200 gwei" />
-            <TransactionModalItems lable="Gas limit:" value={2000} />
+            {data.mintAbi &&
+              Object.entries(data.mintAbi).map((item) => (
+                <TransactionModalItems lable={item[0]} value={item[1]} />
+              ))}
+            {/* <TransactionModalItems lable="Nonce:" value={17} /> */}
+            {/* <TransactionModalItems lable="Chain id:" value={1} /> */}
+            {/* <TransactionModalItems lable="Mint Fx Name:" value="mintApe" /> */}
+            {/* <TransactionModalItems lable="Mint Eth Value:" value="0.001 eth" /> */}
+            {wallet && (
+              <TransactionModalItems
+                lable="Wallet:"
+                value={`${wallet.substring(0, 5)}...${wallet.substring(
+                  wallet.length - 5
+                )}`}
+              />
+            )}
+            <TransactionModalItems
+              lable="Max Fee:"
+              value={`${data.maxFee} GWEI`}
+            />
+            <TransactionModalItems
+              lable="Priority Fee:"
+              value={`${data.maxPriority} GWEI`}
+            />
+            <TransactionModalItems lable="Gas limit:" value={data.gasLimit} />
           </div>
           <div className={classes.buttonContainer}>
             <Button

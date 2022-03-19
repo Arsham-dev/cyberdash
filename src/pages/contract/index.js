@@ -40,6 +40,7 @@ const Contract = () => {
       <div className={classes.buttonContainer}>
         <button
           className={classes.button}
+          disabled={!contractAddress}
           onClick={checkContract}
           type="submit">
           Load

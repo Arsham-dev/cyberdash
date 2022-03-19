@@ -21,6 +21,7 @@ import youtube from '../../assets/images/youtube.svg'
 import logo from '../../assets/images/logo.svg'
 import gas from '../../assets/images/gas.svg'
 import useStyles from './styles/index.style'
+import { toast } from 'react-toastify'
 
 const pages = [
   'Pricing',
@@ -33,17 +34,30 @@ const pages = [
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const ResponsiveAppBar = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [provider, setProvider] = useState({})
+  const [wallet, setwallet] = useState('')
   const classes = useStyles()
   useEffect(() => {
     setProvider(window.ethereum)
+    setwallet(sessionStorage.getItem('key'))
   }, [])
-
   const metaMask = new MetaMask(provider)
 
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
+  const handleConnectWallet = () => {
+    metaMask.onClickConnect().then((item) => {
+      if (item === 'please install metamask') {
+        toast('please install metamask', { type: 'error' })
+      } else {
+        toast('Connect Successfully', { type: 'success' })
+        setwallet(item)
+
+        sessionStorage.setItem('key', item)
+        // console.log(item)
+      }
+    })
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -156,11 +170,15 @@ const ResponsiveAppBar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <Button
-                  onClick={metaMask.onClickConnect}
+                  onClick={handleConnectWallet}
                   sx={{ p: 0 }}
                   variant="outlined"
                   className={classes.connectWallet}>
-                  Connect Wallet
+                  {wallet
+                    ? `${wallet.substring(0, 5)}...${wallet.substring(
+                        wallet.length - 5
+                      )}`
+                    : 'Connect Wallet'}
                 </Button>
               </Tooltip>
               <Menu
