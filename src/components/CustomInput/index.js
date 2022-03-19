@@ -15,21 +15,23 @@ const CustomInput = ({
     <div className={classes.root}>
       {label && (
         <div htmlFor="input" className={classes.label}>
-          {label}
+          {label}:
         </div>
       )}
       <div className={classes.inputContainer}>
         {isSelector ? (
-          <select className={classes.input} {...otherProps}>
-            <option value="" disabled selected>
+          <select className={classes.input} defaultValue="" {...otherProps}>
+            <option value="" hidden>
               {placholder}
             </option>
-            <option value="volvo">Volvo</option>
+            {/* <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
             <option value="fiat">Fiat</option>
-            <option value="audi">Audi</option>
-            {selectorOptions.map((item) => (
-              <option value={item}>{item}</option>
+            <option value="audi">Audi</option> */}
+            {selectorOptions.map((item, index) => (
+              <option value={item} key={(item, index.toString())}>
+                {item}
+              </option>
             ))}
           </select>
         ) : (

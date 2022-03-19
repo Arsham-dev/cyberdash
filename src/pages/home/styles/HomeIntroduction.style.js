@@ -17,7 +17,10 @@ const useStyles = makeStyles(() => ({
     fontSize: 16,
     color: '#fff',
     padding: 20,
-    marginBottom: 31
+    marginBottom: 31,
+    '&:hover': {
+      backgroundColor: 'rgba(25, 86, 226,0.6) !important'
+    }
   }
 }))
 export default useStyles

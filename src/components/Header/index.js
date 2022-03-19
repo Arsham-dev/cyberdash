@@ -13,12 +13,15 @@ import {
   Typography
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import { MetaMask } from '../../libs/wallets'
 import { useState, useEffect } from 'react'
 import twitter from '../../assets/images/twitter.svg'
 import linkdin from '../../assets/images/linkdin.svg'
 import youtube from '../../assets/images/youtube.svg'
 import logo from '../../assets/images/logo.svg'
+import gas from '../../assets/images/gas.svg'
 import useStyles from './styles/index.style'
+import { toast } from 'react-toastify'
 
 const pages = [
   'Pricing',
@@ -31,22 +34,38 @@ const pages = [
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const ResponsiveAppBar = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [provider, setProvider] = useState({})
+  const [wallet, setwallet] = useState('')
   const classes = useStyles()
+  console.log(wallet)
   useEffect(() => {
     setProvider(window.ethereum)
+    setwallet(sessionStorage.getItem('key'))
   }, [])
+  const metaMask = new MetaMask(provider)
 
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
+  const handleConnectWallet = () => {
+    metaMask.onClickConnect().then((item) => {
+      if (item.status === 400) {
+        toast('please install metamask', { type: 'error' })
+      } else {
+        toast('Connect Successfully', { type: 'success' })
+        setwallet(item.content.address)
+
+        sessionStorage.setItem('key', item.content.address)
+        // console.log(item)
+      }
+    })
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget)
-  }
+  // const handleOpenUserMenu = (event) => {
+  //   setAnchorElUser(event.currentTarget)
+  // }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
@@ -63,12 +82,38 @@ const ResponsiveAppBar = () => {
           <div>
             <img src={logo} alt="logo" />
           </div>
+
+          <Hidden smDown>
+            <div className={classes.headerButtonContainer}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  className={classes.headerButton}>
+                  {page}
+                </Button>
+              ))}
+            </div>
+          </Hidden>
+          <Hidden smDown>
+            <div className={classes.creditContainer}>
+              <img src={gas} alt="gas" />
+              <Typography
+                className={classes.creditValue}>{`${20} gwei`}</Typography>
+            </div>
+          </Hidden>
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
               justifyContent: 'flex-end'
             }}>
+            <div className={classes.creditContainer}>
+              <img src={gas} alt="gas" />
+              <Typography
+                className={classes.creditValue}>{`${20} gwei`}</Typography>
+            </div>
             <IconButton
               size="medium"
               aria-label="account of current user"
@@ -102,27 +147,13 @@ const ResponsiveAppBar = () => {
                   onClick={handleCloseNavMenu}>
                   <Typography
                     style={{ fontFamily: 'Roboto' }}
-                    textAlign="center">
+                    textalign="center">
                     {page}
                   </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-
-          <Hidden smDown>
-            <div className={classes.headerButtonContainer}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                  className={classes.headerButton}>
-                  {page}
-                </Button>
-              ))}
-            </div>
-          </Hidden>
           <Hidden smDown>
             <div className={classes.mediaContiner}>
               <ButtonBase>
@@ -140,11 +171,15 @@ const ResponsiveAppBar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <Button
-                  onClick={handleOpenUserMenu}
+                  onClick={handleConnectWallet}
                   sx={{ p: 0 }}
                   variant="outlined"
                   className={classes.connectWallet}>
-                  Connect Wallet
+                  {wallet
+                    ? `${wallet.substring(0, 5)}...${wallet.substring(
+                        wallet.length - 5
+                      )}`
+                    : 'Connect Wallet'}
                 </Button>
               </Tooltip>
               <Menu
@@ -164,7 +199,7 @@ const ResponsiveAppBar = () => {
                 onClose={handleCloseUserMenu}>
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography textalign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
