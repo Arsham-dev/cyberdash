@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 import { ethers } from 'ethers'
-import { AbiCoder } from 'web3-eth-abi'
+import AbiCoder from 'web3-eth-abi'
 
 class MetaMask {
   constructor(ethereum) {
@@ -79,7 +79,9 @@ class MetaMask {
 
       console.log(mintAbi)
 
-      const data = AbiCoder.prototype.encodeFunctionCall([mintAbi], args)
+      const data = AbiCoder.AbiCoder.encodeFunctionCall([mintAbi], args)
+
+      console.log(data)
 
       const tx = {
         nonce: nonce,

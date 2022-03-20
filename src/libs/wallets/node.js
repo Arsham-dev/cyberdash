@@ -73,6 +73,10 @@ class Node {
       }
     } catch (e) {
       console.log(e)
+      return {
+        defaultFlagFunction: abi,
+        allFlagFunctions: abi
+      }
     }
   }
 
@@ -115,14 +119,16 @@ class Node {
           continue
         }
       }
-      console.log(PERHAPS_MINT_FUNCTION)
-      console.log(abi)
       return {
         defaultMintFunction: DEFAULT_MINT_FUNCTION,
         allMintFunctions: PERHAPS_MINT_FUNCTION
       }
     } catch (e) {
       console.log(e)
+      return {
+        defaultMintFunction: abi,
+        allMintFunctions: abi
+      }
     }
   }
 }
