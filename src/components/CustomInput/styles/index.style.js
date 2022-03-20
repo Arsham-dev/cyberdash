@@ -23,6 +23,9 @@ const useStyles = makeStyles(() => ({
     fontSize: 20,
     backgroundColor: 'transparent'
   },
+  selector: {
+    cursor: 'pointer'
+  },
   icon: {
     marginLeft: 31,
     fontSize: 31,
