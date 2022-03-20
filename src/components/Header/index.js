@@ -169,19 +169,17 @@ const ResponsiveAppBar = () => {
           </Hidden>
           <Hidden smDown>
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <Button
-                  onClick={handleConnectWallet}
-                  sx={{ p: 0 }}
-                  variant="outlined"
-                  className={classes.connectWallet}>
-                  {wallet
-                    ? `${wallet.substring(0, 5)}...${wallet.substring(
-                        wallet.length - 5
-                      )}`
-                    : 'Connect Wallet'}
-                </Button>
-              </Tooltip>
+              <Button
+                onClick={handleConnectWallet}
+                sx={{ p: 0 }}
+                variant="outlined"
+                className={classes.connectWallet}>
+                {wallet
+                  ? `${wallet.substring(0, 5)}...${wallet.substring(
+                      wallet.length - 5
+                    )}`
+                  : 'Connect Wallet'}
+              </Button>
               <Menu
                 sx={{ mt: '45px' }}
                 id="menu-appbar"

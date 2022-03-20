@@ -9,9 +9,9 @@ const FooterTopPart = () => {
       <div>
         <img src={logo} alt="logo" className={classes.logo} />
         <Typography className={classes.description}>
-          The Nansen NFT indexes present a reliable way of navigating the NFT
-          markets. This update raises the bar for quality financial
-          infrastructure that supports the growing depth of the NFT industry.
+          CyberDash equips you with excellent NFT tools to spot, navigate, and
+          trade NFTs. It assists you to make better trading decisions and brings
+          you lucrative financial opportunities in the NFT market.
         </Typography>
       </div>
     </div>

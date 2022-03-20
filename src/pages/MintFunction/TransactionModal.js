@@ -37,14 +37,15 @@ const TransactionModal = ({ isOpen, onClose, data, onClick }) => {
           <div className={classes.itemContainer}>
             {data.mintAbi &&
               Object.entries(data.mintAbi).map((item) => (
-                <TransactionModalItems lable={item[0]} value={item[1]} />
+                <TransactionModalItems lable={`${item[0]}:`} value={item[1]} />
               ))}
-            {wallet && (
+            {data.contractAddress && (
               <TransactionModalItems
-                lable="Wallet:"
-                value={`${wallet.substring(0, 5)}...${wallet.substring(
-                  wallet.length - 5
-                )}`}
+                lable="Contract Address:"
+                // value={`${data.contractAddress.substring(0, 5)}...${data.contractAddress.substring(
+                //   data.contractAddress.length - 5
+                // )}`}
+                value={data.contractAddress}
               />
             )}
             <TransactionModalItems lable="Value:" value={`${data.value} ETH`} />

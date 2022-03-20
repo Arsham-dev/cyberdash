@@ -20,7 +20,10 @@ const Contract = () => {
         //   { type: 'success' }
         // )
         toast('Contract load successfully', { type: 'success' })
-        history.push({ pathname: '/mint-function', state: data })
+        history.push({
+          pathname: '/mint-function',
+          state: { ...data, contractAddress }
+        })
       } else toast(data.error, { type: 'error' })
     })
   }

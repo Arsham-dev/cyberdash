@@ -47,7 +47,7 @@ class Node {
       ]
 
       let DEFAULT_FLAG_FUNCTION = ''
-      // const PERHAPS_FLAG_FUNCTION = []
+      const PERHAPS_FLAG_FUNCTION = []
 
       for (let i = 0; i < abi.length; i++) {
         try {
@@ -61,6 +61,7 @@ class Node {
             if (String(abi[i].name).toLowerCase().includes(CONTINUE_FILTER)) {
               continue
             } else DEFAULT_FLAG_FUNCTION = abi[i]
+            PERHAPS_FLAG_FUNCTION.push(abi[i])
           }
         } catch (e) {
           continue
@@ -68,7 +69,7 @@ class Node {
       }
       return {
         defaultFlagFunction: DEFAULT_FLAG_FUNCTION,
-        allFlagFunctions: abi
+        allFlagFunctions: PERHAPS_FLAG_FUNCTION
       }
     } catch (e) {
       console.log(e)
@@ -116,7 +117,7 @@ class Node {
       }
       return {
         defaultMintFunction: DEFAULT_MINT_FUNCTION,
-        allMintFunctions: abi
+        allMintFunctions: PERHAPS_MINT_FUNCTION
       }
     } catch (e) {
       console.log(e)
