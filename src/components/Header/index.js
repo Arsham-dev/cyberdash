@@ -108,11 +108,17 @@ const ResponsiveAppBar = () => {
               display: { xs: 'flex', md: 'none' },
               justifyContent: 'flex-end'
             }}>
-            <div className={classes.creditContainer}>
-              <img src={gas} alt="gas" />
-              <Typography
-                className={classes.creditValue}>{`${20} gwei`}</Typography>
-            </div>
+            <Button
+              onClick={handleConnectWallet}
+              sx={{ p: 0 }}
+              variant="outlined"
+              className={classes.connectWallet}>
+              {wallet
+                ? `${wallet.substring(0, 3)}...${wallet.substring(
+                    wallet.length - 3
+                  )}`
+                : 'Connect Wallet'}
+            </Button>
             <IconButton
               size="medium"
               aria-label="account of current user"

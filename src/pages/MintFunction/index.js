@@ -311,11 +311,12 @@ const MintFunction = () => {
           title="Pre-Sign TX"
           onClick={() => settransactionModalIsOpen(true)}
           disabled={
+            !data.value ||
             !data.gasLimit ||
             !data.maxFee ||
             !data.maxPriority ||
-            !selectedFlaqApi ||
-            !selectedMintAbi
+            !(selectedFlaqApi === 0 || selectedFlaqApi) ||
+            !(selectedMintAbi === 0 || selectedMintAbi)
           }
           // onClick={() => console.log(data)}
         />
