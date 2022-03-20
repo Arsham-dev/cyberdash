@@ -37,7 +37,11 @@ const TransactionModal = ({ isOpen, onClose, data, onClick }) => {
           <div className={classes.itemContainer}>
             {data.mintAbi &&
               Object.entries(data.mintAbi).map((item) => (
-                <TransactionModalItems lable={`${item[0]}:`} value={item[1]} />
+                <TransactionModalItems
+                  lable={`${item[0]}:`}
+                  value={item[1]}
+                  key={item[0]}
+                />
               ))}
             {data.contractAddress && (
               <TransactionModalItems

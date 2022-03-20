@@ -10,7 +10,9 @@ import {
   MenuItem,
   Toolbar,
   Tooltip,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { MetaMask } from '../../libs/wallets'
@@ -73,6 +75,8 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <AppBar position="static" className={classes.root}>
@@ -108,11 +112,19 @@ const ResponsiveAppBar = () => {
               display: { xs: 'flex', md: 'none' },
               justifyContent: 'flex-end'
             }}>
-            <div className={classes.creditContainer}>
-              <img src={gas} alt="gas" />
-              <Typography
-                className={classes.creditValue}>{`${20} gwei`}</Typography>
-            </div>
+            <Button
+              onClick={handleConnectWallet}
+              sx={{ p: 0 }}
+              variant="outlined"
+              className={classes.connectWallet}>
+              {wallet
+                ? `${wallet.substring(0, 3)}...${wallet.substring(
+                    wallet.length - 3
+                  )}`
+                : isSmall
+                ? 'Connect'
+                : 'Connect Wallet'}
+            </Button>
             <IconButton
               size="medium"
               aria-label="account of current user"
