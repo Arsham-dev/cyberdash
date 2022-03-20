@@ -84,7 +84,6 @@ const MintFunction = () => {
     if (!location.state || !sessionStorage.getItem('key')) {
       history.replace('/contract')
     } else {
-      console.log(location.state)
       setdata({ ...data, contractAddress })
       setselectedMintAbi(
         !!mintAbi.defaultMintFunction
@@ -102,7 +101,7 @@ const MintFunction = () => {
       )
     }
   }, [])
-
+  // console.log(mintAbi?.allMintFunctions[selectedMintAbi || 0].inputs)
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -177,7 +176,7 @@ const MintFunction = () => {
             })
           }}
         />
-        {selectedFlaqApi &&
+        {(selectedFlaqApi === 0 || selectedFlaqApi) &&
           flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map((item) => {
             return (
               <CustomInput
@@ -224,27 +223,25 @@ const MintFunction = () => {
             })
           }}
         />
-        {selectedMintAbi &&
-          mintAbi?.allMintFunctions[selectedMintAbi].inputs.map(
-            (item, index) => {
-              return (
-                <CustomInput
-                  key={item.internalType + item.name}
-                  label={item.name}
-                  toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
-                  onChange={(event) =>
-                    setdata({
-                      ...data,
-                      mintAbi: {
-                        ...data.mintAbi,
-                        [item.name]: event.target.value
-                      }
-                    })
-                  }
-                />
-              )
-            }
-          )}
+        {(selectedMintAbi === 0 || selectedMintAbi) &&
+          mintAbi?.allMintFunctions[selectedMintAbi].inputs.map((item) => {
+            return (
+              <CustomInput
+                key={item.internalType + item.name}
+                label={item.name}
+                toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                onChange={(event) =>
+                  setdata({
+                    ...data,
+                    mintAbi: {
+                      ...data.mintAbi,
+                      [item.name]: event.target.value
+                    }
+                  })
+                }
+              />
+            )
+          })}
         <CustomInput
           type="text"
           // inputMode="numeric"

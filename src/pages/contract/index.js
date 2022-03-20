@@ -13,19 +13,23 @@ const Contract = () => {
   const [contractAddress, setContractAddress] = useState()
 
   const checkContract = () => {
-    node.checkContract(contractAddress).then((data) => {
-      if (!data.error) {
-        // toast(
-        //   `mint ABI => \n  ${data.mintedAbi} \n Flags Abi => \n ${data.flagsAbi}  `,
-        //   { type: 'success' }
-        // )
-        toast('Contract load successfully', { type: 'success' })
-        history.push({
-          pathname: '/mint-function',
-          state: { ...data, contractAddress }
-        })
-      } else toast(data.error, { type: 'error' })
-    })
+    if (sessionStorage.getItem('key')) {
+      node.checkContract(contractAddress).then((data) => {
+        if (!data.error) {
+          // toast(
+          //   `mint ABI => \n  ${data.mintedAbi} \n Flags Abi => \n ${data.flagsAbi}  `,
+          //   { type: 'success' }
+          // )
+          toast('Contract load successfully', { type: 'success' })
+          history.push({
+            pathname: '/mint-function',
+            state: { ...data, contractAddress }
+          })
+        } else toast(data.error, { type: 'error' })
+      })
+    } else {
+      toast('Please connect your wallet', { type: 'info' })
+    }
   }
 
   const classes = useStyles()

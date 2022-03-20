@@ -37,7 +37,6 @@ const ResponsiveAppBar = () => {
   const [provider, setProvider] = useState({})
   const [wallet, setwallet] = useState('')
   const classes = useStyles()
-  console.log(wallet)
   useEffect(() => {
     setProvider(window.ethereum)
     setwallet(sessionStorage.getItem('key'))

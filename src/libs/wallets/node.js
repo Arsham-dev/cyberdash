@@ -27,7 +27,6 @@ class Node {
       // alert('can not find your Contract')
       return { error: 'can not find your Contract' }
     } catch (e) {
-      console.log(e)
       return { error: 'can not find your Contract' }
     }
   }
