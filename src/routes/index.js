@@ -12,7 +12,7 @@ const Routes = () => {
       <Route exact path="/mint-function">
         <MintFunction />
       </Route>
-      <Route exact path="/home">
+      <Route exact path="/">
         <Home />
       </Route>
     </>

@@ -119,7 +119,7 @@ class Node {
       console.log(abi)
       return {
         defaultMintFunction: DEFAULT_MINT_FUNCTION,
-        allMintFunctions: abi
+        allMintFunctions: PERHAPS_MINT_FUNCTION
       }
     } catch (e) {
       console.log(e)

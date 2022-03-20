@@ -9,14 +9,14 @@ const HomeIntroduction = () => {
     <div>
       <center>
         <Typography className={classes.title}>
-          Follow The
+          Become a Profitable
           <br />
-          Smart Money
+          NFT Trader
         </Typography>
         <div>
           <Typography className={classes.description}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliq
+            Our NFT bots and analytical tools give you huge advantages over
+            other NFT traders, both before and after projects’ mints
           </Typography>
         </div>
         <Button

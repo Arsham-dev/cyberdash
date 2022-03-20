@@ -17,7 +17,7 @@ const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
   const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
-  const [isConnect, setisConnect] = useState(sessionStorage.getItem('key'))
+  const [isConnect, setisConnect] = useState(false)
   const [data, setdata] = useState({
     maxPriority: '',
     maxFee: '',
@@ -30,6 +30,7 @@ const MintFunction = () => {
   const flagAbi = location?.state?.flagAbi
 
   const mintAbi = location?.state?.mintAbi
+  const contractAddress = location?.state?.contractAddress
   const metaMask = new MetaMask(provider)
 
   const I_UNDERSTAND_CLICK_EVENT = async () => {
@@ -80,9 +81,11 @@ const MintFunction = () => {
   }
 
   useEffect(() => {
-    if (!location.state) {
+    if (!location.state || !sessionStorage.getItem('key')) {
       history.replace('/contract')
     } else {
+      console.log(location.state)
+      setdata({ ...data, contractAddress })
       setselectedMintAbi(
         !!mintAbi.defaultMintFunction
           ? mintAbi.allMintFunctions.findIndex(
@@ -147,12 +150,13 @@ const MintFunction = () => {
       </div>
       <div className={classes.inputContainer}>
         <CustomInput
+          label="Flag Function"
           value={
             selectedFlaqApi
               ? flagAbi?.allFlagFunctions[selectedFlaqApi].name
               : undefined
           }
-          placholder="Select flagAbi"
+          placholder="Select Flag Function"
           isSelector
           selectorOptions={
             flagAbi?.allFlagFunctions
@@ -174,33 +178,32 @@ const MintFunction = () => {
           }}
         />
         {selectedFlaqApi &&
-          flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map(
-            (item, index) => {
-              return (
-                <CustomInput
-                  key={item.internalType + item.name}
-                  label={item.name}
-                  toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
-                  onChange={(event) =>
-                    setdata({
-                      ...data,
-                      flagAbi: {
-                        ...data.flagAbi,
-                        [item.name]: event.target.value
-                      }
-                    })
-                  }
-                />
-              )
-            }
-          )}
+          flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map((item) => {
+            return (
+              <CustomInput
+                key={item.internalType + item.name}
+                label={item.name}
+                toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                onChange={(event) =>
+                  setdata({
+                    ...data,
+                    flagAbi: {
+                      ...data.flagAbi,
+                      [item.name]: event.target.value
+                    }
+                  })
+                }
+              />
+            )
+          })}
         <CustomInput
+          label="Select Mint Function"
           value={
             selectedMintAbi
               ? mintAbi.allMintFunctions[selectedMintAbi].name
               : undefined
           }
-          placholder="Select mintAbi"
+          placholder="Select Mint Function"
           isSelector
           selectorOptions={
             mintAbi?.allMintFunctions

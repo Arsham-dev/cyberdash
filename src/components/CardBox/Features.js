@@ -9,7 +9,7 @@ const Features = ({ title, content }) => {
       <div className={classes.cardTopPart}>
         <div />
         <Typography className={classes.cardTopPartTitle} color="inherit">
-          A New Way To Invest In <span style={{ color: '#EF501C' }}>NFTs</span>
+          {title}
         </Typography>
         <div>
           <img src={logo} alt="logo" className={classes.logo} />
