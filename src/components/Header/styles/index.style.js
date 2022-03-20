@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     '&:hover': {
       backgroundColor: 'rgba(255,255,255,0.2) !important'
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: 40,
+      fontSize: 14,
+      borderRadius: 24
     }
   },
   headerButton: {

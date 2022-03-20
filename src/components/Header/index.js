@@ -10,7 +10,9 @@ import {
   MenuItem,
   Toolbar,
   Tooltip,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { MetaMask } from '../../libs/wallets'
@@ -73,6 +75,8 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <AppBar position="static" className={classes.root}>
@@ -117,6 +121,8 @@ const ResponsiveAppBar = () => {
                 ? `${wallet.substring(0, 3)}...${wallet.substring(
                     wallet.length - 3
                   )}`
+                : isSmall
+                ? 'Connect'
                 : 'Connect Wallet'}
             </Button>
             <IconButton
