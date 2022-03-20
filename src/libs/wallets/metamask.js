@@ -37,6 +37,10 @@ class MetaMask {
     args
   ) => {
     try {
+      console.log(address)
+      console.log(contractAddress)
+      console.log(args)
+
       if (maxFeePerGas <= maxPriorityFeePerGas)
         return {
           status: 400,
@@ -73,7 +77,9 @@ class MetaMask {
       // eslint-disable-next-line no-eval
       value = eval(`${value}n`)
 
-      const data = AbiCoder.encodeFunctionCall([mintAbi], args)
+      console.log(mintAbi)
+
+      const data = AbiCoder.prototype.encodeFunctionCall([mintAbi], args)
 
       const tx = {
         nonce: nonce,
@@ -98,6 +104,7 @@ class MetaMask {
 
       return { status: 200, content: { rawTx: signedTransaction } }
     } catch (e) {
+      console.log(e)
       return { status: 400, content: { message: e.message } }
     }
   }
