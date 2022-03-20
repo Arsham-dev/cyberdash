@@ -40,11 +40,11 @@ const MintFunction = () => {
     const etherAddress = resMetaMask.content.addreI_UNDERSTAND_CLICK_EVENTss
     const resSignTx = await metaMask.signTx(
       etherAddress,
-      data.value,
-      data.gasLimit,
-      data.maxFee,
-      data.maxPriority,
-      sessionStorage.getItem('key'),
+      Number.parseFloat(data.value),
+      Number.parseInt(data.gasLimit, 10),
+      Number.parseInt(data.maxFee, 10),
+      Number.parseInt(data.maxPriority, 10),
+      data.contractAddress,
       mintAbi.allMintFunctions[selectedMintAbi],
       flagAbi.allFlagFunctions[selectedFlaqApi],
       Object.entries(data.mintAbi).map((item) => item[1])
@@ -64,7 +64,7 @@ const MintFunction = () => {
 
       const resCheckFlag = await metaMask.checkFlag(
         flagAbi.defaultFlagFunction[selectedFlaqApi],
-        sessionStorage.getItem('key')
+        data.contractAddress
       )
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
