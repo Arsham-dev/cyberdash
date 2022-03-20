@@ -37,7 +37,7 @@ const MintFunction = () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
-    const etherAddress = resMetaMask.content.addreI_UNDERSTAND_CLICK_EVENTss
+    const etherAddress = resMetaMask.content.address
     const resSignTx = await metaMask.signTx(
       etherAddress,
       Number.parseFloat(data.value),
@@ -47,7 +47,7 @@ const MintFunction = () => {
       data.contractAddress,
       mintAbi.allMintFunctions[selectedMintAbi],
       flagAbi.allFlagFunctions[selectedFlaqApi],
-      Object.entries(data.mintAbi).map((item) => item[1])
+      Object.entries(data.mintAbi).map((item) => parseInt(item[1]))
     )
     if (resSignTx.status === 400) return resSignTx
 

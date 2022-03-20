@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 import { ethers } from 'ethers'
-import { AbiCoder } from 'web3-eth-abi'
+import AbiCoder from 'web3-eth-abi'
 
 class MetaMask {
   constructor(ethereum) {
@@ -37,6 +37,10 @@ class MetaMask {
     args
   ) => {
     try {
+      console.log(address)
+      console.log(contractAddress)
+      console.log(args)
+
       if (maxFeePerGas <= maxPriorityFeePerGas)
         return {
           status: 400,
@@ -73,7 +77,11 @@ class MetaMask {
       // eslint-disable-next-line no-eval
       value = eval(`${value}n`)
 
-      const data = AbiCoder.encodeFunctionCall([mintAbi], args)
+      console.log(mintAbi)
+
+      const data = AbiCoder.AbiCoder.encodeFunctionCall([mintAbi], args)
+
+      console.log(data)
 
       const tx = {
         nonce: nonce,
@@ -98,6 +106,7 @@ class MetaMask {
 
       return { status: 200, content: { rawTx: signedTransaction } }
     } catch (e) {
+      console.log(e)
       return { status: 400, content: { message: e.message } }
     }
   }

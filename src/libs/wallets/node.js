@@ -73,6 +73,10 @@ class Node {
       }
     } catch (e) {
       console.log(e)
+      return {
+        defaultFlagFunction: abi,
+        allFlagFunctions: abi
+      }
     }
   }
 
@@ -121,6 +125,10 @@ class Node {
       }
     } catch (e) {
       console.log(e)
+      return {
+        defaultMintFunction: abi,
+        allMintFunctions: abi
+      }
     }
   }
 }
