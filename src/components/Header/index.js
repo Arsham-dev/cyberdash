@@ -179,18 +179,29 @@ const ResponsiveAppBar = () => {
             </div>
           </Hidden>
           <Hidden smDown>
+            <Button
+              onClick={handleConnectWallet}
+              sx={{ p: 0 }}
+              variant="outlined"
+              className={classes.connectWallet}>
+              {wallet
+                ? `${wallet.substring(0, 5)}...${wallet.substring(
+                    wallet.length - 5
+                  )}`
+                : 'Connect Wallet'}
+            </Button>
+          </Hidden>
+          <Hidden smDown>
             <Box sx={{ flexGrow: 0 }}>
-              <Button
-                onClick={handleConnectWallet}
-                sx={{ p: 0 }}
-                variant="outlined"
-                className={classes.connectWallet}>
-                {wallet
-                  ? `${wallet.substring(0, 5)}...${wallet.substring(
-                      wallet.length - 5
-                    )}`
-                  : 'Connect Wallet'}
-              </Button>
+              <IconButton
+                size="medium"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit">
+                <MenuIcon />
+              </IconButton>
               <Menu
                 sx={{ mt: '45px' }}
                 id="menu-appbar"
