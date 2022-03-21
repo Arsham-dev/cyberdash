@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     background: '#0B1E39',
-    padding: '0 93px 0 94px',
+    padding: '0 20px 0 20px',
     [theme.breakpoints.down('sm')]: {
-      padding: '0 10px 0 10px'
+      padding: '0'
     }
   },
   mobileSize: {
@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
     columnGap: 6,
-    flex: 1
+    marginRight: 20
+    // flex: 1
   },
   creditContainer: {
     display: 'flex',

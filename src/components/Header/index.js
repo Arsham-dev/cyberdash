@@ -9,7 +9,6 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
   Typography,
   useMediaQuery,
   useTheme
@@ -85,7 +84,6 @@ const ResponsiveAppBar = () => {
           <div>
             <img src={logo} alt="logo" />
           </div>
-
           <Hidden smDown>
             <div className={classes.headerButtonContainer}>
               {pages.map((page) => (
@@ -110,7 +108,8 @@ const ResponsiveAppBar = () => {
             sx={{
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
-              justifyContent: 'flex-end'
+              justifyContent: 'flex-end',
+              alignItems: 'center'
             }}>
             <Button
               onClick={handleConnectWallet}
@@ -165,6 +164,19 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
+          {/* <Hidden smDown>
+            <div className={classes.mediaContiner}>
+              <ButtonBase>
+                <img src={twitter} alt="twitter" />
+              </ButtonBase>
+              <ButtonBase>
+                <img src={linkdin} alt="linkdin" />
+              </ButtonBase>
+              <ButtonBase>
+                <img src={youtube} alt="youtube" />
+              </ButtonBase>
+            </div>
+          </Hidden> */}
           <Hidden smDown>
             <div className={classes.mediaContiner}>
               <ButtonBase>
@@ -177,8 +189,6 @@ const ResponsiveAppBar = () => {
                 <img src={youtube} alt="youtube" />
               </ButtonBase>
             </div>
-          </Hidden>
-          <Hidden smDown>
             <Button
               onClick={handleConnectWallet}
               sx={{ p: 0 }}
@@ -191,7 +201,7 @@ const ResponsiveAppBar = () => {
                 : 'Connect Wallet'}
             </Button>
           </Hidden>
-          <Hidden smDown>
+          {/* <Hidden smDown>
             <Box sx={{ flexGrow: 0 }}>
               <IconButton
                 size="medium"
@@ -224,7 +234,7 @@ const ResponsiveAppBar = () => {
                 ))}
               </Menu>
             </Box>
-          </Hidden>
+          </Hidden> */}
         </Toolbar>
       </Container>
     </AppBar>
