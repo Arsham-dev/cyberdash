@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    width: '100%'
   },
   title: {
     fontWeight: 'bold',
@@ -16,24 +17,25 @@ const useStyles = makeStyles((theme) => ({
   },
   searchBoxContainer: {
     display: 'flex',
-    width: 550,
+    flex: 1,
+    width: '40%',
     marginBottom: 58,
     [theme.breakpoints.down('sm')]: {
       width: '90%'
     }
   },
   searchBox: {
-    height: 60,
+    height: 58,
     width: '100%',
     backgroundColor: '#fff',
     border: '1px solid #707070',
     borderRadius: 10,
     outline: '1px solid #707070',
     fontSize: 20,
-    padding: 10,
-    [theme.breakpoints.down('sm')]: {
-      height: 40
-    }
+    padding: '0 10px  0 10px'
+    // [theme.breakpoints.down('sm')]: {
+    //   height: 40
+    // }
   },
   buttonContainer: {
     width: 155,
