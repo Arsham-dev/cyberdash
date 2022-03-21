@@ -22,10 +22,10 @@ function App() {
         <ToastContainer
           position="bottom-right"
           autoClose={4000}
-          hideProgressBar={false}
-          newestOnTop={false}
+          // hideProgressBar={false}
+          // newestOnTop={false}
           closeOnClick
-          rtl={false}
+          // rtl={false}
           pauseOnFocusLoss
           draggable
           pauseOnHover

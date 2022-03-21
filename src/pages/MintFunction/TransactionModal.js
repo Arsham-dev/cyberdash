@@ -13,7 +13,6 @@ import TransactionModalItems from './TransactionModalItems'
 
 const TransactionModal = ({ isOpen, onClose, data, onClick }) => {
   const classes = useStyles()
-  const wallet = sessionStorage.getItem('key')
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">
@@ -46,9 +45,6 @@ const TransactionModal = ({ isOpen, onClose, data, onClick }) => {
             {data.contractAddress && (
               <TransactionModalItems
                 lable="Contract Address:"
-                // value={`${data.contractAddress.substring(0, 5)}...${data.contractAddress.substring(
-                //   data.contractAddress.length - 5
-                // )}`}
                 value={data.contractAddress}
               />
             )}

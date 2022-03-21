@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    // justifyContent: 'center',
     flex: 1
   },
   title: {
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: '90%'
     }
-    // backgroundColor: "red",
   },
   searchBox: {
     height: 60,

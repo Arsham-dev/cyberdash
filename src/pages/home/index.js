@@ -3,18 +3,18 @@ import HomeIntroduction from './HomeIntroduction'
 import HomeFeatures from './HomeFeatures'
 import homepage from '../../assets/images/mainpage.svg'
 
-const Home = () => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      background: `transparent url(${homepage}) 0% 0% no-repeat padding-box`,
-      top: -28.481,
-      left: 4,
-      width: 1358,
-      [theme.breakpoints.down('sm')]: {
-        width: '100%'
-      }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    background: `transparent url(${homepage}) 0% 0% no-repeat padding-box`,
+    top: -28.481,
+    left: 4,
+    width: 1358,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
     }
-  }))
+  }
+}))
+const Home = () => {
   const classes = useStyles()
   return (
     <div className={classes.root}>

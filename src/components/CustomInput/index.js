@@ -6,7 +6,7 @@ const CustomInput = ({
   label,
   toolTip,
   isSelector,
-  selectorOptions,
+  selectorOptions = [],
   placholder,
   ...otherProps
 }) => {

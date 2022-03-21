@@ -8,6 +8,8 @@ import useStyles from './styles/index.styles'
 import TransactionModal from './TransactionModal'
 import { MetaMask } from '../../libs/wallets'
 
+const toolTipMessage =
+  'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
 const MintFunction = () => {
   const [provider, setProvider] = useState({})
 
@@ -68,8 +70,6 @@ const MintFunction = () => {
       )
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
-        // SHOW TO KARBAR
-
         return {
           status: 200,
           content: {
@@ -101,7 +101,6 @@ const MintFunction = () => {
       )
     }
   }, [])
-  // console.log(mintAbi?.allMintFunctions[selectedMintAbi || 0].inputs)
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -162,7 +161,7 @@ const MintFunction = () => {
               .filter((item) => item.name)
               .map((item) => item.name) || []
           }
-          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          toolTip={toolTipMessage}
           onChange={(event) => {
             setselectedFlaqApi(
               flagAbi?.allFlagFunctions.findIndex(
@@ -182,7 +181,7 @@ const MintFunction = () => {
               <CustomInput
                 key={item.internalType + item.name}
                 label={item.name}
-                toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                toolTip={toolTipMessage}
                 onChange={(event) =>
                   setdata({
                     ...data,
@@ -209,7 +208,7 @@ const MintFunction = () => {
               .filter((item) => item.name)
               .map((item) => item.name) || []
           }
-          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          toolTip={toolTipMessage}
           onChange={(event) => {
             setselectedMintAbi(
               mintAbi?.allMintFunctions.findIndex(
@@ -229,7 +228,7 @@ const MintFunction = () => {
               <CustomInput
                 key={item.internalType + item.name}
                 label={item.name}
-                toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+                toolTip={toolTipMessage}
                 onChange={(event) =>
                   setdata({
                     ...data,
@@ -244,7 +243,6 @@ const MintFunction = () => {
           })}
         <CustomInput
           type="text"
-          // inputMode="numeric"
           pattern="[+-]?([0-9]*[.])?[0-9]*"
           value={data.value}
           label="Value"
@@ -256,7 +254,7 @@ const MintFunction = () => {
                 : data.value
             })
           }
-          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          toolTip={toolTipMessage}
         />
         <CustomInput
           type="text"
@@ -272,7 +270,7 @@ const MintFunction = () => {
                 : data.maxFee
             })
           }
-          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          toolTip={toolTipMessage}
         />
         <CustomInput
           label="Max Priority Fee Per Gas"
@@ -288,7 +286,7 @@ const MintFunction = () => {
                 : data.maxPriority
             })
           }
-          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          toolTip={toolTipMessage}
         />
         <CustomInput
           label="Gas Limit"
@@ -303,7 +301,7 @@ const MintFunction = () => {
                 : data.gasLimit
             })
           }
-          toolTip="The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry."
+          toolTip={toolTipMessage}
         />
       </div>
       <div className={classes.buttonContianer}>
@@ -318,7 +316,6 @@ const MintFunction = () => {
             !(selectedFlaqApi === 0 || selectedFlaqApi) ||
             !(selectedMintAbi === 0 || selectedMintAbi)
           }
-          // onClick={() => console.log(data)}
         />
       </div>
       <TransactionModal

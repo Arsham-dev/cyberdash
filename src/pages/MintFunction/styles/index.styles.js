@@ -5,7 +5,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    // flex: 1,
     width: 482,
     [theme.breakpoints.down('sm')]: {
       width: '90%'
@@ -25,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     rowGap: 20,
-    // flex: 1
     width: '100%'
   },
   buttonContianer: {

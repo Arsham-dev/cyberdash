@@ -16,10 +16,6 @@ const Contract = () => {
     if (sessionStorage.getItem('key')) {
       node.checkContract(contractAddress).then((data) => {
         if (!data.error) {
-          // toast(
-          //   `mint ABI => \n  ${data.mintedAbi} \n Flags Abi => \n ${data.flagsAbi}  `,
-          //   { type: 'success' }
-          // )
           toast('Contract load successfully', { type: 'success' })
           history.push({
             pathname: '/mint-function',

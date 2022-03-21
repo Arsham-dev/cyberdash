@@ -9,11 +9,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       gridTemplateColumns: '1fr'
     }
-    // flex: 1,
   },
   logo: {
-    // height: 12.29,
-    // width: 83.3,
     marginBottom: 31.76
   },
   description: {

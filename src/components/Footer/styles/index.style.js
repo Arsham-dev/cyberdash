@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       margin: '0 20px 34px 20px'
     }
-    // flex: 1,
   }
 }))
 export default useStyles
