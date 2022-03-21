@@ -32,7 +32,7 @@ const pages = [
   'About us'
 ]
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const ResponsiveAppBar = () => {
   const [provider, setProvider] = useState({})
@@ -45,7 +45,7 @@ const ResponsiveAppBar = () => {
   const metaMask = new MetaMask(provider)
 
   const [anchorElNav, setAnchorElNav] = useState(null)
-  const [anchorElUser, setAnchorElUser] = useState(null)
+  // const [anchorElUser, setAnchorElUser] = useState(null)
   const handleConnectWallet = () => {
     metaMask.onClickConnect().then((item) => {
       if (item.status === 400) {
@@ -71,9 +71,9 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null)
   }
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null)
+  // }
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 

@@ -37,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
   cardBottomPart: {
     padding: '13px 16px 11px 17px',
     backgroundColor: 'transparent'
+  },
+  content: {
+    color: '#D1D1D1'
+  },
+  title: {
+    color: '#fff'
   }
 }))
 export default useStyles

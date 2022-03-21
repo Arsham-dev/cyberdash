@@ -16,15 +16,11 @@ const Features = ({ title, content }) => {
         </div>
       </div>
       <div className={classes.cardBottomPart}>
-        <Typography
-          style={{ color: '#FFFFFF' }}
-          gutterBottom
-          variant="h5"
-          component="div">
+        <Typography className={classes.title} gutterBottom variant="h5">
           {title}
         </Typography>
         <Typography
-          style={{ color: '#D1D1D1' }}
+          className={classes.content}
           variant="body2"
           color="secondary">
           {content}

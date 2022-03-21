@@ -19,6 +19,7 @@ const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
   const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
+  // eslint-disable-next-line no-unused-vars
   const [isConnect, setisConnect] = useState(false)
   const [data, setdata] = useState({
     maxPriority: '',
