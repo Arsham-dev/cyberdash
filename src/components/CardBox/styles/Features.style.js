@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     width: '60%'
   },
   cardBottomPart: {
-    padding: '13px 16px 11px 17px',
+    padding: '23px 16px 11px 17px',
     backgroundColor: 'transparent'
   },
   content: {

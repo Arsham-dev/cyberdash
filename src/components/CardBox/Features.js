@@ -16,9 +16,9 @@ const Features = ({ title, content }) => {
         </div>
       </div>
       <div className={classes.cardBottomPart}>
-        <Typography className={classes.title} gutterBottom variant="h5">
+        {/* <Typography className={classes.title} gutterBottom variant="h5">
           {title}
-        </Typography>
+        </Typography> */}
         <Typography
           className={classes.content}
           variant="body2"
