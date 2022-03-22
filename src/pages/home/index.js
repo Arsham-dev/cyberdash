@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
     width: 1358,
     [theme.breakpoints.down('sm')]: {
       width: '100%'
-    }
+    },
+    marginBottom: 61
   }
 }))
 const Home = () => {

@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core'
 import FeaturesCard from '../../components/CardBox'
 import useStyles from './styles/HomeFeatures.styles'
 
@@ -5,9 +6,9 @@ const HomeFeatures = () => {
   const classes = useStyles()
   return (
     <div>
-      <center>
-        <h1 style={{ color: 'white' }}>FEATURES</h1>
-      </center>
+      <div className={classes.titleContainer}>
+        <Typography className={classes.title}>FEATURES</Typography>
+      </div>
       <div className={classes.cardContainer}>
         <FeaturesCard
           title="Contract Bot"

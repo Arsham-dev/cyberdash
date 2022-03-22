@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    height: '217px',
+    height: 217,
     borderRadius: 10,
     paddingLeft: 17,
     paddingBottom: 15,
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
-    width: '60%'
+    width: '60%',
+    marginTop: 20
   },
   cardBottomPart: {
     padding: '23px 16px 11px 17px',

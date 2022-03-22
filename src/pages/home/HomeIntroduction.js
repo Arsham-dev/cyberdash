@@ -13,7 +13,7 @@ const HomeIntroduction = () => {
           <br />
           NFT Trader
         </Typography>
-        <div>
+        <div className={classes.descriptionContainer}>
           <Typography className={classes.description}>
             Our NFT bots and analytical tools give you huge advantages over
             other NFT traders, both before and after projects’ mints
