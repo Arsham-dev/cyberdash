@@ -48,13 +48,19 @@ const CustomInput = ({
           </Select>
         ) : (
           <input
-            className={classes.input}
+            className={[
+              classes.input,
+              otherProps.disabled ? classes.disabled : ''
+            ].join(' ')}
             id="input"
             placeholder={placholder}
             {...otherProps}
           />
         )}
-        <Tooltip title={toolTip || ''} placement="right-start">
+        <Tooltip
+          title={toolTip || ''}
+          placement="bottom-start"
+          classes={{ tooltip: classes.tooltip }}>
           <InfoOutlinedIcon className={classes.icon} />
         </Tooltip>
       </div>

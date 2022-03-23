@@ -46,6 +46,18 @@ const useStyles = makeStyles(() => ({
     // backgroundColor: 'red',
     // height: '20 !important',
     // borderRadius: 20
+  },
+  disabled: {
+    color: '#BDBDBD'
+  },
+  tooltip: {
+    backgroundColor: '#FFF',
+    color: 'rgb(107,107,107)',
+    maxWidth: 160,
+    padding: 10,
+    borderRadius: 7,
+    boxShadow: ' 2px 2px 27px 1px rgba(0,0,0,0.4)'
+    // color: theme.palette.common.black
   }
 }))
 export default useStyles

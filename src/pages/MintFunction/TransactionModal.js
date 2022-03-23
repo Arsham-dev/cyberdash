@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import useStyles from './styles/TransactionModal.styles'
 import TransactionModalItems from './TransactionModalItems'
 
-const TransactionModal = ({ isOpen, onClose, data, onClick }) => {
+const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
   const classes = useStyles()
   return (
     <Modal open={isOpen} onClose={onClose}>
@@ -63,7 +63,7 @@ const TransactionModal = ({ isOpen, onClose, data, onClick }) => {
             <Button
               fullWidth
               onClick={() =>
-                onClick().then((item) => {
+                onClickFunction().then((item) => {
                   if (item.status === 200) {
                     toast(item.content.message, { type: 'success' })
                   } else {
