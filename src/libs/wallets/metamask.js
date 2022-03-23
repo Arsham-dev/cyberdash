@@ -28,6 +28,13 @@ class MetaMask {
     }
   }
 
+  onLoadConnect = () => {
+    if (this.#isMetaMaskInstalled()) {
+      return this.ethereum.isConnected()
+    }
+    return false
+  }
+
   signTx = async (
     address,
     value,

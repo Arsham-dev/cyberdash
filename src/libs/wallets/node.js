@@ -7,6 +7,11 @@ class Node {
 
   checkContract = async (contractAddress) => {
     try {
+      if (String(contractAddress).includes('/')) {
+        const pieces = contractAddress.split(/[\s/]+/)
+        contractAddress = pieces[pieces.length - 1]
+      }
+
       const rawAbiUrl = `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&format=raw`
       const responseRawAbi = await axios.get(rawAbiUrl)
       if (
