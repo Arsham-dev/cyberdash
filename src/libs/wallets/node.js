@@ -5,11 +5,9 @@ class Node {
     this.web3Endpoint = web3Endpoint
   }
 
-  //    balance = async (address) => {}
-
   checkContract = async (contractAddress) => {
     try {
-      const rawAbiUrl = `http://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&format=raw`
+      const rawAbiUrl = `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&format=raw`
       const responseRawAbi = await axios.get(rawAbiUrl)
       if (
         responseRawAbi.status === 200 &&

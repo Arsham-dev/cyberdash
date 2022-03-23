@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 import { ethers } from 'ethers'
-import AbiCoder from 'web3-eth-abi'
+const AbiCoder = require('web3-eth-abi')
 
 class MetaMask {
   constructor(ethereum) {
@@ -22,7 +22,10 @@ class MetaMask {
       return { status: 200, content: { address: ethereumAddress } }
     }
 
-    return { status: 400, content: { message: 'please install metaMask' } }
+    return {
+      status: 400,
+      content: { message: 'MetaMask Not Found ! \n Please Install MetaMask' }
+    }
   }
 
   signTx = async (
@@ -37,10 +40,6 @@ class MetaMask {
     args
   ) => {
     try {
-      console.log(address)
-      console.log(contractAddress)
-      console.log(args)
-
       if (maxFeePerGas <= maxPriorityFeePerGas)
         return {
           status: 400,
@@ -50,7 +49,7 @@ class MetaMask {
         }
 
       if (mintAbi == null || flagAbi == null)
-        return { status: 400, content: { message: 'CHERA FLAG SET NIS' } }
+        return { status: 400, content: { message: 'Please Select Your Flag.' } }
 
       const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
 
@@ -77,11 +76,7 @@ class MetaMask {
       // eslint-disable-next-line no-eval
       value = eval(`${value}n`)
 
-      console.log(mintAbi)
-
-      const data = AbiCoder.AbiCoder.encodeFunctionCall([mintAbi], args)
-
-      console.log(data)
+      const data = AbiCoder.encodeFunctionCall(mintAbi, args)
 
       const tx = {
         nonce: nonce,
@@ -127,8 +122,17 @@ class MetaMask {
     }
   }
 
-  flashbotSendSignedTx = async (signedTx) => {
+  flashbotSendSignedTx = async (signedTx, bundle) => {
     try {
+      if (bundle) {
+        // BUNDLE OR NOT
+        const flashbotWeb3 = new Web3('https://rpc.flashbots.net')
+        const tx = await flashbotWeb3.eth.sendSignedTransaction(signedTx)
+        return {
+          status: 200,
+          content: { data: tx?.transactionHash || tx?.blockHash }
+        }
+      }
       const flashbotWeb3 = new Web3('https://rpc.flashbots.net')
       const tx = await flashbotWeb3.eth.sendSignedTransaction(signedTx)
       return {
