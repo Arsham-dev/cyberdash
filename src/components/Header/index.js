@@ -18,7 +18,7 @@ import { MetaMask } from '../../libs/wallets'
 import { useState, useEffect } from 'react'
 import twitter from '../../assets/images/twitter.svg'
 import linkdin from '../../assets/images/linkdin.svg'
-import youtube from '../../assets/images/youtube.svg'
+import discord from '../../assets/images/discord.svg'
 import logo from '../../assets/images/logo.svg'
 import gas from '../../assets/images/gas.svg'
 import useStyles from './styles/index.style'
@@ -186,7 +186,7 @@ const ResponsiveAppBar = () => {
                 <img src={linkdin} alt="linkdin" />
               </ButtonBase>
               <ButtonBase>
-                <img src={youtube} alt="youtube" />
+                <img src={discord} alt="discord" />
               </ButtonBase>
             </div>
             <Button
