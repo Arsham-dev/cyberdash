@@ -64,11 +64,12 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
               fullWidth
               onClick={() =>
                 onClickFunction().then((item) => {
-                  if (item.status === 200) {
-                    toast(item.content.message, { type: 'success' })
-                  } else {
-                    toast(item.content.message, { type: 'error' })
-                  }
+                  if (item)
+                    if (item.status === 200) {
+                      toast(item.content.message, { type: 'success' })
+                    } else {
+                      toast(item.content.message, { type: 'error' })
+                    }
                 })
               }
               variant="contained"

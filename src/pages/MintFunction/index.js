@@ -66,6 +66,7 @@ const MintFunction = () => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
   const LOOP_FOR_LOADING = async (signedRawTx) => {
+    setisConnect(true)
     while (FLAG_LOAD) {
       await delay(1000)
 
@@ -78,7 +79,7 @@ const MintFunction = () => {
         return {
           status: 200,
           content: {
-            message: resTx
+            txId: resTx
           }
         }
       }
