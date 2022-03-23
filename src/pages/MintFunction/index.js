@@ -66,7 +66,6 @@ const MintFunction = () => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
   const LOOP_FOR_LOADING = async (signedRawTx) => {
-    setisConnect(true)
     while (FLAG_LOAD) {
       await delay(1000)
 
@@ -75,6 +74,8 @@ const MintFunction = () => {
         data.contractAddress
       )
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
+        setisConnect(true)
+
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
         return {
           status: 200,
