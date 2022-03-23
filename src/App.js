@@ -14,11 +14,11 @@ function App() {
           flexDirection: 'column',
           alignItems: 'center'
         }}>
-        <ResponsiveAppBar />
+        {/* <ResponsiveAppBar /> */}
         <Router>
           <Routes />
         </Router>
-        <Footer />
+        {/* <Footer /> */}
         <ToastContainer
           position="bottom-right"
           autoClose={4000}

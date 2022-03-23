@@ -23,6 +23,7 @@ import logo from '../../assets/images/logo.svg'
 import gas from '../../assets/images/gas.svg'
 import useStyles from './styles/index.style'
 import { toast } from 'react-toastify'
+import { useHistory } from 'react-router-dom'
 
 const pages = [
   'Pricing',
@@ -31,8 +32,6 @@ const pages = [
   'Institutions',
   'About us'
 ]
-
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 const ResponsiveAppBar = () => {
   const [provider, setProvider] = useState({})
@@ -45,7 +44,6 @@ const ResponsiveAppBar = () => {
   const metaMask = new MetaMask(provider)
 
   const [anchorElNav, setAnchorElNav] = useState(null)
-  // const [anchorElUser, setAnchorElUser] = useState(null)
   const handleConnectWallet = () => {
     metaMask.onClickConnect().then((item) => {
       if (item.status === 400) {
@@ -55,7 +53,6 @@ const ResponsiveAppBar = () => {
         setwallet(item.content.address)
 
         sessionStorage.setItem('key', item.content.address)
-        // console.log(item)
       }
     })
   }
@@ -63,17 +60,11 @@ const ResponsiveAppBar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget)
-  // }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null)
-  // }
+  const history = useHistory()
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -82,7 +73,11 @@ const ResponsiveAppBar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters className={classes.mobileSize}>
           <div>
-            <img src={logo} alt="logo" />
+            <ButtonBase
+              className={classes.logoContainer}
+              onClick={() => history.push('/')}>
+              <img src={logo} alt="logo" />
+            </ButtonBase>
           </div>
           <Hidden smDown>
             <div className={classes.headerButtonContainer}>
@@ -164,19 +159,6 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          {/* <Hidden smDown>
-            <div className={classes.mediaContiner}>
-              <ButtonBase>
-                <img src={twitter} alt="twitter" />
-              </ButtonBase>
-              <ButtonBase>
-                <img src={linkdin} alt="linkdin" />
-              </ButtonBase>
-              <ButtonBase>
-                <img src={youtube} alt="youtube" />
-              </ButtonBase>
-            </div>
-          </Hidden> */}
           <Hidden smDown>
             <div className={classes.mediaContiner}>
               <ButtonBase>
@@ -201,40 +183,6 @@ const ResponsiveAppBar = () => {
                 : 'Connect Wallet'}
             </Button>
           </Hidden>
-          {/* <Hidden smDown>
-            <Box sx={{ flexGrow: 0 }}>
-              <IconButton
-                size="medium"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit">
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right'
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}>
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textalign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </Hidden> */}
         </Toolbar>
       </Container>
     </AppBar>

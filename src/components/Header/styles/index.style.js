@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   root: {
     background: '#0B1E39',
-    padding: '0 20px 0 20px',
+    padding: '0 15px',
     [theme.breakpoints.down('sm')]: {
       padding: '0'
     }
@@ -50,23 +50,24 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     columnGap: 6,
     marginRight: 20
-    // flex: 1
   },
   creditContainer: {
     display: 'flex',
     alignItems: 'center',
     columnGap: 7,
     justifyContent: 'center',
-    // marginRight: 20
     flex: 1,
     [theme.breakpoints.down('sm')]: {
       flex: 'none'
-      // marginRight: 10
     }
   },
   creditValue: {
     fontSize: 14,
     color: '#fff'
+  },
+  logoContainer: {
+    padding: 5,
+    borderRadius: 5
   }
 }))
 export default useStyles
