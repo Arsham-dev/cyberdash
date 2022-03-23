@@ -1,4 +1,4 @@
-import { InputLabel, MenuItem, Select, Tooltip } from '@material-ui/core'
+import { MenuItem, Select, Tooltip } from '@material-ui/core'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import useStyles from './styles/index.style'
 
@@ -20,7 +20,7 @@ const CustomInput = ({
       )}
       <div className={classes.inputContainer}>
         {isSelector ? (
-          // <select
+          // <selecta
           //   className={[classes.input, classes.selector].join(' ')}
           //   defaultValue=""
           //   {...otherProps}>
