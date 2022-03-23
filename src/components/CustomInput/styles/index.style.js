@@ -17,14 +17,16 @@ const useStyles = makeStyles(() => ({
   input: {
     display: 'flex',
     flex: 1,
-    outline: 'none',
+    outline: 'none !important',
     height: '58px !important',
-    border: 'none',
+    border: 'none !important',
     fontSize: 20,
     backgroundColor: 'transparent'
   },
   selector: {
-    cursor: 'pointer'
+    // cursor: 'pointer'
+    // outline: 'none !important',
+    // border: 'none !important'
   },
   icon: {
     marginLeft: 31,
@@ -39,6 +41,11 @@ const useStyles = makeStyles(() => ({
     fontSize: 16,
     marginBottom: 8,
     marginLeft: 9
+  },
+  selectorOption: {
+    // backgroundColor: 'red',
+    // height: '20 !important',
+    // borderRadius: 20
   }
 }))
 export default useStyles
