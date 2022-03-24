@@ -13,7 +13,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center',
     // backgroundColor: 'red',
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
+      width: '100%',
+      margin: 'none',
+      backgroundPosition: 'top'
     },
     marginBottom: 61
   }
