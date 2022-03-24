@@ -12,7 +12,6 @@ const Contract = () => {
   const history = useHistory()
   const [contractAddress, setContractAddress] = useState()
   const [isLoading, setisLoading] = useState()
-  console.log(isLoading)
   const checkContract = () => {
     setisLoading(true)
     if (sessionStorage.getItem('key')) {

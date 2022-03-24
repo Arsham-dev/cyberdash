@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   IconButton,
   Modal,
   Paper,
@@ -7,11 +8,13 @@ import {
   Typography
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import useStyles from './styles/TransactionModal.styles'
 import TransactionModalItems from './TransactionModalItems'
 
 const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
+  const [isLoading, setisLoading] = useState(false)
   const classes = useStyles()
   return (
     <Modal open={isOpen} onClose={onClose}>
@@ -62,7 +65,9 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
           <div className={classes.buttonContainer}>
             <Button
               fullWidth
-              onClick={() =>
+              disabled={isLoading}
+              onClick={() => {
+                setisLoading(true)
                 onClickFunction().then((item) => {
                   if (item)
                     if (item.status === 200) {
@@ -70,11 +75,21 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
                     } else {
                       toast(item.txId.message, { type: 'error' })
                     }
+                  setisLoading(false)
                 })
-              }
+              }}
               variant="contained"
               className={classes.containedButton}>
-              I UNDERSTAND
+              {isLoading ? (
+                <CircularProgress
+                  size={30}
+                  className={classes.circularProgress}
+                />
+              ) : (
+                <Typography className={classes.containedButtonText}>
+                  I UNDERSTAND
+                </Typography>
+              )}
             </Button>
             <Button
               onClick={onClose}

@@ -59,12 +59,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#1956E2',
     borderRadius: 27,
     height: 53,
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#fff',
     '&:hover': {
       backgroundColor: 'rgba(25, 86, 226,0.6) !important'
     }
+  },
+  containedButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff'
   },
   outlinedButton: {
     borderRadius: 27,
@@ -76,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: 'rgba(255,255,255,0.2) !important'
     }
+  },
+  circularProgress: {
+    color: '#FFF'
   }
 }))
 export default useStyles
