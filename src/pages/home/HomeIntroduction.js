@@ -25,6 +25,18 @@ const HomeIntroduction = () => {
           onClick={() => history.push('/contract')}>
           Mint (Comming Soon)
         </Button>
+        <div className={classes.youtubePlayerContainer}>
+          <iframe
+            width="560"
+            height="315"
+            className={classes.youtubePlayer}
+            src="https://www.youtube.com/embed/-X_71WrV63c"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
       </center>
     </div>
   )
