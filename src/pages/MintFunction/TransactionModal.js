@@ -69,11 +69,13 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
               onClick={() => {
                 setisLoading(true)
                 onClickFunction().then((item) => {
+                  console.log(item)
+
                   if (item)
                     if (item.status === 200) {
                       toast(item.txId.message, { type: 'success' })
                     } else {
-                      toast(item.txId.message, { type: 'error' })
+                      toast(item.content.message, { type: 'error' })
                     }
                   setisLoading(false)
                 })
