@@ -24,8 +24,14 @@ class MetaMask {
     }
   }
 
-  calculateEtherValue = async () => {
-    console.log('a')
+  calculateEtherValue = async (
+    value,
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+    gasLimit
+  ) => {
+    console.log('Require 4.5 ETH')
+    return 'Require 4.5 ETH'
   }
 
   estimateGas = async (
@@ -46,9 +52,13 @@ class MetaMask {
         maxPriorityFeePerGas: maxPriorityFeePerGas,
         data: data
       })
-      if (String(gasEstimate).includes('revert')) return 'revert'
+      if (String(gasEstimate).includes('revert'))
+        return { status: 200, content: { result: false } }
+
+      return { status: 200, content: { result: true } }
     } catch (e) {
-      return e.message
+      console.log(e)
+      return { status: 400, content: { message: e.message } }
     }
   }
 
@@ -83,7 +93,7 @@ class MetaMask {
     mintAbi,
     flagAbi,
     args,
-    isMainFlag = false
+    isMainFlag
   ) => {
     try {
       if (maxFeePerGas <= maxPriorityFeePerGas)
@@ -94,20 +104,7 @@ class MetaMask {
           }
         }
 
-      if (mintAbi == null || flagAbi == null)
-        return { status: 400, content: { message: 'Please Select Your Flag.' } }
-
-      const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
-
-      if (resCheckFlag.status === 400)
-        return {
-          status: 400,
-          content: { message: resCheckFlag.content.message }
-        }
-
       const web3 = new Web3(this.web3Endpoint)
-
-      const nonce = await web3.eth.getTransactionCount(address)
 
       const utils = ethers.utils
 
@@ -122,7 +119,45 @@ class MetaMask {
       // eslint-disable-next-line no-eval
       value = eval(`${value}n`)
 
+      if (mintAbi == null)
+        return {
+          status: 400,
+          content: {
+            message: 'Please Select Your Mint ABI Function.'
+          }
+        }
+
       const data = AbiCoder.encodeFunctionCall(mintAbi, args)
+
+      if (isMainFlag == false) {
+        if (flagAbi == null)
+          return {
+            status: 400,
+            content: {
+              message: 'Please Select Your Flag.'
+            }
+          }
+
+        const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
+
+        if (resCheckFlag.status === 400)
+          return {
+            status: 400,
+            content: { message: resCheckFlag.content.message }
+          }
+      } else {
+        const resEstimateGas = await this.estimateGas(
+          address,
+          contractAddress,
+          value,
+          maxFee,
+          maxPriorityFee,
+          data
+        )
+        if (resEstimateGas.status === 400) return resEstimateGas
+      }
+
+      const nonce = await web3.eth.getTransactionCount(address)
 
       const tx = {
         nonce: nonce,

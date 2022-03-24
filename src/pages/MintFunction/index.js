@@ -38,7 +38,18 @@ const MintFunction = () => {
 
   const mintAbi = location?.state?.mintAbi
   const contractAddress = location?.state?.contractAddress
+
   const metaMask = new MetaMask(provider)
+
+  const CALCULATE_MINIMUM_ETHER = async () => {
+    const resCalculate = await metaMask.calculateEtherValue(
+      'VALUE',
+      'MAX FEE PER GAS',
+      'MAX PRIORITY FEE PER GAS',
+      'GAS LIMIT'
+    )
+    return resCalculate
+  }
 
   const I_UNDERSTAND_CLICK_EVENT = async () => {
     const resMetaMask = await metaMask.onClickConnect()
@@ -78,13 +89,13 @@ const MintFunction = () => {
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         setisConnect(true)
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
-
-        return {
-          status: 200,
-          content: {
-            txId: resTx
+        if (resTx.status === 200)
+          return {
+            status: 200,
+            content: {
+              txId: resTx.content.data
+            }
           }
-        }
       }
     }
   }
