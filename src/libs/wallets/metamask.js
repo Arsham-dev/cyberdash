@@ -14,6 +14,44 @@ class MetaMask {
     return Boolean(this.ethereum && this.ethereum.isMetaMask)
   }
 
+  getBalance = async (address) => {
+    try {
+      const web3 = new Web3(this.web3Endpoint)
+      const resBalance = await web3.eth.getBalance(address)
+      return { status: 200, content: { balance: resBalance } }
+    } catch (e) {
+      return { status: 400, content: { message: e.message } }
+    }
+  }
+
+  calculateEtherValue = async () => {
+    console.log('a')
+  }
+
+  estimateGas = async (
+    fromAddress,
+    contractAddress,
+    value,
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+    data
+  ) => {
+    try {
+      const web3 = new Web3(this.web3Endpoint)
+      const gasEstimate = await web3.eth.estimateGas({
+        from: fromAddress,
+        to: contractAddress,
+        value: value,
+        maxFeePerGas: maxFeePerGas,
+        maxPriorityFeePerGas: maxPriorityFeePerGas,
+        data: data
+      })
+      if (String(gasEstimate).includes('revert')) return 'revert'
+    } catch (e) {
+      return e.message
+    }
+  }
+
   onClickConnect = async () => {
     if (this.#isMetaMaskInstalled()) {
       await this.ethereum.request({ method: 'eth_requestAccounts' })
@@ -44,7 +82,8 @@ class MetaMask {
     contractAddress,
     mintAbi,
     flagAbi,
-    args
+    args,
+    isMainFlag = false
   ) => {
     try {
       if (maxFeePerGas <= maxPriorityFeePerGas)

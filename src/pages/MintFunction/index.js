@@ -16,6 +16,7 @@ const MintFunction = () => {
   useEffect(() => {
     setProvider(window.ethereum)
   }, [])
+
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
   const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
@@ -27,6 +28,7 @@ const MintFunction = () => {
     gasLimit: '',
     value: ''
   })
+
   const location = useLocation()
   const history = useHistory()
 
@@ -52,6 +54,7 @@ const MintFunction = () => {
       flagAbi.allFlagFunctions[selectedFlaqApi],
       Object.entries(data.mintAbi).map((item) => parseInt(item[1]))
     )
+
     if (resSignTx.status === 400) return resSignTx
 
     LOOP_FOR_LOADING(resSignTx.content.rawTx)
@@ -69,12 +72,14 @@ const MintFunction = () => {
         flagAbi.defaultFlagFunction[selectedFlaqApi],
         data.contractAddress
       )
+
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
+
         return {
           status: 200,
           content: {
-            message: resTx
+            txId: resTx
           }
         }
       }
