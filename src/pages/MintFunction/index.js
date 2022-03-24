@@ -204,7 +204,6 @@ const MintFunction = () => {
               <CustomInput
                 key={item.internalType + item.name}
                 label={item.name}
-                toolTip={toolTipMessage}
                 onChange={(event) =>
                   setdata({
                     ...data,
@@ -253,7 +252,6 @@ const MintFunction = () => {
               <CustomInput
                 key={item.internalType + item.name}
                 label={item.name}
-                toolTip={toolTipMessage}
                 onChange={(event) =>
                   setdata({
                     ...data,
