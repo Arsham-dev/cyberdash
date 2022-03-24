@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     background: `transparent url(${homepage}) 0% 0% no-repeat padding-box`,
     top: -28.481,
     left: 4,
-    width: 1358,
+    // width: 1358,
     [theme.breakpoints.down('sm')]: {
       width: '100%'
     },

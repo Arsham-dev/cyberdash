@@ -1,4 +1,4 @@
-import { Tooltip } from '@material-ui/core'
+import { MenuItem, Select, Tooltip } from '@material-ui/core'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import useStyles from './styles/index.style'
 
@@ -20,32 +20,47 @@ const CustomInput = ({
       )}
       <div className={classes.inputContainer}>
         {isSelector ? (
-          <select
+          // <selecta
+          //   className={[classes.input, classes.selector].join(' ')}
+          //   defaultValue=""
+          //   {...otherProps}>
+          //   <option value="" hidden>
+          //     {placholder}
+          //   </option>
+          //   {selectorOptions.map((item, index) => (
+          //     <option
+          //       value={item}
+          //       key={(item, index.toString())}
+          //       className={classes.selectorOption}>
+          //       {item}
+          //     </option>
+          //   ))}
+          // </select>
+
+          <Select
+            labelId="demo-simple-select-helper-label"
             className={[classes.input, classes.selector].join(' ')}
-            defaultValue=""
+            disableUnderline
             {...otherProps}>
-            <option value="" hidden>
-              {placholder}
-            </option>
-            {/* <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="fiat">Fiat</option>
-            <option value="audi">Audi</option> */}
             {selectorOptions.map((item, index) => (
-              <option value={item} key={(item, index.toString())}>
-                {item}
-              </option>
+              <MenuItem value={item}>{item}</MenuItem>
             ))}
-          </select>
+          </Select>
         ) : (
           <input
-            className={classes.input}
+            className={[
+              classes.input,
+              otherProps.disabled ? classes.disabled : ''
+            ].join(' ')}
             id="input"
             placeholder={placholder}
             {...otherProps}
           />
         )}
-        <Tooltip title={toolTip || ''} placement="right-start">
+        <Tooltip
+          title={toolTip || ''}
+          placement="bottom-start"
+          classes={{ tooltip: classes.tooltip }}>
           <InfoOutlinedIcon className={classes.icon} />
         </Tooltip>
       </div>

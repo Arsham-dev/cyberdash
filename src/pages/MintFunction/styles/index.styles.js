@@ -62,6 +62,23 @@ const useStyles = makeStyles((theme) => ({
   },
   contractValueIsNotConnect: {
     backgroundColor: '#FF4B4B'
+  },
+  cancelButton: {
+    backgroundColor: 'rgb(205, 0, 0)',
+    '&:hover': {
+      backgroundColor: 'rgba(205, 0, 0,0.6) !important'
+    }
+  },
+  waitingFlagContainer: {
+    color: '#7392B7',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '10px 0 20px 0',
+    rowGap: 20
+  },
+  waitingFlagText: {
+    fontSize: 20
   }
 }))
 export default useStyles

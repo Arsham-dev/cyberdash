@@ -1,5 +1,5 @@
-import { Typography } from '@material-ui/core'
-import { useEffect, useState } from 'react'
+import { CircularProgress, Typography } from '@material-ui/core'
+import { useEffect, useRef, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import SwitchSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
@@ -18,10 +18,12 @@ const MintFunction = () => {
   }, [])
 
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
+  const [isLooping, setisLooping] = useState(false)
   const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
   const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
-  // eslint-disable-next-line no-unused-vars
   const [isConnect, setisConnect] = useState(false)
+  const stopWhileRef = useRef()
+
   const [data, setdata] = useState({
     maxPriority: '',
     maxFee: '',
@@ -56,16 +58,16 @@ const MintFunction = () => {
     )
 
     if (resSignTx.status === 400) return resSignTx
-
+    settransactionModalIsOpen(false)
+    setisLooping(true)
     LOOP_FOR_LOADING(resSignTx.content.rawTx)
   }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-  const FLAG_LOAD = true
-
   const LOOP_FOR_LOADING = async (signedRawTx) => {
-    while (FLAG_LOAD) {
+    while (true) {
+      if (stopWhileRef.current) break
       await delay(1000)
 
       const resCheckFlag = await metaMask.checkFlag(
@@ -74,6 +76,7 @@ const MintFunction = () => {
       )
 
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
+        setisConnect(true)
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
 
         return {
@@ -85,7 +88,17 @@ const MintFunction = () => {
       }
     }
   }
-
+  const customButtonFunction = () => {
+    if (isLooping) {
+      setisLooping(false)
+      stopWhileRef.current = true
+    } else {
+      settransactionModalIsOpen(true)
+    }
+  }
+  useEffect(() => {
+    stopWhileRef.current = false
+  }, [])
   useEffect(() => {
     if (!location.state || !sessionStorage.getItem('key')) {
       history.replace('/contract')
@@ -133,6 +146,14 @@ const MintFunction = () => {
           wrapperBorderRadius={27}
         />
       </div>
+      {isLooping && (
+        <div className={classes.waitingFlagContainer}>
+          <CircularProgress size={45} />
+          <Typography className={classes.waitingFlagText}>
+            Waiting for flag ...
+          </Typography>
+        </div>
+      )}
       <div
         className={[
           classes.contractInfo,
@@ -180,6 +201,7 @@ const MintFunction = () => {
               flaqApi: undefined
             })
           }}
+          disabled={isLooping}
         />
         {(selectedFlaqApi === 0 || selectedFlaqApi) &&
           flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map((item) => {
@@ -197,6 +219,7 @@ const MintFunction = () => {
                     }
                   })
                 }
+                disabled={isLooping}
               />
             )
           })}
@@ -227,6 +250,7 @@ const MintFunction = () => {
               mintAbi: undefined
             })
           }}
+          disabled={isLooping}
         />
         {(selectedMintAbi === 0 || selectedMintAbi) &&
           mintAbi?.allMintFunctions[selectedMintAbi].inputs.map((item) => {
@@ -244,6 +268,7 @@ const MintFunction = () => {
                     }
                   })
                 }
+                disabled={isLooping}
               />
             )
           })}
@@ -261,6 +286,7 @@ const MintFunction = () => {
             })
           }
           toolTip={toolTipMessage}
+          disabled={isLooping}
         />
         <CustomInput
           type="text"
@@ -277,6 +303,7 @@ const MintFunction = () => {
             })
           }
           toolTip={toolTipMessage}
+          disabled={isLooping}
         />
         <CustomInput
           label="Max Priority Fee Per Gas"
@@ -293,6 +320,7 @@ const MintFunction = () => {
             })
           }
           toolTip={toolTipMessage}
+          disabled={isLooping}
         />
         <CustomInput
           label="Gas Limit"
@@ -308,19 +336,23 @@ const MintFunction = () => {
             })
           }
           toolTip={toolTipMessage}
+          disabled={isLooping}
         />
       </div>
       <div className={classes.buttonContianer}>
         <CustomButton
-          title="Pre-Sign TX"
-          onClick={() => settransactionModalIsOpen(true)}
+          className={isLooping ? classes.cancelButton : ''}
+          title={isLooping ? 'Cancel' : 'Pre-Sign TX'}
+          onClick={customButtonFunction}
           disabled={
-            !data.value ||
-            !data.gasLimit ||
-            !data.maxFee ||
-            !data.maxPriority ||
-            !(selectedFlaqApi === 0 || selectedFlaqApi) ||
-            !(selectedMintAbi === 0 || selectedMintAbi)
+            isLooping
+              ? false
+              : !data.value ||
+                !data.gasLimit ||
+                !data.maxFee ||
+                !data.maxPriority ||
+                !(selectedFlaqApi === 0 || selectedFlaqApi) ||
+                !(selectedMintAbi === 0 || selectedMintAbi)
           }
         />
       </div>
@@ -328,7 +360,7 @@ const MintFunction = () => {
         isOpen={transactionModalIsOpen}
         onClose={() => settransactionModalIsOpen(false)}
         data={data}
-        onClick={I_UNDERSTAND_CLICK_EVENT}
+        onClickFunction={I_UNDERSTAND_CLICK_EVENT}
       />
     </div>
   )

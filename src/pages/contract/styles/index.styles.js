@@ -52,14 +52,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 27,
     alignItems: 'center',
     justifyContent: 'center',
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
     marginBottom: 90,
     cursor: 'pointer',
     '&:hover': {
       backgroundColor: 'rgba(25, 86, 226,0.6) !important'
     }
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  circularProgress: {
+    color: '#000F24'
   }
 }))
 export default useStyles

@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Button, CircularProgress, Typography } from '@material-ui/core'
 import useStyles from './styles/index.styles'
 import { Node } from '../../libs/wallets'
 import { useState } from 'react'
@@ -11,8 +11,10 @@ const Contract = () => {
   )
   const history = useHistory()
   const [contractAddress, setContractAddress] = useState()
-
+  const [isLoading, setisLoading] = useState()
+  console.log(isLoading)
   const checkContract = () => {
+    setisLoading(true)
     if (sessionStorage.getItem('key')) {
       node.checkContract(contractAddress).then((data) => {
         if (!data.error) {
@@ -22,6 +24,7 @@ const Contract = () => {
             state: { ...data, contractAddress }
           })
         } else toast(data.error, { type: 'error' })
+        setisLoading(false)
       })
     } else {
       toast('Please connect your wallet', { type: 'info' })
@@ -37,17 +40,20 @@ const Contract = () => {
       <div className={classes.searchBoxContainer}>
         <input
           className={classes.searchBox}
-          onChange={(e) => setContractAddress(e.target.value)}
+          onChange={(event) => setContractAddress(event.target.value)}
         />
       </div>
       <div className={classes.buttonContainer}>
-        <button
+        <Button
           className={classes.button}
-          disabled={!contractAddress}
-          onClick={checkContract}
-          type="submit">
-          Load
-        </button>
+          disabled={!contractAddress || isLoading}
+          onClick={checkContract}>
+          {isLoading ? (
+            <CircularProgress size={30} className={classes.circularProgress} />
+          ) : (
+            <Typography className={classes.buttonText}>Load</Typography>
+          )}
+        </Button>
       </div>
     </div>
   )

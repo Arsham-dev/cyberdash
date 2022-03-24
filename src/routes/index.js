@@ -1,19 +1,34 @@
-import { Route } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
+import Footer from '../components/Footer'
+import ResponsiveAppBar from '../components/Header'
 import Contract from '../pages/contract/index'
 import Home from '../pages/home'
 import MintFunction from '../pages/mintFunction/index'
+import PageNotFound from '../pages/pageNotFound'
 
 const Routes = () => {
   return (
     <>
-      <Route exact path="/contract">
-        <Contract />
+      <Route path="/">
+        <ResponsiveAppBar />
       </Route>
-      <Route exact path="/mint-function">
-        <MintFunction />
-      </Route>
-      <Route exact path="/">
-        <Home />
+      <Switch>
+        <Route exact path="/contract">
+          <Contract />
+        </Route>
+        <Route exact path="/mint-function">
+          <MintFunction />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/404">
+          <PageNotFound />
+        </Route>
+        <Redirect to="/404" />
+      </Switch>
+      <Route path="/">
+        <Footer />
       </Route>
     </>
   )
