@@ -332,6 +332,14 @@ const MintFunction = () => {
           disabled={isLooping}
         />
       </div>
+      {data.value && data.gasLimit && data.maxFee && data.maxPriority && (
+        <div className={classes.requiredEmountContainer}>
+          <Typography
+            className={
+              classes.requiredEmount
+            }>{`${0.111}eth required in wallet`}</Typography>
+        </div>
+      )}
       <div className={classes.buttonContianer}>
         <CustomButton
           className={isLooping ? classes.cancelButton : ''}

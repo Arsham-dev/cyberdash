@@ -79,6 +79,16 @@ const useStyles = makeStyles((theme) => ({
   },
   waitingFlagText: {
     fontSize: 20
+  },
+  requiredEmountContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 25
+  },
+  requiredEmount: {
+    fontSize: 19,
+    fontWeight: 400,
+    color: '#FFF'
   }
 }))
 export default useStyles
