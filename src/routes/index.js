@@ -3,7 +3,7 @@ import Footer from '../components/Footer'
 import ResponsiveAppBar from '../components/Header'
 import Contract from '../pages/contract/index'
 import Home from '../pages/home'
-import MintFunction from '../pages/mintFunction/index'
+import MintFunction from '../pages/MintFunction/index'
 import PageNotFound from '../pages/pageNotFound'
 
 const Routes = () => {
