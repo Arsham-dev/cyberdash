@@ -1,5 +1,5 @@
 import { CircularProgress, Typography } from '@material-ui/core'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import SwitchSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
@@ -18,13 +18,11 @@ const MintFunction = () => {
   }, [])
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
-  const [FLAG_LOAD, setFLAG_LOAD] = useState(false)
   const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
   const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
-  console.log(selectedFlaqApi)
-  console.log(selectedMintAbi)
-  // eslint-disable-next-line no-unused-vars
   const [isConnect, setisConnect] = useState(false)
+  const stopWhileRef = useRef()
+
   const [data, setdata] = useState({
     maxPriority: '',
     maxFee: '',
@@ -59,14 +57,14 @@ const MintFunction = () => {
     if (resSignTx.status === 400) return resSignTx
     settransactionModalIsOpen(false)
     setisLooping(true)
-    setFLAG_LOAD(true)
     LOOP_FOR_LOADING(resSignTx.content.rawTx)
   }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
   const LOOP_FOR_LOADING = async (signedRawTx) => {
-    while (FLAG_LOAD) {
+    while (true) {
+      if (stopWhileRef.current) break
       await delay(1000)
 
       const resCheckFlag = await metaMask.checkFlag(
@@ -75,7 +73,6 @@ const MintFunction = () => {
       )
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         setisConnect(true)
-
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
         return {
           status: 200,
@@ -88,12 +85,15 @@ const MintFunction = () => {
   }
   const customButtonFunction = () => {
     if (isLooping) {
-      setFLAG_LOAD(false)
       setisLooping(false)
+      stopWhileRef.current = true
     } else {
       settransactionModalIsOpen(true)
     }
   }
+  useEffect(() => {
+    stopWhileRef.current = false
+  }, [])
   useEffect(() => {
     if (!location.state || !sessionStorage.getItem('key')) {
       history.replace('/contract')
@@ -143,7 +143,7 @@ const MintFunction = () => {
       </div>
       {isLooping && (
         <div className={classes.waitingFlagContainer}>
-          <CircularProgress color="success" size={45} />
+          <CircularProgress size={45} />
           <Typography className={classes.waitingFlagText}>
             Waiting for flag ...
           </Typography>
