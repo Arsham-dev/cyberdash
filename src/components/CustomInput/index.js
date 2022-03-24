@@ -57,12 +57,16 @@ const CustomInput = ({
             {...otherProps}
           />
         )}
-        <Tooltip
-          title={toolTip || ''}
-          placement="bottom-start"
-          classes={{ tooltip: classes.tooltip }}>
+        {toolTip ? (
+          <Tooltip
+            title={toolTip || ''}
+            placement="bottom-start"
+            classes={{ tooltip: classes.tooltip }}>
+            <InfoOutlinedIcon className={classes.icon} />
+          </Tooltip>
+        ) : (
           <InfoOutlinedIcon className={classes.icon} />
-        </Tooltip>
+        )}
       </div>
     </div>
   )
