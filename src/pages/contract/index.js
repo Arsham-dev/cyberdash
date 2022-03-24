@@ -28,6 +28,7 @@ const Contract = () => {
       })
     } else {
       toast('Please connect your wallet', { type: 'info' })
+      setisLoading(false)
     }
   }
 
