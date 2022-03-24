@@ -30,6 +30,7 @@ const Contract = () => {
                   //   name: 'Main function',
                   //   value: true,
                   //   inputs: []
+                  // should have another value
                   // },
                   ...data.flagAbi.allFlagFunctions
                 ]
