@@ -22,6 +22,8 @@ const HomeFeatures = () => {
           title="Rarity Sniper"
           content="Many people list and sell their NFTs right after the reveal without noticing NFT’s rarity. Since the websites that reveal rarities don’t do it immediately and have a time lag, you need a tool that shows you NFT’s rarity as soon as a collection hits OpenSea. With our Rarity Sniper, you can have access to this information ASAP and buy instantly."
         />
+      </div>
+      <div className={classes.cardContainer}>
         <FeaturesCard
           title="List Sniper"
           content="In a hyped NFT drop, speed is crucial if you want to snipe listed NFTs. This bot not only snipe floors but you can set price and rarity to make the most of it. Some people list their NFTs way below floor price and some rare NFTs are listed too low. You can be the one who snatches them using the List Sniper bot."

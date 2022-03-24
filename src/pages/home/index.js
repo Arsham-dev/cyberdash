@@ -6,11 +6,16 @@ import homepage from '../../assets/images/mainpage.svg'
 const useStyles = makeStyles((theme) => ({
   root: {
     background: `transparent url(${homepage}) 0% 0% no-repeat padding-box`,
-    top: -28.481,
-    left: 4,
+    // top: -28.481,
+    // left: 4,
     // width: 1358,
+    margin: 'auto',
+    backgroundPosition: 'center',
+    // backgroundColor: 'red',
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
+      width: '100%',
+      margin: 'none',
+      backgroundPosition: 'top'
     },
     marginBottom: 61
   }
