@@ -269,6 +269,8 @@ const MintFunction = () => {
           type="text"
           pattern="[+-]?([0-9]*[.])?[0-9]*"
           value={data.value}
+          helperText="asdsad"
+          error
           label="Value"
           onChange={(event) =>
             setdata({

@@ -58,6 +58,19 @@ const useStyles = makeStyles(() => ({
     borderRadius: 7,
     boxShadow: ' 2px 2px 27px 1px rgba(0,0,0,0.4)'
     // color: theme.palette.common.black
+  },
+  helperTextContainer: {
+    marginLeft: 10,
+    marginTop: 3
+  },
+  helperText: {
+    color: '#FFF',
+    fontSize: 11,
+    fontWeight: 2000
+  },
+  error: {
+    color: 'rgb(255, 50, 50)',
+    borderColor: 'rgb(255, 50, 50)'
   }
 }))
 export default useStyles
