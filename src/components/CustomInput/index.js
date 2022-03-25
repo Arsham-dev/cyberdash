@@ -1,4 +1,4 @@
-import { MenuItem, Select, Tooltip } from '@material-ui/core'
+import { MenuItem, Select, Tooltip, Typography } from '@material-ui/core'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import useStyles from './styles/index.style'
 
@@ -8,6 +8,8 @@ const CustomInput = ({
   isSelector,
   selectorOptions = [],
   placholder,
+  helperText,
+  error,
   ...otherProps
 }) => {
   const classes = useStyles()
@@ -20,23 +22,6 @@ const CustomInput = ({
       )}
       <div className={classes.inputContainer}>
         {isSelector ? (
-          // <selecta
-          //   className={[classes.input, classes.selector].join(' ')}
-          //   defaultValue=""
-          //   {...otherProps}>
-          //   <option value="" hidden>
-          //     {placholder}
-          //   </option>
-          //   {selectorOptions.map((item, index) => (
-          //     <option
-          //       value={item}
-          //       key={(item, index.toString())}
-          //       className={classes.selectorOption}>
-          //       {item}
-          //     </option>
-          //   ))}
-          // </select>
-
           <Select
             labelId="demo-simple-select-helper-label"
             className={[classes.input, classes.selector].join(' ')}
@@ -50,7 +35,8 @@ const CustomInput = ({
           <input
             className={[
               classes.input,
-              otherProps.disabled ? classes.disabled : ''
+              otherProps.disabled ? classes.disabled : '',
+              error ? classes.error : ''
             ].join(' ')}
             id="input"
             placeholder={placholder}
@@ -68,6 +54,16 @@ const CustomInput = ({
           <InfoOutlinedIcon className={classes.icon} />
         )}
       </div>
+      {helperText && (
+        <div className={classes.helperTextContainer}>
+          <Typography
+            className={[classes.helperText, error ? classes.error : ''].join(
+              ' '
+            )}>
+            {helperText}
+          </Typography>
+        </div>
+      )}
     </div>
   )
 }
