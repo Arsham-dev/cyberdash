@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent'
   },
   content: {
-    color: '#D1D1D1'
+    color: '#D1D1D1',
+    fontSize: 14
   },
   title: {
     color: '#fff'
