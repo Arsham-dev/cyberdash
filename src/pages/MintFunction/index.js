@@ -88,6 +88,7 @@ const MintFunction = () => {
       )
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         setisConnect(true)
+        setisLooping(false)
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
         return {
           status: 200,
@@ -253,11 +254,6 @@ const MintFunction = () => {
                     onBlur={handleBlur}
                     disabled={isLooping}
                     onChange={(event) => {
-                      console.log(
-                        mintAbi?.allMintFunctions.find(
-                          (item) => item.name === event.target.value
-                        )
-                      )
                       setFieldValue('mintFunction', event.target.value)
                       setFieldValue('args', [])
                       setFieldValue(

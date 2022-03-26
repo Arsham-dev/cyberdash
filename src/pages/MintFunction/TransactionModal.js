@@ -16,7 +16,6 @@ import TransactionModalItems from './TransactionModalItems'
 const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
   const [isLoading, setisLoading] = useState(false)
   const classes = useStyles()
-  console.log(data)
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">
