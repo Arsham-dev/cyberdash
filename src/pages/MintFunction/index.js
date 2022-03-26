@@ -23,6 +23,7 @@ const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
   const [isConnect, setisConnect] = useState(false)
+  const [isSign, setisSign] = useState(false)
   const [MinimumEther, setMinimumEther] = useState('')
   const stopWhileRef = useRef()
 
@@ -160,7 +161,6 @@ const MintFunction = () => {
                 <div className={classes.switchContainer}>
                   <SwitchSelector
                     fontSize={16}
-                    disabled
                     options={[
                       {
                         selectedBackgroundColor: '#1956E2',
@@ -173,6 +173,9 @@ const MintFunction = () => {
                         value: 'Sign'
                       }
                     ]}
+                    onChange={(event) => {
+                      setisSign(!isSign)
+                    }}
                     border="1px solid #1956E2"
                     optionBorderRadius={27}
                     fontColor="#fff"
@@ -435,7 +438,9 @@ const MintFunction = () => {
                 <div className={classes.buttonContianer}>
                   <CustomButton
                     className={isLooping ? classes.cancelButton : ''}
-                    title={isLooping ? 'Cancel' : 'Pre-Sign TX'}
+                    title={
+                      isLooping ? 'Cancel' : isSign ? 'Sign TX' : 'Pre-Sign TX'
+                    }
                     type="submit"
                   />
                 </div>
