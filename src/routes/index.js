@@ -1,9 +1,9 @@
 import { Redirect, Route, Switch } from 'react-router-dom'
 import Footer from '../components/Footer'
 import ResponsiveAppBar from '../components/Header'
-import Contract from '../pages/contract/index'
+import Contract from '../pages/contract/'
 import Home from '../pages/home'
-import MintFunction from '../pages/mintFunction/index'
+import MintFunction from '../pages/MintFunction/'
 import PageNotFound from '../pages/pageNotFound'
 
 const Routes = () => {
