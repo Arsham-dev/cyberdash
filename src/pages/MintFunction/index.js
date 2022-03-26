@@ -46,6 +46,7 @@ const MintFunction = () => {
         )?.name
       : '',
     args: [],
+    temp: [],
     maxPriorityFeePerGas: '',
     maxFeePerGas: '',
     gasLimit: '',
@@ -226,6 +227,7 @@ const MintFunction = () => {
                     disabled={isLooping}
                     onChange={(event) => {
                       setFieldValue('flagFunction', event.target.value)
+                      setFieldValue('temp', [])
                     }}
                     placholder="Select Flag Function"
                     isSelector
@@ -235,40 +237,43 @@ const MintFunction = () => {
                         .map((item) => item.name) || []
                     }
                     toolTip={toolTipMessage}
-                    // onChange={(event) => {
-                    //   setselectedFlaqApi(
-                    //     flagAbi?.allFlagFunctions.findIndex(
-                    //       (item) => item.name === event.target.value
-                    //     )
-                    //   )
-                    //   setdata({
-                    //     ...data,
-                    //     selectedFlaqApi: event.target.value,
-                    //     flaqApi: undefined
-                    //   })
-                    // }}
                   />
-                  {/* {(selectedFlaqApi === 0 || selectedFlaqApi) &&
-                  flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map(
-                    (item) => {
-                      return (
-                        <CustomInput
-                          key={item.internalType + item.name}
-                          label={item.name}
-                          onChange={(event) =>
-                            setdata({
-                              ...data,
-                              flagAbi: {
-                                ...data.flagAbi,
-                                [item.name]: event.target.value
-                              }
-                            })
-                          }
-                          disabled={isLooping}
-                        />
-                      )
-                    }
-                  )} */}
+                  {values.flagFunction &&
+                    flagAbi?.allFlagFunctions
+                      .find((item) => item.name === values.flagFunction)
+                      .inputs.map((item, index) => {
+                        return (
+                          <CustomInput
+                            key={item.internalType + item.name}
+                            label={item.name}
+                            type="number"
+                            name={`temp[${index}]`}
+                            value={values.temp[index]}
+                            error={
+                              touched.temp &&
+                              touched.temp[index] &&
+                              errors.temp &&
+                              Boolean(errors.temp[index])
+                            }
+                            helperText={
+                              touched.temp &&
+                              touched.temp[index] &&
+                              errors.temp &&
+                              errors.temp[index]
+                                ? errors.temp[index]
+                                : ''
+                            }
+                            onBlur={handleBlur}
+                            disabled={isLooping}
+                            onChange={(event) => {
+                              setFieldValue(
+                                `temp[${index}]`,
+                                event.target.value
+                              )
+                            }}
+                          />
+                        )
+                      })}
                   <CustomInput
                     name="mintFunction"
                     label="Select Mint Function"
@@ -299,19 +304,6 @@ const MintFunction = () => {
                         .map((item) => item.name) || []
                     }
                     toolTip={toolTipMessage}
-                    // onChange={(event) => {
-                    //   setselectedMintAbi(
-                    //     mintAbi?.allMintFunctions.findIndex(
-                    //       (item) => item.name === event.target.value
-                    //     )
-                    //   )
-                    //   setdata({
-                    //     ...data,
-                    //     selectedMintAbi: event.target.value,
-                    //     mintAbi: undefined
-                    //   })
-                    // }}
-                    // disabled={isLooping}
                   />
                   {values.mintFunction &&
                     mintAbi?.allMintFunctions
