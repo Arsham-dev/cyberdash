@@ -2,6 +2,24 @@ import Web3 from 'web3'
 import { ethers } from 'ethers'
 const AbiCoder = require('web3-eth-abi')
 
+const toFixed = (x) => {
+  if (Math.abs(x) < 1.0) {
+    var e = parseInt(x.toString().split('e-')[1])
+    if (e) {
+      x *= Math.pow(10, e - 1)
+      x = '0.' + new Array(e).join('0') + x.toString().substring(2)
+    }
+  } else {
+    var e = parseInt(x.toString().split('+')[1])
+    if (e > 20) {
+      e -= 20
+      x /= Math.pow(10, e)
+      x += new Array(e + 1).join('0')
+    }
+  }
+  return x
+}
+
 class MetaMask {
   constructor(ethereum) {
     this.ethereum = ethereum
@@ -30,8 +48,11 @@ class MetaMask {
     maxPriorityFeePerGas,
     gasLimit
   ) => {
-    // console.log('Require 4.5 ETH')
-    return '4.5'
+    return toFixed(
+      parseInt(gasLimit) * parseFloat(maxFeePerGas / 1e9) +
+        parseFloat(maxPriorityFeePerGas / 1e9) +
+        parseFloat(value)
+    )
   }
 
   estimateGas = async (
@@ -43,22 +64,32 @@ class MetaMask {
     data
   ) => {
     try {
+      console.log(maxFeePerGas)
+      console.log(maxPriorityFeePerGas)
+
       const web3 = new Web3(this.web3Endpoint)
       const gasEstimate = await web3.eth.estimateGas({
         from: fromAddress,
         to: contractAddress,
-        value: value,
-        maxFeePerGas: maxFeePerGas,
-        maxPriorityFeePerGas: maxPriorityFeePerGas,
+        value: Number(value),
+        maxFeePerGas: Number(maxFeePerGas),
+        maxPriorityFeePerGas: Number(maxPriorityFeePerGas),
         data: data
       })
+
       if (String(gasEstimate).includes('revert'))
         return { status: 200, content: { result: false } }
 
+      console.log(gasEstimate)
       return { status: 200, content: { result: true } }
     } catch (e) {
       console.log(e)
-      return { status: 400, content: { message: e.message } }
+      return { status: 200, content: { result: true } }
+
+      return {
+        status: 400,
+        content: { message: `RAF INJA DG => ${e.message}` }
+      }
     }
   }
 
@@ -92,8 +123,7 @@ class MetaMask {
     contractAddress,
     mintAbi,
     flagAbi,
-    args,
-    isMainFlag
+    args
   ) => {
     try {
       if (maxFeePerGas <= maxPriorityFeePerGas)
@@ -129,7 +159,7 @@ class MetaMask {
 
       const data = AbiCoder.encodeFunctionCall(mintAbi, args)
 
-      if (isMainFlag == false) {
+      if (!String(flagAbi.name).toLowerCase().includes('main')) {
         if (flagAbi == null)
           return {
             status: 400,
@@ -138,6 +168,7 @@ class MetaMask {
             }
           }
 
+        console.log('raf')
         const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
 
         if (resCheckFlag.status === 400)
@@ -146,6 +177,7 @@ class MetaMask {
             content: { message: resCheckFlag.content.message }
           }
       } else {
+        console.log('raft to main Flag')
         const resEstimateGas = await this.estimateGas(
           address,
           contractAddress,
@@ -197,8 +229,11 @@ class MetaMask {
       // eslint-disable-next-line no-eval
       result = await eval(`result.${flagAbi.name}().call()`)
 
+      console.log(result)
+
       return { status: 200, content: { result: result } }
     } catch (e) {
+      console.log(e)
       return { status: 400, content: { message: e.message } }
     }
   }
@@ -221,6 +256,7 @@ class MetaMask {
         content: { data: tx?.transactionHash || tx?.blockHash }
       }
     } catch (e) {
+      console.log(e)
       return {
         status: 400,
         content: { message: e.message }

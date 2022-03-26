@@ -72,29 +72,38 @@ const MintFunction = () => {
     setMinimumEther(resCalculate)
   }
 
+  const FLAG_FOR_PRE_SIGN_TX = true
+
   const I_UNDERSTAND_CLICK_EVENT = async () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
     const etherAddress = resMetaMask.content.address
-    const resSignTx = await metaMask.signTx(
-      etherAddress,
-      data.value,
-      data.gasLimit,
-      data.maxFeePerGas,
-      data.maxPriorityFeePerGas,
-      data.contractAddress,
-      mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
-      flagAbi.allFlagFunctions.find((item) => item.name === data.flagFunction),
-      data.args
-      // ,
-      // isSign
-    )
 
-    if (resSignTx.status === 400) return resSignTx
-    settransactionModalIsOpen(false)
-    setisLooping(true)
-    LOOP_FOR_LOADING(resSignTx.content.rawTx)
+    if (FLAG_FOR_PRE_SIGN_TX) {
+      const resSignTx = await metaMask.signTx(
+        etherAddress,
+        parseFloat(data.value),
+        parseInt(data.gasLimit),
+        parseInt(data.maxFeePerGas),
+        parseInt(data.maxPriorityFeePerGas),
+        data.contractAddress,
+        mintAbi.allMintFunctions.find(
+          (item) => item.name === data.mintFunction
+        ),
+        flagAbi.allFlagFunctions.find(
+          (item) => item.name === data.flagFunction
+        ),
+        data.args
+        // ,
+        // isSign
+      )
+
+      if (resSignTx.status === 400) return resSignTx
+      settransactionModalIsOpen(false)
+      setisLooping(true)
+      LOOP_FOR_LOADING(resSignTx.content.rawTx)
+    }
   }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -219,7 +228,7 @@ const MintFunction = () => {
                 <div className={classes.inputContainer}>
                   <CustomInput
                     name="flagFunction"
-                    label="Flag Function"
+                    label="Select Flag Function"
                     value={values.flagFunction}
                     error={touched.flagFunction && !!errors.flagFunction}
                     helperText={touched.flagFunction ? errors.flagFunction : ''}

@@ -48,9 +48,11 @@ const ResponsiveAppBar = () => {
   const handleConnectWallet = () => {
     metaMask.onClickConnect().then((item) => {
       if (item.status === 400) {
-        toast('please install metamask', { type: 'error' })
+        toast('MetaMask Not Found ! \n Please Install MetaMask', {
+          type: 'error'
+        })
       } else {
-        toast('Connect Successfully', { type: 'success' })
+        toast('Connected Successfully', { type: 'success' })
         setwallet(item.content.address)
 
         sessionStorage.setItem('key', item.content.address)
@@ -70,7 +72,7 @@ const ResponsiveAppBar = () => {
     setInterval(async () => {
       const response = await node.getGas()
       setgasValue(response)
-    }, 2000)
+    }, 10000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -108,7 +110,7 @@ const ResponsiveAppBar = () => {
               <Typography
                 className={
                   classes.creditValue
-                }>{`${gasValue} gwei`}</Typography>
+                }>{`${gasValue} GWEI`}</Typography>
             </div>
           </Hidden>
           <Box
