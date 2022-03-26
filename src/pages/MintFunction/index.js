@@ -439,7 +439,11 @@ const MintFunction = () => {
                   <CustomButton
                     className={isLooping ? classes.cancelButton : ''}
                     title={
-                      isLooping ? 'Cancel' : isSign ? 'Sign TX' : 'Pre-Sign TX'
+                      isLooping
+                        ? 'Cancel'
+                        : isSign
+                        ? 'Confirm TX'
+                        : 'Pre-Sign TX'
                     }
                     type="submit"
                   />
