@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
   input: {
     display: 'flex',
     flex: 1,
+    width: '100%',
     outline: 'none !important',
     height: '58px !important',
     border: 'none !important',

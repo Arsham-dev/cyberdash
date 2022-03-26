@@ -7,7 +7,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 482,
     [theme.breakpoints.down('sm')]: {
-      width: '90%'
+      width: '90%',
+      margin: 'auto'
     }
   },
   switchContainer: {
