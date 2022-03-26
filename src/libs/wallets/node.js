@@ -5,6 +5,20 @@ class Node {
     this.web3Endpoint = web3Endpoint
   }
 
+  getGas = async () => {
+    try {
+      const resGas = await axios.get(
+        'https://api.etherscan.io/api?module=gastracker&action=gasoracle'
+      )
+      if (resGas.status === 200 && resGas.data?.status == '1') {
+        return `${resGas.data?.result?.FastGasPrice} GWEI`
+      }
+      return '60 GWEI'
+    } catch {
+      return '60 GWEI'
+    }
+  }
+
   checkContract = async (contractAddress) => {
     try {
       if (String(contractAddress).includes('/')) {

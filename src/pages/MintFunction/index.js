@@ -19,6 +19,7 @@ const MintFunction = () => {
   useEffect(() => {
     setProvider(window.ethereum)
   }, [])
+
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
   const [isConnect, setisConnect] = useState(false)
@@ -48,7 +49,18 @@ const MintFunction = () => {
   }
   const history = useHistory()
   const contractAddress = location?.state?.contractAddress
+
   const metaMask = new MetaMask(provider)
+
+  const CALCULATE_MINIMUM_ETHER = async () => {
+    const resCalculate = await metaMask.calculateEtherValue(
+      'VALUE',
+      'MAX FEE PER GAS',
+      'MAX PRIORITY FEE PER GAS',
+      'GAS LIMIT'
+    )
+    return resCalculate
+  }
 
   const I_UNDERSTAND_CLICK_EVENT = async () => {
     const resMetaMask = await metaMask.onClickConnect()
@@ -86,16 +98,18 @@ const MintFunction = () => {
         ),
         data.contractAddress
       )
+
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         setisConnect(true)
         setisLooping(false)
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
-        return {
-          status: 200,
-          content: {
-            txId: resTx
+        if (resTx.status === 200)
+          return {
+            status: 200,
+            content: {
+              txId: resTx.content.data
+            }
           }
-        }
       }
     }
   }
