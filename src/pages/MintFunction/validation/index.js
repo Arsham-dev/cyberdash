@@ -6,6 +6,7 @@ const mintFunctionValidation = yup.object().shape({
     .nullable('ssfsfsdf'),
   mintFunction: yup.string().required('Mint function is required'),
   args: yup.array().of(yup.number().required('This field is required')),
+  temp: yup.array().of(yup.number().required('This field is required')),
   value: yup.number().required('Value is required'),
   gasLimit: yup.number().required('Gas Limit is required'),
   maxFeePerGas: yup.number().required('Max Fee Per Gas is required'),
