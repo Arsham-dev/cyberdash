@@ -14,7 +14,7 @@ import {
   useTheme
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import { MetaMask } from '../../libs/wallets'
+import { MetaMask, Node } from '../../libs/wallets'
 import { useState, useEffect } from 'react'
 import twitter from '../../assets/images/twitter.svg'
 import linkdin from '../../assets/images/linkdin.svg'
@@ -36,6 +36,7 @@ const pages = [
 const ResponsiveAppBar = () => {
   const [provider, setProvider] = useState({})
   const [wallet, setwallet] = useState('')
+  const [gasValue, setgasValue] = useState(0)
   const classes = useStyles()
   useEffect(() => {
     setProvider(window.ethereum)
@@ -64,6 +65,15 @@ const ResponsiveAppBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
   }
+  const node = new Node()
+  useEffect(() => {
+    setInterval(async () => {
+      const response = await node.getGas()
+      setgasValue(response)
+    }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const history = useHistory()
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -96,7 +106,9 @@ const ResponsiveAppBar = () => {
             <div className={classes.creditContainer}>
               <img src={gas} alt="gas" />
               <Typography
-                className={classes.creditValue}>{`${20} gwei`}</Typography>
+                className={
+                  classes.creditValue
+                }>{`${gasValue} gwei`}</Typography>
             </div>
           </Hidden>
           <Box

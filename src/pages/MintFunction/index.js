@@ -78,14 +78,16 @@ const MintFunction = () => {
     const etherAddress = resMetaMask.content.address
     const resSignTx = await metaMask.signTx(
       etherAddress,
-      Number.parseFloat(data.value),
-      Number.parseInt(data.gasLimit, 10),
-      Number.parseInt(data.maxFeePerGas, 10),
-      Number.parseInt(data.maxPriorityFeePerGas, 10),
+      data.value,
+      data.gasLimit,
+      data.maxFeePerGas,
+      data.maxPriorityFeePerGas,
       data.contractAddress,
       mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
       flagAbi.allFlagFunctions.find((item) => item.name === data.flagFunction),
       data.args
+      // ,
+      // isSign
     )
 
     if (resSignTx.status === 400) return resSignTx
