@@ -30,8 +30,8 @@ class MetaMask {
     maxPriorityFeePerGas,
     gasLimit
   ) => {
-    console.log('Require 4.5 ETH')
-    return 'Require 4.5 ETH'
+    // console.log('Require 4.5 ETH')
+    return '4.5'
   }
 
   estimateGas = async (

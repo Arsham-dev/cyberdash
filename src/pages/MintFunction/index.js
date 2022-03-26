@@ -23,6 +23,7 @@ const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
   const [isConnect, setisConnect] = useState(false)
+  const [MinimumEther, setMinimumEther] = useState('')
   const stopWhileRef = useRef()
 
   const [data, setdata] = useState({})
@@ -52,14 +53,19 @@ const MintFunction = () => {
 
   const metaMask = new MetaMask(provider)
 
-  const CALCULATE_MINIMUM_ETHER = async () => {
+  const calculateMinimumEther = async (
+    value,
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+    gasLimit
+  ) => {
     const resCalculate = await metaMask.calculateEtherValue(
-      'VALUE',
-      'MAX FEE PER GAS',
-      'MAX PRIORITY FEE PER GAS',
-      'GAS LIMIT'
+      value,
+      maxFeePerGas,
+      maxPriorityFeePerGas,
+      gasLimit
     )
-    return resCalculate
+    setMinimumEther(resCalculate)
   }
 
   const I_UNDERSTAND_CLICK_EVENT = async () => {
@@ -405,19 +411,27 @@ const MintFunction = () => {
                     toolTip={toolTipMessage}
                   />
                 </div>
-                {!(
-                  errors.value ||
-                  errors.gasLimit ||
-                  errors.maxFeePerGas ||
-                  errors.maxPriorityFeePerGas
-                ) && (
-                  <div className={classes.requiredEmountContainer}>
-                    <Typography
-                      className={
-                        classes.requiredEmount
-                      }>{`${0.111}eth required in wallet`}</Typography>
-                  </div>
-                )}
+                {
+                  !(
+                    errors.value ||
+                    errors.gasLimit ||
+                    errors.maxFeePerGas ||
+                    errors.maxPriorityFeePerGas
+                  ) &&
+                    values.value && (
+                      <div className={classes.requiredEmountContainer}>
+                        <Typography className={classes.requiredEmount}>{`${
+                          calculateMinimumEther(
+                            values.value,
+                            values.maxFeePerGas,
+                            values.maxPriorityFeePerGas,
+                            values.gasLimit
+                          ) && MinimumEther
+                        } eth required in wallet`}</Typography>
+                      </div>
+                    )
+                  // ))
+                }
                 <div className={classes.buttonContianer}>
                   <CustomButton
                     className={isLooping ? classes.cancelButton : ''}
