@@ -26,12 +26,12 @@ const Contract = () => {
               flagAbi: {
                 defaultFlagFunction: data.flagAbi.defaultFlagFunction,
                 allFlagFunctions: [
-                  // {
-                  //   name: 'Main function',
-                  //   value: true,
-                  //   inputs: []
-                  // should have another value
-                  // },
+                  {
+                    name: 'Main function',
+                    isMainFlag: true,
+                    inputs: []
+                    // should have another value
+                  },
                   ...data.flagAbi.allFlagFunctions
                 ]
               },
