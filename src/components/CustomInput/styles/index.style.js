@@ -12,7 +12,8 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     backgroundColor: '#fff',
     flex: 1,
-    borderRadius: 10
+    borderRadius: 10,
+    border: '1px solid rgb(160, 149, 149)'
   },
   input: {
     display: 'flex',
@@ -23,11 +24,7 @@ const useStyles = makeStyles(() => ({
     fontSize: 20,
     backgroundColor: 'transparent'
   },
-  selector: {
-    // cursor: 'pointer'
-    // outline: 'none !important',
-    // border: 'none !important'
-  },
+  selector: {},
   icon: {
     marginLeft: 31,
     fontSize: 31,
@@ -69,8 +66,10 @@ const useStyles = makeStyles(() => ({
     fontWeight: 2000
   },
   error: {
-    color: 'rgb(255, 50, 50)',
     borderColor: 'rgb(255, 50, 50)'
+  },
+  helperTextError: {
+    color: 'rgb(255, 50, 50)'
   }
 }))
 export default useStyles

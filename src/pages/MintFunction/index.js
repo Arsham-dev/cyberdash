@@ -6,7 +6,10 @@ import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
 import useStyles from './styles/index.styles'
 import TransactionModal from './TransactionModal'
+import { Form, Formik } from 'formik'
+
 import { MetaMask } from '../../libs/wallets'
+import mintFunctionValidation from './validation'
 
 const toolTipMessage =
   'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
@@ -18,23 +21,32 @@ const MintFunction = () => {
   }, [])
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
-  const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
-  const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
   const [isConnect, setisConnect] = useState(false)
   const stopWhileRef = useRef()
 
-  const [data, setdata] = useState({
-    maxPriority: '',
-    maxFee: '',
+  const [data, setdata] = useState({})
+
+  const location = useLocation()
+  const flagAbi = location?.state?.flagAbi
+  const mintAbi = location?.state?.mintAbi
+  const initialValues = {
+    flagFunction: !!mintAbi.defaultMintFunction
+      ? mintAbi.allMintFunctions.findIndex(
+          (item) => item.name === mintAbi.defaultMintFunction.name
+        )?.name
+      : '',
+    mintFunction: !!mintAbi.defaultMintFunction
+      ? mintAbi.allMintFunctions.findIndex(
+          (item) => item.name === mintAbi.defaultMintFunction.name
+        )?.name
+      : '',
+    args: [],
+    maxPriorityFeePerGas: '',
+    maxFeePerGas: '',
     gasLimit: '',
     value: ''
-  })
-  const location = useLocation()
+  }
   const history = useHistory()
-
-  const flagAbi = location?.state?.flagAbi
-
-  const mintAbi = location?.state?.mintAbi
   const contractAddress = location?.state?.contractAddress
   const metaMask = new MetaMask(provider)
 
@@ -47,13 +59,14 @@ const MintFunction = () => {
       etherAddress,
       Number.parseFloat(data.value),
       Number.parseInt(data.gasLimit, 10),
-      Number.parseInt(data.maxFee, 10),
-      Number.parseInt(data.maxPriority, 10),
+      Number.parseInt(data.maxFeePerGas, 10),
+      Number.parseInt(data.maxPriorityFeePerGas, 10),
       data.contractAddress,
-      mintAbi.allMintFunctions[selectedMintAbi],
-      flagAbi.allFlagFunctions[selectedFlaqApi],
-      Object.entries(data.mintAbi).map((item) => parseInt(item[1]))
+      mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
+      flagAbi.allFlagFunctions.find((item) => item.name === data.flagFunction),
+      data.args
     )
+
     if (resSignTx.status === 400) return resSignTx
     settransactionModalIsOpen(false)
     setisLooping(true)
@@ -68,11 +81,14 @@ const MintFunction = () => {
       await delay(1000)
 
       const resCheckFlag = await metaMask.checkFlag(
-        flagAbi.defaultFlagFunction[selectedFlaqApi],
+        flagAbi.allFlagFunctions.find(
+          (item) => item.name === data.flagFunction
+        ),
         data.contractAddress
       )
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         setisConnect(true)
+        setisLooping(false)
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
         return {
           status: 200,
@@ -83,12 +99,13 @@ const MintFunction = () => {
       }
     }
   }
-  const customButtonFunction = () => {
+  const customButtonFunction = (values) => {
     if (isLooping) {
       setisLooping(false)
       stopWhileRef.current = true
     } else {
       settransactionModalIsOpen(true)
+      setdata({ ...data, ...values })
     }
   }
   useEffect(() => {
@@ -99,273 +116,313 @@ const MintFunction = () => {
       history.replace('/contract')
     } else {
       setdata({ ...data, contractAddress })
-      setselectedMintAbi(
-        !!mintAbi.defaultMintFunction
-          ? mintAbi.allMintFunctions.findIndex(
-              (item) => item.name === mintAbi.defaultMintFunction.name
-            )
-          : undefined
-      )
-      setselectedFlaqApi(
-        !!flagAbi.defaultFlagFunction
-          ? flagAbi.allFlagFunctions.findIndex(
-              (item) => item.name === flagAbi.defaultFlagFunction.name
-            )
-          : undefined
-      )
     }
   }, [])
   const classes = useStyles()
   return (
-    <div className={classes.root}>
-      <div className={classes.switchContainer}>
-        <SwitchSelector
-          fontSize={16}
-          disabled
-          options={[
-            {
-              selectedBackgroundColor: '#1956E2',
-              label: 'Pre-Sign',
-              value: 'Pre-Sign'
-            },
-            {
-              selectedBackgroundColor: '#1956E2',
-              label: 'Sign',
-              value: 'Sign'
-            }
-          ]}
-          border="1px solid #1956E2"
-          optionBorderRadius={27}
-          fontColor="#fff"
-          backgroundColor="transpart"
-          wrapperBorderRadius={27}
-        />
-      </div>
-      {isLooping && (
-        <div className={classes.waitingFlagContainer}>
-          <CircularProgress size={45} />
-          <Typography className={classes.waitingFlagText}>
-            Waiting for flag ...
-          </Typography>
-        </div>
-      )}
-      <div
-        className={[
-          classes.contractInfo,
-          isConnect
-            ? classes.contractInfoIsConnect
-            : classes.contractInfoIsNotConnect
-        ].join(' ')}>
-        <Typography className={classes.contractText}>
-          Contract Status
-        </Typography>
-        <div
-          className={[
-            classes.contractValue,
-            isConnect
-              ? classes.contractValueIsConnect
-              : classes.contractValueIsNotConnect
-          ].join(' ')}
-        />
-      </div>
-      <div className={classes.inputContainer}>
-        <CustomInput
-          label="Flag Function"
-          value={
-            selectedFlaqApi
-              ? flagAbi?.allFlagFunctions[selectedFlaqApi].name
-              : undefined
-          }
-          placholder="Select Flag Function"
-          isSelector
-          selectorOptions={
-            flagAbi?.allFlagFunctions
-              .filter((item) => item.name)
-              .map((item) => item.name) || []
-          }
-          toolTip={toolTipMessage}
-          onChange={(event) => {
-            setselectedFlaqApi(
-              flagAbi?.allFlagFunctions.findIndex(
-                (item) => item.name === event.target.value
-              )
-            )
-            setdata({
-              ...data,
-              selectedFlaqApi: event.target.value,
-              flaqApi: undefined
-            })
-          }}
-          disabled={isLooping}
-        />
-        {(selectedFlaqApi === 0 || selectedFlaqApi) &&
-          flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map((item) => {
-            return (
-              <CustomInput
-                key={item.internalType + item.name}
-                label={item.name}
-                onChange={(event) =>
-                  setdata({
-                    ...data,
-                    flagAbi: {
-                      ...data.flagAbi,
-                      [item.name]: event.target.value
+    <>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={mintFunctionValidation}
+        onSubmit={customButtonFunction}>
+        {({
+          values,
+          setFieldValue,
+          errors,
+          touched,
+          handleBlur,
+          isSubmitting,
+          handleChange
+        }) => {
+          return (
+            <Form>
+              <div className={classes.root}>
+                <div className={classes.switchContainer}>
+                  <SwitchSelector
+                    fontSize={16}
+                    disabled
+                    options={[
+                      {
+                        selectedBackgroundColor: '#1956E2',
+                        label: 'Pre-Sign',
+                        value: 'Pre-Sign'
+                      },
+                      {
+                        selectedBackgroundColor: '#1956E2',
+                        label: 'Sign',
+                        value: 'Sign'
+                      }
+                    ]}
+                    border="1px solid #1956E2"
+                    optionBorderRadius={27}
+                    fontColor="#fff"
+                    backgroundColor="transpart"
+                    wrapperBorderRadius={27}
+                  />
+                </div>
+                {isLooping && (
+                  <div className={classes.waitingFlagContainer}>
+                    <CircularProgress size={45} />
+                    <Typography className={classes.waitingFlagText}>
+                      Waiting for flag ...
+                    </Typography>
+                  </div>
+                )}
+                <div
+                  className={[
+                    classes.contractInfo,
+                    isConnect
+                      ? classes.contractInfoIsConnect
+                      : classes.contractInfoIsNotConnect
+                  ].join(' ')}>
+                  <Typography className={classes.contractText}>
+                    Contract Status
+                  </Typography>
+                  <div
+                    className={[
+                      classes.contractValue,
+                      isConnect
+                        ? classes.contractValueIsConnect
+                        : classes.contractValueIsNotConnect
+                    ].join(' ')}
+                  />
+                </div>
+                <div className={classes.inputContainer}>
+                  <CustomInput
+                    name="flagFunction"
+                    label="Flag Function"
+                    value={values.flagFunction}
+                    error={touched.flagFunction && !!errors.flagFunction}
+                    helperText={touched.flagFunction ? errors.flagFunction : ''}
+                    onBlur={handleBlur}
+                    disabled={isLooping}
+                    onChange={(event) => {
+                      setFieldValue('flagFunction', event.target.value)
+                    }}
+                    placholder="Select Flag Function"
+                    isSelector
+                    selectorOptions={
+                      flagAbi?.allFlagFunctions
+                        .filter((item) => item.name)
+                        .map((item) => item.name) || []
                     }
-                  })
-                }
-                disabled={isLooping}
-              />
-            )
-          })}
-        <CustomInput
-          label="Select Mint Function"
-          value={
-            selectedMintAbi
-              ? mintAbi.allMintFunctions[selectedMintAbi].name
-              : undefined
-          }
-          placholder="Select Mint Function"
-          isSelector
-          selectorOptions={
-            mintAbi?.allMintFunctions
-              .filter((item) => item.name)
-              .map((item) => item.name) || []
-          }
-          toolTip={toolTipMessage}
-          onChange={(event) => {
-            setselectedMintAbi(
-              mintAbi?.allMintFunctions.findIndex(
-                (item) => item.name === event.target.value
-              )
-            )
-            setdata({
-              ...data,
-              selectedMintAbi: event.target.value,
-              mintAbi: undefined
-            })
-          }}
-          disabled={isLooping}
-        />
-        {(selectedMintAbi === 0 || selectedMintAbi) &&
-          mintAbi?.allMintFunctions[selectedMintAbi].inputs.map((item) => {
-            return (
-              <CustomInput
-                key={item.internalType + item.name}
-                label={item.name}
-                onChange={(event) =>
-                  setdata({
-                    ...data,
-                    mintAbi: {
-                      ...data.mintAbi,
-                      [item.name]: event.target.value
+                    toolTip={toolTipMessage}
+                    // onChange={(event) => {
+                    //   setselectedFlaqApi(
+                    //     flagAbi?.allFlagFunctions.findIndex(
+                    //       (item) => item.name === event.target.value
+                    //     )
+                    //   )
+                    //   setdata({
+                    //     ...data,
+                    //     selectedFlaqApi: event.target.value,
+                    //     flaqApi: undefined
+                    //   })
+                    // }}
+                  />
+                  {/* {(selectedFlaqApi === 0 || selectedFlaqApi) &&
+                  flagAbi?.allFlagFunctions[selectedFlaqApi].inputs.map(
+                    (item) => {
+                      return (
+                        <CustomInput
+                          key={item.internalType + item.name}
+                          label={item.name}
+                          onChange={(event) =>
+                            setdata({
+                              ...data,
+                              flagAbi: {
+                                ...data.flagAbi,
+                                [item.name]: event.target.value
+                              }
+                            })
+                          }
+                          disabled={isLooping}
+                        />
+                      )
                     }
-                  })
-                }
-                disabled={isLooping}
-              />
-            )
-          })}
-        <CustomInput
-          type="text"
-          pattern="[+-]?([0-9]*[.])?[0-9]*"
-          value={data.value}
-          helperText="asdsad"
-          error
-          label="Value"
-          onChange={(event) =>
-            setdata({
-              ...data,
-              value: event.target.validity.valid
-                ? event.target.value
-                : data.value
-            })
-          }
-          toolTip={toolTipMessage}
-          disabled={isLooping}
-        />
-        <CustomInput
-          type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          value={data.maxFee}
-          label="Max Fee Per Gas"
-          onChange={(event) =>
-            setdata({
-              ...data,
-              maxFee: event.target.validity.valid
-                ? event.target.value
-                : data.maxFee
-            })
-          }
-          toolTip={toolTipMessage}
-          disabled={isLooping}
-        />
-        <CustomInput
-          label="Max Priority Fee Per Gas"
-          inputMode="numeric"
-          type="text"
-          pattern="[0-9]*"
-          value={data.maxPriority}
-          onChange={(event) =>
-            setdata({
-              ...data,
-              maxPriority: event.target.validity.valid
-                ? event.target.value
-                : data.maxPriority
-            })
-          }
-          toolTip={toolTipMessage}
-          disabled={isLooping}
-        />
-        <CustomInput
-          label="Gas Limit"
-          type="text"
-          pattern="[0-9]*"
-          value={data.gasLimit}
-          onChange={(event) =>
-            setdata({
-              ...data,
-              gasLimit: event.target.validity.valid
-                ? event.target.value
-                : data.gasLimit
-            })
-          }
-          toolTip={toolTipMessage}
-          disabled={isLooping}
-        />
-      </div>
-      {data.value && data.gasLimit && data.maxFee && data.maxPriority && (
-        <div className={classes.requiredEmountContainer}>
-          <Typography
-            className={
-              classes.requiredEmount
-            }>{`${0.111}eth required in wallet`}</Typography>
-        </div>
-      )}
-      <div className={classes.buttonContianer}>
-        <CustomButton
-          className={isLooping ? classes.cancelButton : ''}
-          title={isLooping ? 'Cancel' : 'Pre-Sign TX'}
-          onClick={customButtonFunction}
-          disabled={
-            isLooping
-              ? false
-              : !data.value ||
-                !data.gasLimit ||
-                !data.maxFee ||
-                !data.maxPriority ||
-                !(selectedFlaqApi === 0 || selectedFlaqApi) ||
-                !(selectedMintAbi === 0 || selectedMintAbi)
-          }
-        />
-      </div>
+                  )} */}
+                  <CustomInput
+                    name="mintFunction"
+                    label="Select Mint Function"
+                    value={values.mintFunction}
+                    error={touched.mintFunction && Boolean(errors.mintFunction)}
+                    helperText={
+                      touched.mintFunction && errors.mintFunction
+                        ? errors.mintFunction
+                        : ''
+                    }
+                    onBlur={handleBlur}
+                    disabled={isLooping}
+                    onChange={(event) => {
+                      setFieldValue('mintFunction', event.target.value)
+                      setFieldValue('args', [])
+                      setFieldValue(
+                        'inputs',
+                        mintAbi?.allMintFunctions
+                          .find((item) => item.name === event.target.value)
+                          ?.inputs.map((item) => item.name)
+                      )
+                    }}
+                    placholder="Select Mint Function"
+                    isSelector
+                    selectorOptions={
+                      mintAbi?.allMintFunctions
+                        .filter((item) => item.name)
+                        .map((item) => item.name) || []
+                    }
+                    toolTip={toolTipMessage}
+                    // onChange={(event) => {
+                    //   setselectedMintAbi(
+                    //     mintAbi?.allMintFunctions.findIndex(
+                    //       (item) => item.name === event.target.value
+                    //     )
+                    //   )
+                    //   setdata({
+                    //     ...data,
+                    //     selectedMintAbi: event.target.value,
+                    //     mintAbi: undefined
+                    //   })
+                    // }}
+                    // disabled={isLooping}
+                  />
+                  {values.mintFunction &&
+                    mintAbi?.allMintFunctions
+                      .find((item) => item.name === values.mintFunction)
+                      .inputs.map((item, index) => {
+                        return (
+                          <CustomInput
+                            key={item.internalType + item.name}
+                            label={item.name}
+                            type="number"
+                            name={`args[${index}]`}
+                            value={values.args[index]}
+                            error={
+                              touched.args &&
+                              touched.args[index] &&
+                              errors.args &&
+                              Boolean(errors.args[index])
+                            }
+                            helperText={
+                              touched.args &&
+                              touched.args[index] &&
+                              errors.args &&
+                              errors.args[index]
+                                ? errors.args[index]
+                                : ''
+                            }
+                            onBlur={handleBlur}
+                            disabled={isLooping}
+                            onChange={(event) => {
+                              setFieldValue(
+                                `args[${index}]`,
+                                event.target.value
+                              )
+                            }}
+                          />
+                        )
+                      })}
+                  <CustomInput
+                    label="Value"
+                    type="number"
+                    step="0.01"
+                    name="value"
+                    value={values.value}
+                    error={touched.value && !!errors.value}
+                    helperText={touched.value ? errors.value : ''}
+                    onBlur={handleBlur}
+                    disabled={isLooping}
+                    onChange={(event) => {
+                      setFieldValue('value', event.target.value)
+                    }}
+                    toolTip={toolTipMessage}
+                  />
+                  <CustomInput
+                    name="maxFeePerGas"
+                    type="number"
+                    label="Max Fee Per Gas"
+                    value={values.maxFeePerGas}
+                    error={touched.maxFeePerGas && !!errors.maxFeePerGas}
+                    helperText={
+                      touched.maxFeePerGas ? errors.maxFeePerGas : undefined
+                    }
+                    onBlur={handleBlur}
+                    disabled={isLooping}
+                    onChange={(event) => {
+                      setFieldValue('maxFeePerGas', event.target.value)
+                    }}
+                    toolTip={toolTipMessage}
+                  />
+                  <CustomInput
+                    label="Max Priority Fee Per Gas"
+                    inputMode="numeric"
+                    value={values.maxPriorityFeePerGas}
+                    name="maxPriorityFeePerGas"
+                    error={
+                      touched.maxPriorityFeePerGas &&
+                      !!errors.maxPriorityFeePerGas
+                    }
+                    helperText={
+                      touched.maxPriorityFeePerGas
+                        ? errors.maxPriorityFeePerGas
+                        : undefined
+                    }
+                    onBlur={handleBlur}
+                    disabled={isLooping}
+                    onChange={(event) => {
+                      setFieldValue('maxPriorityFeePerGas', event.target.value)
+                    }}
+                    type="number"
+                    toolTip={toolTipMessage}
+                  />
+                  <CustomInput
+                    label="Gas Limit"
+                    inputMode="numeric"
+                    step="1"
+                    value={values.gasLimit}
+                    type="number"
+                    name="gasLimit"
+                    error={touched.gasLimit && !!errors.gasLimit}
+                    helperText={touched.gasLimit ? errors.gasLimit : undefined}
+                    onBlur={handleBlur}
+                    disabled={isLooping}
+                    onChange={(event) => {
+                      setFieldValue('gasLimit', event.target.value)
+                    }}
+                    toolTip={toolTipMessage}
+                  />
+                </div>
+                {!(
+                  errors.value ||
+                  errors.gasLimit ||
+                  errors.maxFeePerGas ||
+                  errors.maxPriorityFeePerGas
+                ) && (
+                  <div className={classes.requiredEmountContainer}>
+                    <Typography
+                      className={
+                        classes.requiredEmount
+                      }>{`${0.111}eth required in wallet`}</Typography>
+                  </div>
+                )}
+                <div className={classes.buttonContianer}>
+                  <CustomButton
+                    className={isLooping ? classes.cancelButton : ''}
+                    title={isLooping ? 'Cancel' : 'Pre-Sign TX'}
+                    type="submit"
+                  />
+                </div>
+              </div>
+            </Form>
+          )
+        }}
+      </Formik>
       <TransactionModal
         isOpen={transactionModalIsOpen}
         onClose={() => settransactionModalIsOpen(false)}
         data={data}
         onClickFunction={I_UNDERSTAND_CLICK_EVENT}
       />
-    </div>
+    </>
   )
 }
 export default MintFunction
