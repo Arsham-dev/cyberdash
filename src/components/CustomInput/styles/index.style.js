@@ -23,7 +23,16 @@ const useStyles = makeStyles(() => ({
     height: '58px !important',
     border: 'none !important',
     fontSize: 20,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+      '-webkit-appearance': 'none',
+      '-moz-appearance': 'none',
+      margin: 0
+    },
+    '&[type=number]': {
+      '-webkit-appearance': 'textfield',
+      '-moz-appearance': 'textfield'
+    }
   },
   selector: {},
   icon: {
