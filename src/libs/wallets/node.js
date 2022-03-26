@@ -11,11 +11,11 @@ class Node {
         'https://api.etherscan.io/api?module=gastracker&action=gasoracle'
       )
       if (resGas.status === 200 && resGas.data?.status == '1') {
-        return `${resGas.data?.result?.FastGasPrice} GWEI`
+        return `${resGas.data?.result?.FastGasPrice}`
       }
-      return '60 GWEI'
+      return 60
     } catch {
-      return '60 GWEI'
+      return 60
     }
   }
 
