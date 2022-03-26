@@ -167,6 +167,7 @@ const MintFunction = () => {
                 <div className={classes.switchContainer}>
                   <SwitchSelector
                     fontSize={16}
+                    disabled={isLooping}
                     options={[
                       {
                         selectedBackgroundColor: '#1956E2',
