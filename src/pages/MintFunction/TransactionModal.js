@@ -5,7 +5,9 @@ import {
   Modal,
   Paper,
   Slide,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import { useState } from 'react'
@@ -15,6 +17,8 @@ import TransactionModalItems from './TransactionModalItems'
 
 const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
   const [isLoading, setisLoading] = useState(false)
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
   return (
     <Modal open={isOpen} onClose={onClose}>
@@ -48,7 +52,11 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
             {data.contractAddress && (
               <TransactionModalItems
                 lable="Contract Address:"
-                value={data.contractAddress}
+                value={
+                  isSmallScreen
+                    ? `${data.contractAddress.substr(0, 20)}...`
+                    : data.contractAddress
+                }
               />
             )}
             <TransactionModalItems lable="Value:" value={`${data.value} ETH`} />

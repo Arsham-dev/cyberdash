@@ -45,7 +45,7 @@ const MintFunction = () => {
           (item) => item.name === mintAbi.defaultMintFunction.name
         )?.name
       : '',
-    args: [],
+    args: [''],
     temp: [],
     maxPriorityFeePerGas: '',
     maxFeePerGas: '',
@@ -176,6 +176,7 @@ const MintFunction = () => {
                 <div className={classes.switchContainer}>
                   <SwitchSelector
                     fontSize={16}
+                    disabled={isLooping}
                     options={[
                       {
                         selectedBackgroundColor: '#1956E2',
@@ -236,7 +237,13 @@ const MintFunction = () => {
                     disabled={isLooping}
                     onChange={(event) => {
                       setFieldValue('flagFunction', event.target.value)
-                      setFieldValue('temp', [])
+                      setFieldValue(
+                        'temp',
+                        flagAbi?.allFlagFunctions
+                          .find((item) => item.name === event.target.value)
+                          ?.inputs.map(() => '')
+                      )
+                      handleChange(event)
                     }}
                     placholder="Select Flag Function"
                     isSelector
@@ -297,7 +304,12 @@ const MintFunction = () => {
                     disabled={isLooping}
                     onChange={(event) => {
                       setFieldValue('mintFunction', event.target.value)
-                      setFieldValue('args', [])
+                      setFieldValue(
+                        'args',
+                        mintAbi?.allMintFunctions
+                          .find((item) => item.name === event.target.value)
+                          ?.inputs.map(() => '')
+                      )
                       setFieldValue(
                         'inputs',
                         mintAbi?.allMintFunctions
@@ -317,12 +329,13 @@ const MintFunction = () => {
                   {values.mintFunction &&
                     mintAbi?.allMintFunctions
                       .find((item) => item.name === values.mintFunction)
-                      .inputs.map((item, index) => {
+                      ?.inputs.map((item, index) => {
                         return (
                           <CustomInput
-                            key={item.internalType + item.name}
+                            key={item.name}
                             label={item.name}
-                            // type="number"
+                            id={item.name}
+                            type="number"
                             name={`args[${index}]`}
                             value={values.args[index]}
                             error={
