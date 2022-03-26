@@ -11,6 +11,7 @@ import { Form, Formik } from 'formik'
 import { MetaMask } from '../../libs/wallets'
 import mintFunctionValidation from './validation'
 import SuccessModal from './SuccessModal'
+import { toast } from 'react-toastify'
 
 const toolTipMessage =
   'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
@@ -27,6 +28,7 @@ const MintFunction = () => {
   const [isConnect, setisConnect] = useState(false)
   const [isSign, setisSign] = useState(false)
   const [MinimumEther, setMinimumEther] = useState('')
+  const [sucessfullModaAddress, setsucessfullModaAddress] = useState('')
   const stopWhileRef = useRef()
 
   const [data, setdata] = useState({})
@@ -122,15 +124,25 @@ const MintFunction = () => {
 
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
+        // console.log(resTx)
         if (resTx.status === 200) {
           setisConnect(true)
           setisLooping(false)
           setsuccessModalIsOpen(true)
-
+          setsucessfullModaAddress(resTx.content.data)
           return {
             status: 200,
             content: {
               txId: resTx.content.data
+            }
+          }
+        } else if (resTx.status === 400) {
+          setisLooping(false)
+          toast(resTx.content.message, { type: 'error' })
+          return {
+            status: 400,
+            content: {
+              message: resTx.content.message
             }
           }
         }
@@ -483,6 +495,7 @@ const MintFunction = () => {
       <SuccessModal
         isOpen={successModalIsOpen}
         onClose={() => setsuccessModalIsOpen(false)}
+        data={sucessfullModaAddress}
       />
     </>
   )

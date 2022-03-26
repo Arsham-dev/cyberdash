@@ -84,8 +84,7 @@ class MetaMask {
       return { status: 200, content: { result: true } }
     } catch (e) {
       console.log(e)
-      return { status: 200, content: { result: true } }
-
+      // return { status: 200, content: { result: true } }
       return {
         status: 400,
         content: { message: `RAF INJA DG => ${e.message}` }
