@@ -5,8 +5,7 @@ const CustomButton = ({ title, ...otherProps }) => {
   return (
     <button
       {...otherProps}
-      className={[classes.root, otherProps.className || ''].join(' ')}
-      type="submit">
+      className={[classes.root, otherProps.className || ''].join(' ')}>
       {title}
     </button>
   )

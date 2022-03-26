@@ -16,6 +16,7 @@ import TransactionModalItems from './TransactionModalItems'
 const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
   const [isLoading, setisLoading] = useState(false)
   const classes = useStyles()
+  console.log(data)
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">
@@ -37,12 +38,12 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
             </Typography>
           </div>
           <div className={classes.itemContainer}>
-            {data.mintAbi &&
-              Object.entries(data.mintAbi).map((item) => (
+            {data.mintFunction &&
+              data.inputs.map((item, index) => (
                 <TransactionModalItems
-                  lable={`${item[0]}:`}
-                  value={item[1]}
-                  key={item[0]}
+                  lable={`${item}:`}
+                  value={data.args[index]}
+                  key={item}
                 />
               ))}
             {data.contractAddress && (
@@ -54,11 +55,11 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
             <TransactionModalItems lable="Value:" value={`${data.value} ETH`} />
             <TransactionModalItems
               lable="Max Fee:"
-              value={`${data.maxFee} GWEI`}
+              value={`${data.maxFeePerGas} GWEI`}
             />
             <TransactionModalItems
               lable="Priority Fee:"
-              value={`${data.maxPriority} GWEI`}
+              value={`${data.maxPriorityFeePerGas} GWEI`}
             />
             <TransactionModalItems lable="Gas limit:" value={data.gasLimit} />
           </div>
@@ -69,8 +70,6 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
               onClick={() => {
                 setisLoading(true)
                 onClickFunction().then((item) => {
-                  console.log(item)
-
                   if (item)
                     if (item.status === 200) {
                       toast(item.txId.message, { type: 'success' })

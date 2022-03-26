@@ -28,15 +28,16 @@ const CustomInput = ({
             disableUnderline
             {...otherProps}>
             {selectorOptions.map((item, index) => (
-              <MenuItem value={item}>{item}</MenuItem>
+              <MenuItem value={item} key={item}>
+                {item}
+              </MenuItem>
             ))}
           </Select>
         ) : (
           <input
             className={[
               classes.input,
-              otherProps.disabled ? classes.disabled : '',
-              error ? classes.error : ''
+              otherProps.disabled ? classes.disabled : ''
             ].join(' ')}
             id="input"
             placeholder={placholder}
@@ -57,9 +58,10 @@ const CustomInput = ({
       {helperText && (
         <div className={classes.helperTextContainer}>
           <Typography
-            className={[classes.helperText, error ? classes.error : ''].join(
-              ' '
-            )}>
+            className={[
+              classes.helperText,
+              error ? classes.helperTextError : ''
+            ].join(' ')}>
             {helperText}
           </Typography>
         </div>
