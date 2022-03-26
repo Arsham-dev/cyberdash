@@ -121,17 +121,19 @@ const MintFunction = () => {
       )
 
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
-        setisConnect(true)
-        setisLooping(false)
-        setsuccessModalIsOpen(true)
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
-        if (resTx.status === 200)
+        if (resTx.status === 200) {
+          setisConnect(true)
+          setisLooping(false)
+          setsuccessModalIsOpen(true)
+
           return {
             status: 200,
             content: {
               txId: resTx.content.data
             }
           }
+        }
       }
     }
   }
