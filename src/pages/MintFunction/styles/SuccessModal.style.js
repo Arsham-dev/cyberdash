@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold'
   },
   linkContainer: {
-    margin: '20px 0',
+    margin: '30px 0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly'
@@ -41,6 +41,23 @@ const useStyles = makeStyles((theme) => ({
   linkValue: {
     fontSize: 25,
     color: 'rgb(65, 211, 121)'
+  },
+  buttonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 'auto',
+    width: '50%',
+    marginBottom: 15,
+    [theme.breakpoints.down('sm')]: {
+      width: '95%'
+    }
+  },
+  button: {
+    backgroundColor: 'rgb(240,30,30)',
+    '&:hover': {
+      backgroundColor: 'rgba(240,30,30,0.5) !important'
+    }
   }
 }))
 export default useStyles
