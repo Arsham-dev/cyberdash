@@ -66,7 +66,6 @@ const MintFunction = () => {
       gasLimit
     )
     setMinimumEther(resCalculate)
-    // return resCalculate
   }
 
   const I_UNDERSTAND_CLICK_EVENT = async () => {
