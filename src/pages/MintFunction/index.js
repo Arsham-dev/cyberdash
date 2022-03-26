@@ -246,7 +246,7 @@ const MintFunction = () => {
                           <CustomInput
                             key={item.internalType + item.name}
                             label={item.name}
-                            type="number"
+                            // type="number"
                             name={`temp[${index}]`}
                             value={values.temp[index]}
                             error={
@@ -313,7 +313,7 @@ const MintFunction = () => {
                           <CustomInput
                             key={item.internalType + item.name}
                             label={item.name}
-                            type="number"
+                            // type="number"
                             name={`args[${index}]`}
                             value={values.args[index]}
                             error={
