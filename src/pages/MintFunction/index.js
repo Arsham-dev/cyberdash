@@ -316,39 +316,43 @@ const MintFunction = () => {
                     }
                     toolTip={toolTipMessage}
                   />
-                  {mintAbi?.allMintFunctions
-                    .find((item) => item.name === values.mintFunction)
-                    ?.inputs.map((item, index) => {
-                      return (
-                        <CustomInput
-                          key={item.name}
-                          label={item.name}
-                          id={item.name}
-                          type="number"
-                          name={`args[${index}]`}
-                          value={values.args[index]}
-                          error={
-                            touched.args &&
-                            touched.args[index] &&
-                            errors.args &&
-                            Boolean(errors.args[index])
-                          }
-                          helperText={
-                            touched.args &&
-                            touched.args[index] &&
-                            errors.args &&
-                            errors.args[index]
-                              ? errors.args[index]
-                              : ''
-                          }
-                          onBlur={handleBlur}
-                          disabled={isLooping}
-                          onChange={(event) => {
-                            setFieldValue(`args[${index}]`, event.target.value)
-                          }}
-                        />
-                      )
-                    })}
+                  {values.mintFunction &&
+                    mintAbi?.allMintFunctions
+                      .find((item) => item.name === values.mintFunction)
+                      ?.inputs.map((item, index) => {
+                        return (
+                          <CustomInput
+                            key={item.name}
+                            label={item.name}
+                            id={item.name}
+                            type="number"
+                            name={`args[${index}]`}
+                            value={values.args[index]}
+                            error={
+                              touched.args &&
+                              touched.args[index] &&
+                              errors.args &&
+                              Boolean(errors.args[index])
+                            }
+                            helperText={
+                              touched.args &&
+                              touched.args[index] &&
+                              errors.args &&
+                              errors.args[index]
+                                ? errors.args[index]
+                                : ''
+                            }
+                            onBlur={handleBlur}
+                            disabled={isLooping}
+                            onChange={(event) => {
+                              setFieldValue(
+                                `args[${index}]`,
+                                event.target.value
+                              )
+                            }}
+                          />
+                        )
+                      })}
                   <CustomInput
                     label="Value"
                     type="number"
