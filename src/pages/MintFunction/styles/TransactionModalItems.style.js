@@ -12,7 +12,8 @@ const useStlyes = makeStyles(() => ({
     color: '#fff'
   },
   label: {
-    color: '#D1D1D1'
+    color: '#D1D1D1',
+    textTransform: 'capitalize'
   }
 }))
 export default useStlyes

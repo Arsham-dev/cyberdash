@@ -10,6 +10,7 @@ import { Form, Formik } from 'formik'
 
 import { MetaMask } from '../../libs/wallets'
 import mintFunctionValidation from './validation'
+import SuccessModal from './SuccessModal'
 
 const toolTipMessage =
   'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
@@ -21,6 +22,7 @@ const MintFunction = () => {
   }, [])
 
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
+  const [successModalIsOpen, setsuccessModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
   const [isConnect, setisConnect] = useState(false)
   const [isSign, setisSign] = useState(false)
@@ -109,6 +111,7 @@ const MintFunction = () => {
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         setisConnect(true)
         setisLooping(false)
+        setsuccessModalIsOpen(true)
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
         if (resTx.status === 200)
           return {
@@ -458,6 +461,10 @@ const MintFunction = () => {
         onClose={() => settransactionModalIsOpen(false)}
         data={data}
         onClickFunction={I_UNDERSTAND_CLICK_EVENT}
+      />
+      <SuccessModal
+        isOpen={successModalIsOpen}
+        onClose={() => setsuccessModalIsOpen(false)}
       />
     </>
   )
