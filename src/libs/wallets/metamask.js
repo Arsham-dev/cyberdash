@@ -189,7 +189,7 @@ class MetaMask {
         if (resEstimateGas.status === 400) return resEstimateGas
       }
 
-      const nonce = await web3.eth.getTransactionCount(address)
+      const nonce = await web3.eth.getTransactionCount(address, 'pending')
 
       const tx = {
         nonce: nonce,
