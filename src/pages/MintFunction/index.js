@@ -21,8 +21,6 @@ const MintFunction = () => {
   }, [])
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
-  const [selectedFlaqApi, setselectedFlaqApi] = useState(undefined)
-  const [selectedMintAbi, setselectedMintAbi] = useState(undefined)
   const [isConnect, setisConnect] = useState(false)
   const stopWhileRef = useRef()
 
@@ -83,7 +81,9 @@ const MintFunction = () => {
       await delay(1000)
 
       const resCheckFlag = await metaMask.checkFlag(
-        flagAbi.defaultFlagFunction[selectedFlaqApi],
+        flagAbi.allFlagFunctions.find(
+          (item) => item.name === data.flagFunction
+        ),
         data.contractAddress
       )
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
@@ -115,14 +115,6 @@ const MintFunction = () => {
       history.replace('/contract')
     } else {
       setdata({ ...data, contractAddress })
-      setselectedMintAbi()
-      setselectedFlaqApi(
-        !!flagAbi.defaultFlagFunction
-          ? flagAbi.allFlagFunctions.findIndex(
-              (item) => item.name === flagAbi.defaultFlagFunction.name
-            )
-          : undefined
-      )
     }
   }, [])
   const classes = useStyles()
