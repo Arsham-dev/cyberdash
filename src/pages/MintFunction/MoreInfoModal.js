@@ -30,7 +30,7 @@ const MoreInfoModal = ({ isOpen, onClose }) => {
           </div>
           <div className={classes.buttonContainer}>
             <CustomButton
-              title="Close"
+              title="Got it"
               onClick={onClose}
               className={classes.button}
             />

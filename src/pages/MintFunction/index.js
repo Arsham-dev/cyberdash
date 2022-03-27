@@ -14,8 +14,15 @@ import SuccessModal from './SuccessModal'
 import FailedModal from './FailedModal'
 import MoreInfoModal from './MoreInfoModal'
 
-const toolTipMessage =
-  'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
+const toolTipMessage = {
+  gasLimit: `Gas limit is the maximum amount of gas you wish to spend on a transaction. Normally, for minting an NFT, you need between 100000 to 150000 but for hyped projects, you should increase that. Something between 200000 and 350000 would suffice in 99% of the time. Note that you only pay the gas necessary for a transaction and if you enter higher than needed, it’s not deducted from your account, however, you need enough money in your account to cover the fee you enter.`,
+  maxFee: `This is the maximum gas fee you pay for your transaction to be accepted by miners. In a normal mint event, you can only enter the gas fee shown above, however, in a hyped project mint you need to pay higher gas fees in order to secure your transaction. In general, 2 to 3 times would be enough in this situation. Note that you only pay the gas necessary for a transaction and if you enter higher than needed, it’s not deducted from your account, however, you need enough money in your account to cover the fee you enter.`,
+  maxPriorityFee: `It’s an 'optional' additional fee that is paid directly to miners in order to incentivize them to include your transaction in a block. Normally, you can enter '2' for this but if you enter higher numbers the changes on the fee is nominal. We haven’t seen any tangible difference in accepting transactions by miners when adding higher tips.`,
+  value: `Enter mint price. Note that if you mint more than 1 piece, enter the total value of all pieces. For example, if mint price is 0.08 eth and you want to mint 3 NFTs, enter 0.24`,
+  flag: `This is the function in the contract that when it’s turned on, the bot starts minting process. If you don’t know which one the function is, just select main flag. The bot automatically finds the relevant function and mints as soon as it’s flipped from off to on.`,
+  mint: `Select the relevant mint function; Whitelist, public sale, etc.`
+}
+
 const MintFunction = () => {
   const [provider, setProvider] = useState({})
 
@@ -418,7 +425,7 @@ const MintFunction = () => {
                         .filter((item) => item.name)
                         .map((item) => item.name) || []
                     }
-                    toolTip={toolTipMessage}
+                    toolTip={toolTipMessage.flag}
                   />
                   {values.flagFunction &&
                     flagAbi?.allFlagFunctions
@@ -490,7 +497,7 @@ const MintFunction = () => {
                         .filter((item) => item.name)
                         .map((item) => item.name) || []
                     }
-                    toolTip={toolTipMessage}
+                    toolTip={toolTipMessage.mint}
                   />
                   {values.mintFunction &&
                     mintAbi?.allMintFunctions
@@ -542,7 +549,7 @@ const MintFunction = () => {
                     onChange={(event) => {
                       setFieldValue('value', event.target.value)
                     }}
-                    toolTip={toolTipMessage}
+                    toolTip={toolTipMessage.value}
                   />
                   <CustomInput
                     name="maxFeePerGas"
@@ -558,7 +565,7 @@ const MintFunction = () => {
                     onChange={(event) => {
                       setFieldValue('maxFeePerGas', event.target.value)
                     }}
-                    toolTip={toolTipMessage}
+                    toolTip={toolTipMessage.maxFee}
                   />
                   <CustomInput
                     label="Max Priority Fee Per Gas"
@@ -580,7 +587,7 @@ const MintFunction = () => {
                       setFieldValue('maxPriorityFeePerGas', event.target.value)
                     }}
                     type="number"
-                    toolTip={toolTipMessage}
+                    toolTip={toolTipMessage.maxPriorityFee}
                   />
                   <CustomInput
                     label="Gas Limit"
@@ -596,7 +603,7 @@ const MintFunction = () => {
                     onChange={(event) => {
                       setFieldValue('gasLimit', event.target.value)
                     }}
-                    toolTip={toolTipMessage}
+                    toolTip={toolTipMessage.gasLimit}
                   />
                 </div>
                 {
@@ -624,11 +631,7 @@ const MintFunction = () => {
                   <CustomButton
                     className={isLooping ? classes.cancelButton : ''}
                     title={
-                      isLooping
-                        ? 'Cancel'
-                        : isSign
-                        ? 'Confirm TX'
-                        : 'Pre-Sign TX'
+                      isLooping ? 'Cancel' : isSign ? 'Sign Tx' : 'Pre-Sign Tx'
                     }
                     type="submit"
                   />

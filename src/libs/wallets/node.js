@@ -45,10 +45,10 @@ class Node {
         }
       }
       // alert('can not find your Contract')
-      return { error: 'can not find your Contract' }
+      return { error: 'The contract isn’t correct, check the address again' }
     } catch (e) {
       console.log(e)
-      return { error: 'can not find your Contract' }
+      return { error: 'The contract isn’t correct, check the address again' }
     }
   }
 

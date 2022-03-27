@@ -52,7 +52,7 @@ const ResponsiveAppBar = () => {
           type: 'error'
         })
       } else {
-        toast('Connected Successfully', { type: 'success' })
+        toast('Wallet is connected', { type: 'success' })
         setwallet(item.content.address)
 
         sessionStorage.setItem('key', item.content.address)

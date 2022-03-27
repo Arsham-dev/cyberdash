@@ -34,10 +34,9 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
           </div>
           <div className={classes.descriptionContainer}>
             <Typography className={classes.description}>
-              The Nansen NFT indexes present a reliable way of navigating the
-              NFT markets. This update raises the bar for quality financial
-              infrastructure that supports the growing depth of the NFT
-              industry.
+              By signing this transaction you authorize Cyber Dash to send this
+              transaction to mint automatically from the contract you entered
+              when your selected flag is flipped.
             </Typography>
           </div>
           <div className={classes.itemContainer}>

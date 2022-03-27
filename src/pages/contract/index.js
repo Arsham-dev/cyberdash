@@ -17,7 +17,7 @@ const Contract = () => {
     if (sessionStorage.getItem('key')) {
       node.checkContract(contractAddress).then((data) => {
         if (!data.error) {
-          toast('Contract load successfully', { type: 'success' })
+          toast('Contract loaded successfully', { type: 'success' })
           history.push({
             pathname: '/mint-function',
             state: {
@@ -26,7 +26,7 @@ const Contract = () => {
                 defaultFlagFunction: data.flagAbi.defaultFlagFunction,
                 allFlagFunctions: [
                   {
-                    name: 'Main function',
+                    name: 'Main Flag',
                     isMainFlag: true,
                     inputs: []
                     // should have another value
