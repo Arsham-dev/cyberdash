@@ -49,7 +49,7 @@ const TransactionModal = ({
             {data.flagFunction &&
               data.flagInputs.map((item, index) => (
                 <TransactionModalItems
-                  lable={`${item}:`}
+                  lable={`Froffies(${item}):`}
                   value={data.flagArgs[index]}
                   key={item}
                 />
