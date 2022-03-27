@@ -72,10 +72,8 @@ class Node {
       for (let i = 0; i < abi.length; i++) {
         try {
           if (
-            abi[i].inputs.length < 1 &&
-            abi[i].outputs[0].internalType === 'bool' &&
+            abi[i].inputs.length === 0 &&
             abi[i].outputs[0].name === '' &&
-            abi[i].outputs[0].type === 'bool' &&
             abi[i].stateMutability === 'view'
           ) {
             if (String(abi[i].name).toLowerCase().includes(CONTINUE_FILTER)) {
