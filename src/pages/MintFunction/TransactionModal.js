@@ -26,7 +26,6 @@ const TransactionModal = ({
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
-  // console.log(data.flagInputs)
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">
@@ -50,7 +49,7 @@ const TransactionModal = ({
             {data.flagFunction &&
               data.flagInputs.map((item, index) => (
                 <TransactionModalItems
-                  lable={`${item || `Flag input ${index + 1}`}:`}
+                  lable={`${item}:`}
                   value={data.flagArgs[index]}
                   key={item}
                 />

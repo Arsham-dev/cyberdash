@@ -313,7 +313,6 @@ const MintFunction = () => {
       setisLooping(false)
       stopWhileRef.current = true
     } else {
-      console.log(values.flagArgs)
       settransactionModalIsOpen(true)
       setdata({ ...data, ...values })
     }
@@ -344,8 +343,6 @@ const MintFunction = () => {
           isSubmitting,
           handleChange
         }) => {
-          console.log(values.flagArgs)
-
           return (
             <Form>
               <div className={classes.root}>
@@ -423,7 +420,7 @@ const MintFunction = () => {
                         'flagInputs',
                         flagAbi?.allFlagFunctions
                           .find((item) => item.name === event.target.value)
-                          ?.outputs.map((item) => item.name)
+                          ?.outputs.map((item) => item.name || item.type)
                       )
                       // handleChange(event)
                     }}
