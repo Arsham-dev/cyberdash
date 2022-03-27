@@ -440,7 +440,7 @@ const MintFunction = () => {
                         return (
                           <CustomInput
                             key={item.internalType + item.name}
-                            label={item.name}
+                            label={item.name || item.type}
                             // type="number"
                             id={`flagArgs[${index}]`}
                             name={`flagArgs[${index}]`}
