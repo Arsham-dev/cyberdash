@@ -19,10 +19,7 @@ const Features = ({ title, content }) => {
         {/* <Typography className={classes.title} gutterBottom variant="h5">
           {title}
         </Typography> */}
-        <Typography
-          className={classes.content}
-          variant="body2"
-          color="secondary">
+        <Typography className={classes.content} color="secondary">
           {content}
         </Typography>
       </div>
