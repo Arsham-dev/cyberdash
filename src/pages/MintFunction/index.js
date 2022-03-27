@@ -12,6 +12,7 @@ import { MetaMask } from '../../libs/wallets'
 import mintFunctionValidation from './validation'
 import SuccessModal from './SuccessModal'
 import { toast } from 'react-toastify'
+import FailedModal from './FailedModal'
 
 const toolTipMessage =
   'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
@@ -24,11 +25,13 @@ const MintFunction = () => {
 
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [successModalIsOpen, setsuccessModalIsOpen] = useState(false)
+  const [failedModalIsOpen, setFailedModalIsOpen] = useState(true)
   const [isLooping, setisLooping] = useState(false)
   const [isConnect, setisConnect] = useState(false)
   const [isSign, setisSign] = useState(false)
   const [MinimumEther, setMinimumEther] = useState('')
   const [sucessfullModaAddress, setsucessfullModaAddress] = useState('')
+  const [failedModalMessage, setfailedModalMessage] = useState('')
   const stopWhileRef = useRef()
 
   const [data, setdata] = useState({})
@@ -124,7 +127,6 @@ const MintFunction = () => {
 
       if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
         const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
-        // console.log(resTx)
         if (resTx.status === 200) {
           setisConnect(true)
           setisLooping(false)
@@ -138,7 +140,8 @@ const MintFunction = () => {
           }
         } else if (resTx.status === 400) {
           setisLooping(false)
-          toast(resTx.content.message, { type: 'error' })
+          // toast(resTx.content.message, { type: 'error' })
+          setfailedModalMessage(resTx.content.message)
           return {
             status: 400,
             content: {
@@ -348,8 +351,8 @@ const MintFunction = () => {
                           <CustomInput
                             key={item.name}
                             label={item.name}
-                            id={item.name}
-                            type="number"
+                            id={`args[${index}]`}
+                            // type="number"
                             name={`args[${index}]`}
                             value={values.args[index]}
                             error={
@@ -496,6 +499,11 @@ const MintFunction = () => {
         isOpen={successModalIsOpen}
         onClose={() => setsuccessModalIsOpen(false)}
         data={sucessfullModaAddress}
+      />
+      <FailedModal
+        isOpen={failedModalIsOpen}
+        onClose={() => setFailedModalIsOpen(false)}
+        message={failedModalMessage}
       />
     </>
   )

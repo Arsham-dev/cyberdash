@@ -18,7 +18,6 @@ const Contract = () => {
       node.checkContract(contractAddress).then((data) => {
         if (!data.error) {
           toast('Contract load successfully', { type: 'success' })
-          console.log(data.flagAbi.allFlagFunctions)
           history.push({
             pathname: '/mint-function',
             state: {

@@ -41,6 +41,7 @@ const CustomInput = ({
             ].join(' ')}
             id="input"
             placeholder={placholder}
+            onWheel={(event) => event.currentTarget.blur()}
             {...otherProps}
           />
         )}
