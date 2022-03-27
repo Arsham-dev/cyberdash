@@ -15,7 +15,13 @@ import { toast } from 'react-toastify'
 import useStyles from './styles/TransactionModal.styles'
 import TransactionModalItems from './TransactionModalItems'
 
-const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
+const TransactionModal = ({
+  isOpen,
+  onClose,
+  data,
+  onClickFunction,
+  isSign
+}) => {
   const [isLoading, setisLoading] = useState(false)
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -26,7 +32,7 @@ const TransactionModal = ({ isOpen, onClose, data, onClickFunction }) => {
         <Paper className={classes.modal}>
           <div className={classes.titleContainer}>
             <Typography className={classes.title}>
-              Pre-sign Transaction
+              {`${isSign ? 'Sign' : 'Pre-sign'} Transaction`}
             </Typography>
             <IconButton size="medium" onClick={onClose}>
               <CloseIcon className={classes.closeButton} />

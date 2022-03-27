@@ -646,6 +646,7 @@ const MintFunction = () => {
         onClose={() => settransactionModalIsOpen(false)}
         data={data}
         onClickFunction={isSign ? SIGN_CLICK : I_UNDERSTAND_CLICK_EVENT}
+        isSign={isSign}
       />
       <SuccessModal
         isOpen={successModalIsOpen}
