@@ -61,14 +61,7 @@ class MetaMask {
     return rounding
   }
 
-  estimateGas = async (
-    fromAddress,
-    contractAddress,
-    value,
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-    data
-  ) => {
+  estimateGas = async (fromAddress, contractAddress) => {
     try {
       const web3 = new Web3(this.web3Endpoint)
       const gasEstimate = await web3.eth.estimateGas({
@@ -76,8 +69,7 @@ class MetaMask {
         to: contractAddress,
         value: Number(0),
         maxFeePerGas: Number(0),
-        maxPriorityFeePerGas: Number(0),
-        data: data
+        maxPriorityFeePerGas: Number(0)
       })
 
       if (String(gasEstimate).toLowerCase().includes('revert'))
@@ -85,11 +77,16 @@ class MetaMask {
 
       return { status: 200, content: { result: true } }
     } catch (e) {
+      console.log(e.message)
+      if (String(e.message).toLowerCase().includes('supply')) {
+        return {
+          status: 400,
+          content: { message: e.message }
+        }
+      }
       if (String(e.message).toLowerCase().includes('revert')) {
-        console.log('asdd')
         return { status: 200, content: { result: false } }
       }
-
       return {
         status: 400,
         content: { message: e.message }
@@ -180,14 +177,7 @@ class MetaMask {
             content: { message: resCheckFlag.content.message }
           }
       } else {
-        const resEstimateGas = await this.estimateGas(
-          address,
-          contractAddress,
-          value,
-          maxFee,
-          maxPriorityFee,
-          data
-        )
+        const resEstimateGas = await this.estimateGas(address, contractAddress)
         if (resEstimateGas.status === 400) return resEstimateGas
       }
 
@@ -263,6 +253,50 @@ class MetaMask {
         status: 400,
         content: { message: e.message }
       }
+    }
+  }
+  sendTx = async (
+    fromAddress,
+    value,
+    gasLimit,
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+    contractAddress,
+    mintAbi,
+    args
+  ) => {
+    try {
+      const web3 = new Web3(this.web3Endpoint)
+
+      const data = AbiCoder.encodeFunctionCall(mintAbi, args)
+
+      const transactionParameters = {
+        from: fromAddress,
+        to: contractAddress,
+        value: web3.utils.toHex(
+          web3.utils.toWei(Number(value).toString(), 'ether')
+        ),
+        maxPriorityFeePerGas: web3.utils.numberToHex(
+          web3.utils.toWei(maxPriorityFeePerGas, 'gwei')
+        ),
+        maxFeePerGas: web3.utils.numberToHex(
+          web3.utils.toWei(maxFeePerGas, 'gwei')
+        ),
+        gasLimit: gasLimit,
+        data: data
+      }
+
+      const resTx = await this.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters]
+      })
+
+      console.log(resTx)
+
+      return { status: 200, content: { data: resTx } }
+    } catch (e) {
+      console.log(e)
+      return { status: 400, content: { message: e.message } }
     }
   }
 }

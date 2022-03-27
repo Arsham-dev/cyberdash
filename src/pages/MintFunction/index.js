@@ -11,6 +11,7 @@ import { Form, Formik } from 'formik'
 import { MetaMask } from '../../libs/wallets'
 import mintFunctionValidation from './validation'
 import SuccessModal from './SuccessModal'
+import { toast } from 'react-toastify'
 
 const toolTipMessage =
   'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
@@ -27,10 +28,10 @@ const MintFunction = () => {
   const [isConnect, setisConnect] = useState(false)
   const [isSign, setisSign] = useState(false)
   const [MinimumEther, setMinimumEther] = useState('')
+  const [sucessfullModaAddress, setsucessfullModaAddress] = useState('')
   const stopWhileRef = useRef()
 
   const [data, setdata] = useState({})
-  const [fromAddress, setFromAddress] = useState()
 
   const location = useLocation()
   const flagAbi = location?.state?.flagAbi
@@ -73,12 +74,87 @@ const MintFunction = () => {
     setMinimumEther(resCalculate)
   }
 
+  const checkValidateMintInputs = (mintAbi, inputsData) => {
+    try {
+      let mintInputsType = []
+
+      for (let i = 0; i < mintAbi.inputs.length; i++) {
+        mintInputsType.push(mintAbi.inputs[i].type)
+      }
+
+      if (mintInputsType.length !== inputsData.length)
+        return {
+          status: 400,
+          content: { message: 'Invalid Inputs Item Length' }
+        }
+
+      for (let k = 0; k < mintInputsType.length; k++) {
+        if (String(mintInputsType[k]).toLowerCase().includes('bool')) {
+          if (
+            inputsData[k].toLowerCase() == 'false' ||
+            inputsData[k].toLowerCase() == true
+          )
+            inputsData[k] = Boolean(inputsData[k])
+          else
+            return {
+              status: 400,
+              content: { message: 'Invalid Type of Boolean' }
+            }
+        }
+        if (String(mintInputsType[k]).toLowerCase().includes('int')) {
+          if (String(inputsData[k]).match(/^[0-9]+$/) == null)
+            return {
+              status: 400,
+              content: { message: 'Invalid Type uint256' }
+            }
+
+          inputsData[k] = parseInt(inputsData[k])
+        }
+        if (String(mintInputsType[k]).toLowerCase().includes('byte')) {
+          inputsData[k] = String(inputsData[k])
+        }
+      }
+
+      return {
+        status: 200,
+        content: { inputData: inputsData }
+      }
+    } catch (e) {
+      return {
+        status: 400,
+        content: { message: e.message }
+      }
+    }
+  }
+
+  const SIGN_CLICK = async () => {
+    const resMetaMask = await metaMask.onClickConnect()
+    if (resMetaMask.status === 400) return resMetaMask
+
+    const serializeMintInputsData = checkValidateMintInputs(
+      mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
+      data.args
+    )
+
+    if (serializeMintInputsData.status == 400) return serializeMintInputsData
+
+    settransactionModalIsOpen(false)
+    setisLooping(true)
+    LOOP_FOR_LOADING('send', serializeMintInputsData.content.inputData)
+  }
+
   const I_UNDERSTAND_CLICK_EVENT = async () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
+    const serializeMintInputsData = checkValidateMintInputs(
+      mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
+      data.args
+    )
+
+    if (serializeMintInputsData.status == 400) return serializeMintInputsData
+
     const etherAddress = resMetaMask.content.address
-    setFromAddress(etherAddress)
 
     const resSignTx = await metaMask.signTx(
       etherAddress,
@@ -89,25 +165,27 @@ const MintFunction = () => {
       data.contractAddress,
       mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
       flagAbi.allFlagFunctions.find((item) => item.name === data.flagFunction),
-      data.args
-      // ,
-      // isSign
+      serializeMintInputsData.content.inputData
     )
 
     if (resSignTx.status === 400) return resSignTx
     settransactionModalIsOpen(false)
     setisLooping(true)
-    LOOP_FOR_LOADING(resSignTx.content.rawTx)
+    LOOP_FOR_LOADING(
+      resSignTx.content.rawTx,
+      serializeMintInputsData.content.inputData
+    )
   }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-  const LOOP_FOR_LOADING = async (signedRawTx) => {
+  const LOOP_FOR_LOADING = async (signedRawTx, serializeMintInputs) => {
     try {
       while (true) {
         if (stopWhileRef.current) break
 
         await delay(1000)
+        let mainAddress = sessionStorage.getItem('key')
 
         const selectedFlagAbiFunction = flagAbi.allFlagFunctions.find(
           (item) => item.name === data.flagFunction
@@ -124,53 +202,82 @@ const MintFunction = () => {
           )
 
           if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
-            const resTx = await metaMask.flashbotSendSignedTx(
-              signedRawTx,
-              false
-            )
+            let resTx
+            if (signedRawTx == 'send') {
+              resTx = await metaMask.sendTx(
+                mainAddress,
+                parseFloat(data.value),
+                parseInt(data.gasLimit),
+                parseInt(data.maxFeePerGas),
+                parseInt(data.maxPriorityFeePerGas),
+                data.contractAddress,
+                mintAbi.allMintFunctions.find(
+                  (item) => item.name === data.mintFunction
+                ),
+                serializeMintInputs
+              )
+            } else {
+              resTx = await metaMask.flashbotSendSignedTx(signedRawTx, false)
+            }
+
             if (resTx.status === 200) {
               setisConnect(true)
               setisLooping(false)
               setsuccessModalIsOpen(true)
-
+              setsucessfullModaAddress(resTx.content.data)
               return {
                 status: 200,
                 content: {
                   txId: resTx.content.data
                 }
               }
+            } else if (resTx.status === 400) {
+              setisLooping(false)
+              toast(resTx.content.message, { type: 'error' })
+              return {
+                status: 400,
+                content: {
+                  message: resTx.content.message
+                }
+              }
             }
           }
         } else {
-          console.log('Main Flag')
-
-          console.log(fromAddress)
-
           const resCheckEstimateGas = await metaMask.estimateGas(
-            fromAddress,
-            data.contractAddress,
-            parseFloat(data.value),
-            parseInt(data.gasLimit),
-            parseInt(data.maxFeePerGas),
-            parseInt(data.maxPriorityFeePerGas)
+            mainAddress,
+            data.contractAddress
           )
-
-          console.log(resCheckEstimateGas)
 
           if (
             resCheckEstimateGas.status == 200 &&
             resCheckEstimateGas.content?.result == true
           ) {
-            const resSentTx = await metaMask.flashbotSendSignedTx(
-              signedRawTx,
-              false
-            )
+            let resSentTx
+            if (signedRawTx == 'send') {
+              resSentTx = await metaMask.sendTx(
+                mainAddress,
+                parseFloat(data.value),
+                parseInt(data.gasLimit),
+                parseInt(data.maxFeePerGas),
+                parseInt(data.maxPriorityFeePerGas),
+                data.contractAddress,
+                mintAbi.allMintFunctions.find(
+                  (item) => item.name === data.mintFunction
+                ),
+                serializeMintInputs
+              )
+            } else {
+              resSentTx = await metaMask.flashbotSendSignedTx(
+                signedRawTx,
+                false
+              )
+            }
 
             if (resSentTx.status === 200) {
               setisConnect(true)
               setisLooping(false)
               setsuccessModalIsOpen(true)
-
+              setsucessfullModaAddress(resSentTx.content.data)
               return {
                 status: 200,
                 content: {
@@ -532,6 +639,7 @@ const MintFunction = () => {
       <SuccessModal
         isOpen={successModalIsOpen}
         onClose={() => setsuccessModalIsOpen(false)}
+        data={sucessfullModaAddress}
       />
     </>
   )
