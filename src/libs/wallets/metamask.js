@@ -48,46 +48,48 @@ class MetaMask {
     maxPriorityFeePerGas,
     gasLimit
   ) => {
-    return toFixed(
+    const etherValue = toFixed(
       parseInt(gasLimit) * parseFloat(maxFeePerGas / 1e9) +
         parseFloat(maxPriorityFeePerGas / 1e9) +
         parseFloat(value)
     )
+
+    const rounding = parseFloat(
+      parseFloat(String(etherValue)).toFixed(3).replace(/0+$/, '') + 0.001
+    )
+
+    return rounding
   }
 
-  estimateGas = async (
-    fromAddress,
-    contractAddress,
-    value,
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-    data
-  ) => {
+  estimateGas = async (fromAddress, contractAddress) => {
     try {
-      console.log(maxFeePerGas)
-      console.log(maxPriorityFeePerGas)
-
       const web3 = new Web3(this.web3Endpoint)
       const gasEstimate = await web3.eth.estimateGas({
         from: fromAddress,
         to: contractAddress,
-        value: Number(value),
-        maxFeePerGas: Number(maxFeePerGas),
-        maxPriorityFeePerGas: Number(maxPriorityFeePerGas),
-        data: data
+        value: Number(0),
+        maxFeePerGas: Number(0),
+        maxPriorityFeePerGas: Number(0)
       })
 
-      if (String(gasEstimate).includes('revert'))
+      if (String(gasEstimate).toLowerCase().includes('revert'))
         return { status: 200, content: { result: false } }
 
-      console.log(gasEstimate)
       return { status: 200, content: { result: true } }
     } catch (e) {
-      console.log(e)
-      // return { status: 200, content: { result: true } }
+      console.log(e.message)
+      if (String(e.message).toLowerCase().includes('supply')) {
+        return {
+          status: 400,
+          content: { message: e.message }
+        }
+      }
+      if (String(e.message).toLowerCase().includes('revert')) {
+        return { status: 200, content: { result: false } }
+      }
       return {
         status: 400,
-        content: { message: `RAF INJA DG => ${e.message}` }
+        content: { message: e.message }
       }
     }
   }
@@ -167,7 +169,6 @@ class MetaMask {
             }
           }
 
-        console.log('raf')
         const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
 
         if (resCheckFlag.status === 400)
@@ -176,15 +177,7 @@ class MetaMask {
             content: { message: resCheckFlag.content.message }
           }
       } else {
-        console.log('raft to main Flag')
-        const resEstimateGas = await this.estimateGas(
-          address,
-          contractAddress,
-          value,
-          maxFee,
-          maxPriorityFee,
-          data
-        )
+        const resEstimateGas = await this.estimateGas(address, contractAddress)
         if (resEstimateGas.status === 400) return resEstimateGas
       }
 
@@ -260,6 +253,50 @@ class MetaMask {
         status: 400,
         content: { message: e.message }
       }
+    }
+  }
+  sendTx = async (
+    fromAddress,
+    value,
+    gasLimit,
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+    contractAddress,
+    mintAbi,
+    args
+  ) => {
+    try {
+      const web3 = new Web3(this.web3Endpoint)
+
+      const data = AbiCoder.encodeFunctionCall(mintAbi, args)
+
+      const transactionParameters = {
+        from: fromAddress,
+        to: contractAddress,
+        value: web3.utils.toHex(
+          web3.utils.toWei(Number(value).toString(), 'ether')
+        ),
+        maxPriorityFeePerGas: web3.utils.numberToHex(
+          web3.utils.toWei(maxPriorityFeePerGas, 'gwei')
+        ),
+        maxFeePerGas: web3.utils.numberToHex(
+          web3.utils.toWei(maxFeePerGas, 'gwei')
+        ),
+        gasLimit: gasLimit,
+        data: data
+      }
+
+      const resTx = await this.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters]
+      })
+
+      console.log(resTx)
+
+      return { status: 200, content: { data: resTx } }
+    } catch (e) {
+      console.log(e)
+      return { status: 400, content: { message: e.message } }
     }
   }
 }
