@@ -11,7 +11,7 @@ const MoreInfoModal = ({ isOpen, onClose }) => {
         <Paper className={classes.modal}>
           <div className={classes.titleContainer}>
             <div />
-            <Typography className={classes.title}>Note!</Typography>
+            <Typography className={classes.title}>Attention!</Typography>
             <div className={classes.closeButtonRoot}>
               <IconButton
                 size="medium"
