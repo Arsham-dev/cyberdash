@@ -25,7 +25,7 @@ const MintFunction = () => {
 
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [successModalIsOpen, setsuccessModalIsOpen] = useState(false)
-  const [failedModalIsOpen, setFailedModalIsOpen] = useState(true)
+  const [failedModalIsOpen, setFailedModalIsOpen] = useState(false)
   const [moreInfoModalIsOpen, setMoreInfoModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
   const [isConnect, setisConnect] = useState(false)
@@ -144,6 +144,7 @@ const MintFunction = () => {
 
     settransactionModalIsOpen(false)
     setisLooping(true)
+    setMoreInfoModalIsOpen(true)
     LOOP_FOR_LOADING('send', serializeMintInputsData.content.inputData)
   }
 
@@ -641,7 +642,7 @@ const MintFunction = () => {
         isOpen={transactionModalIsOpen}
         onClose={() => settransactionModalIsOpen(false)}
         data={data}
-        onClickFunction={I_UNDERSTAND_CLICK_EVENT}
+        onClickFunction={isSign ? SIGN_CLICK : I_UNDERSTAND_CLICK_EVENT}
       />
       <SuccessModal
         isOpen={successModalIsOpen}
