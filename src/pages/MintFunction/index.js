@@ -30,6 +30,7 @@ const MintFunction = () => {
   const stopWhileRef = useRef()
 
   const [data, setdata] = useState({})
+  const [fromAddress, setFromAddress] = useState()
 
   const location = useLocation()
   const flagAbi = location?.state?.flagAbi
@@ -72,71 +73,119 @@ const MintFunction = () => {
     setMinimumEther(resCalculate)
   }
 
-  const FLAG_FOR_PRE_SIGN_TX = true
-
   const I_UNDERSTAND_CLICK_EVENT = async () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
     const etherAddress = resMetaMask.content.address
+    setFromAddress(etherAddress)
 
-    if (FLAG_FOR_PRE_SIGN_TX) {
-      const resSignTx = await metaMask.signTx(
-        etherAddress,
-        parseFloat(data.value),
-        parseInt(data.gasLimit),
-        parseInt(data.maxFeePerGas),
-        parseInt(data.maxPriorityFeePerGas),
-        data.contractAddress,
-        mintAbi.allMintFunctions.find(
-          (item) => item.name === data.mintFunction
-        ),
-        flagAbi.allFlagFunctions.find(
-          (item) => item.name === data.flagFunction
-        ),
-        data.args
-        // ,
-        // isSign
-      )
+    const resSignTx = await metaMask.signTx(
+      etherAddress,
+      parseFloat(data.value),
+      parseInt(data.gasLimit),
+      parseInt(data.maxFeePerGas),
+      parseInt(data.maxPriorityFeePerGas),
+      data.contractAddress,
+      mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
+      flagAbi.allFlagFunctions.find((item) => item.name === data.flagFunction),
+      data.args
+      // ,
+      // isSign
+    )
 
-      if (resSignTx.status === 400) return resSignTx
-      settransactionModalIsOpen(false)
-      setisLooping(true)
-      LOOP_FOR_LOADING(resSignTx.content.rawTx)
-    }
+    if (resSignTx.status === 400) return resSignTx
+    settransactionModalIsOpen(false)
+    setisLooping(true)
+    LOOP_FOR_LOADING(resSignTx.content.rawTx)
   }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
   const LOOP_FOR_LOADING = async (signedRawTx) => {
-    while (true) {
-      if (stopWhileRef.current) break
-      await delay(1000)
+    try {
+      while (true) {
+        if (stopWhileRef.current) break
 
-      const resCheckFlag = await metaMask.checkFlag(
-        flagAbi.allFlagFunctions.find(
+        await delay(1000)
+
+        const selectedFlagAbiFunction = flagAbi.allFlagFunctions.find(
           (item) => item.name === data.flagFunction
-        ),
-        data.contractAddress
-      )
+        )
 
-      if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
-        const resTx = await metaMask.flashbotSendSignedTx(signedRawTx)
-        if (resTx.status === 200) {
-          setisConnect(true)
-          setisLooping(false)
-          setsuccessModalIsOpen(true)
+        if (
+          !String(selectedFlagAbiFunction.name).toLowerCase().includes('main')
+        ) {
+          const resCheckFlag = await metaMask.checkFlag(
+            flagAbi.allFlagFunctions.find(
+              (item) => item.name === data.flagFunction
+            ),
+            data.contractAddress
+          )
 
-          return {
-            status: 200,
-            content: {
-              txId: resTx.content.data
+          if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
+            const resTx = await metaMask.flashbotSendSignedTx(
+              signedRawTx,
+              false
+            )
+            if (resTx.status === 200) {
+              setisConnect(true)
+              setisLooping(false)
+              setsuccessModalIsOpen(true)
+
+              return {
+                status: 200,
+                content: {
+                  txId: resTx.content.data
+                }
+              }
+            }
+          }
+        } else {
+          console.log('Main Flag')
+
+          console.log(fromAddress)
+
+          const resCheckEstimateGas = await metaMask.estimateGas(
+            fromAddress,
+            data.contractAddress,
+            parseFloat(data.value),
+            parseInt(data.gasLimit),
+            parseInt(data.maxFeePerGas),
+            parseInt(data.maxPriorityFeePerGas)
+          )
+
+          console.log(resCheckEstimateGas)
+
+          if (
+            resCheckEstimateGas.status == 200 &&
+            resCheckEstimateGas.content?.result == true
+          ) {
+            const resSentTx = await metaMask.flashbotSendSignedTx(
+              signedRawTx,
+              false
+            )
+
+            if (resSentTx.status === 200) {
+              setisConnect(true)
+              setisLooping(false)
+              setsuccessModalIsOpen(true)
+
+              return {
+                status: 200,
+                content: {
+                  txId: resSentTx.content.data
+                }
+              }
             }
           }
         }
       }
+    } catch (e) {
+      console.log(e)
     }
   }
+
   const customButtonFunction = (values) => {
     if (isLooping) {
       setisLooping(false)

@@ -35,6 +35,9 @@ class Node {
         const responseABI = responseRawAbi.data
         const mintedAbi = this.#getMintABI(responseABI)
         const flagsAbi = this.#getFlagABI(responseABI)
+
+        console.log(mintedAbi)
+
         // alert(`mint ABI => \n  ${mintedAbi} \n Flags Abi => \n ${flagsAbi}  `)
         return {
           mintAbi: mintedAbi,

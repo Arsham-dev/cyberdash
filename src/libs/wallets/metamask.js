@@ -48,11 +48,17 @@ class MetaMask {
     maxPriorityFeePerGas,
     gasLimit
   ) => {
-    return toFixed(
+    const etherValue = toFixed(
       parseInt(gasLimit) * parseFloat(maxFeePerGas / 1e9) +
         parseFloat(maxPriorityFeePerGas / 1e9) +
         parseFloat(value)
     )
+
+    const rounding = parseFloat(
+      parseFloat(String(etherValue)).toFixed(3).replace(/0+$/, '') + 0.001
+    )
+
+    return rounding
   }
 
   estimateGas = async (
@@ -64,31 +70,29 @@ class MetaMask {
     data
   ) => {
     try {
-      console.log(maxFeePerGas)
-      console.log(maxPriorityFeePerGas)
-
       const web3 = new Web3(this.web3Endpoint)
       const gasEstimate = await web3.eth.estimateGas({
         from: fromAddress,
         to: contractAddress,
-        value: Number(value),
-        maxFeePerGas: Number(maxFeePerGas),
-        maxPriorityFeePerGas: Number(maxPriorityFeePerGas),
+        value: Number(0),
+        maxFeePerGas: Number(0),
+        maxPriorityFeePerGas: Number(0),
         data: data
       })
 
-      if (String(gasEstimate).includes('revert'))
+      if (String(gasEstimate).toLowerCase().includes('revert'))
         return { status: 200, content: { result: false } }
 
-      console.log(gasEstimate)
       return { status: 200, content: { result: true } }
     } catch (e) {
-      console.log(e)
-      return { status: 200, content: { result: true } }
+      if (String(e.message).toLowerCase().includes('revert')) {
+        console.log('asdd')
+        return { status: 200, content: { result: false } }
+      }
 
       return {
         status: 400,
-        content: { message: `RAF INJA DG => ${e.message}` }
+        content: { message: e.message }
       }
     }
   }
@@ -168,7 +172,6 @@ class MetaMask {
             }
           }
 
-        console.log('raf')
         const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
 
         if (resCheckFlag.status === 400)
@@ -177,7 +180,6 @@ class MetaMask {
             content: { message: resCheckFlag.content.message }
           }
       } else {
-        console.log('raft to main Flag')
         const resEstimateGas = await this.estimateGas(
           address,
           contractAddress,
