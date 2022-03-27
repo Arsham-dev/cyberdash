@@ -2,8 +2,8 @@ import * as yup from 'yup'
 const mintFunctionValidation = yup.object().shape({
   flagFunction: yup.string().required('Flag function is required'),
   mintFunction: yup.string().required('Mint function is required'),
-  args: yup.array().of(yup.string().required('This field is required')),
-  temp: yup.array().of(yup.string().required('This field is required')),
+  mintArgs: yup.array().of(yup.string().required('This field is required')),
+  flagArgs: yup.array().of(yup.string().required('This field is required')),
   value: yup.number().required('Value is required'),
   gasLimit: yup
     .number()
