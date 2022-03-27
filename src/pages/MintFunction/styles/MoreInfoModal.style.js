@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 13
   },
   title: {
-    color: 'rgba(50,50,255,1)',
+    color: '#FFF',
     textAlign: 'center',
     fontSize: 40,
     fontWeight: 'bold'

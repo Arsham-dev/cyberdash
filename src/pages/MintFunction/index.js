@@ -151,7 +151,7 @@ const MintFunction = () => {
 
     settransactionModalIsOpen(false)
     setisLooping(true)
-    setMoreInfoModalIsOpen(true)
+    // setMoreInfoModalIsOpen(true)
     LOOP_FOR_LOADING('send', serializeMintInputsData.content.inputData)
   }
 
