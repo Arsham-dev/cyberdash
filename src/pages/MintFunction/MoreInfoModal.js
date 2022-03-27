@@ -1,17 +1,17 @@
 import { IconButton, Modal, Paper, Slide, Typography } from '@material-ui/core'
-import useStyles from './styles/FailedModal.style'
-import CloseIcon from '@material-ui/icons/Close'
 import CustomButton from '../../components/CustomButton'
+import useStyles from './styles/MoreInfoModal.style'
+import CloseIcon from '@material-ui/icons/Close'
 
-const FailedModal = ({ isOpen, onClose, message }) => {
+const MoreInfoModal = ({ isOpen, onClose }) => {
   const classes = useStyles()
   return (
-    <Modal open={isOpen}>
+    <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">
         <Paper className={classes.modal}>
           <div className={classes.titleContainer}>
             <div />
-            <Typography className={classes.title}>Failed</Typography>
+            <Typography className={classes.title}>Info</Typography>
             <div className={classes.closeButtonRoot}>
               <IconButton
                 size="medium"
@@ -22,7 +22,11 @@ const FailedModal = ({ isOpen, onClose, message }) => {
             </div>
           </div>
           <div className={classes.messageContainer}>
-            <Typography className={classes.messageText}>{message}</Typography>
+            <Typography className={classes.messageText}>
+              Note that if you make any transactions before this transaction
+              goes through, this pre-sign will be canceled and you have to sign
+              it again
+            </Typography>
           </div>
           <div className={classes.buttonContainer}>
             <CustomButton
@@ -36,4 +40,4 @@ const FailedModal = ({ isOpen, onClose, message }) => {
     </Modal>
   )
 }
-export default FailedModal
+export default MoreInfoModal

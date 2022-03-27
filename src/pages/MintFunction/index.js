@@ -11,8 +11,8 @@ import { Form, Formik } from 'formik'
 import { MetaMask } from '../../libs/wallets'
 import mintFunctionValidation from './validation'
 import SuccessModal from './SuccessModal'
-import { toast } from 'react-toastify'
 import FailedModal from './FailedModal'
+import MoreInfoModal from './MoreInfoModal'
 
 const toolTipMessage =
   'The Nansen NFT indexes present a reliable way of navigating the NFT markets. This update raises the bar for quality financial infrastructure that supports the growing depth of the NFT industry.'
@@ -26,6 +26,7 @@ const MintFunction = () => {
   const [transactionModalIsOpen, settransactionModalIsOpen] = useState(false)
   const [successModalIsOpen, setsuccessModalIsOpen] = useState(false)
   const [failedModalIsOpen, setFailedModalIsOpen] = useState(true)
+  const [moreInfoModalIsOpen, setMoreInfoModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
   const [isConnect, setisConnect] = useState(false)
   const [isSign, setisSign] = useState(false)
@@ -174,6 +175,7 @@ const MintFunction = () => {
     if (resSignTx.status === 400) return resSignTx
     settransactionModalIsOpen(false)
     setisLooping(true)
+    setMoreInfoModalIsOpen(true)
     LOOP_FOR_LOADING(
       resSignTx.content.rawTx,
       serializeMintInputsData.content.inputData
@@ -650,6 +652,10 @@ const MintFunction = () => {
         isOpen={failedModalIsOpen}
         onClose={() => setFailedModalIsOpen(false)}
         message={failedModalMessage}
+      />
+      <MoreInfoModal
+        isOpen={moreInfoModalIsOpen}
+        onClose={() => setMoreInfoModalIsOpen(false)}
       />
     </>
   )
