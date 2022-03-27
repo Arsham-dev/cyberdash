@@ -32,7 +32,7 @@ const TransactionModal = ({
         <Paper className={classes.modal}>
           <div className={classes.titleContainer}>
             <Typography className={classes.title}>
-              {`${isSign ? 'Sign' : 'Pre-sign'} Transaction`}
+              {`${isSign ? 'Sign' : 'Pre-Sign'} Transaction`}
             </Typography>
             <IconButton size="medium" onClick={onClose}>
               <CloseIcon className={classes.closeButton} />

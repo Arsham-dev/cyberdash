@@ -124,7 +124,8 @@ class MetaMask {
     contractAddress,
     mintAbi,
     flagAbi,
-    args
+    args,
+    flagArgs
   ) => {
     try {
       if (maxFeePerGas <= maxPriorityFeePerGas)
@@ -169,7 +170,11 @@ class MetaMask {
             }
           }
 
-        const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
+        const resCheckFlag = await this.checkFlag(
+          flagAbi,
+          contractAddress,
+          flagArgs
+        )
 
         if (resCheckFlag.status === 400)
           return {
@@ -211,7 +216,7 @@ class MetaMask {
     }
   }
 
-  checkFlag = async (flagAbi, contractAddress) => {
+  checkFlag = async (flagAbi, contractAddress, flagArgs) => {
     try {
       const web3 = new Web3(this.web3Endpoint)
 
@@ -221,7 +226,11 @@ class MetaMask {
       // eslint-disable-next-line no-eval
       result = await eval(`result.${flagAbi.name}().call()`)
 
-      console.log(result)
+      if (flagArgs != null && flagArgs.length > 0) {
+        if (String(result) == String(flagArgs[0]))
+          return { status: 200, content: { result: true } }
+        else return { status: 200, content: { result: false } }
+      }
 
       return { status: 200, content: { result: result } }
     } catch (e) {

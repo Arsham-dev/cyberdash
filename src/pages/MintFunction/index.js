@@ -177,7 +177,8 @@ const MintFunction = () => {
       data.contractAddress,
       mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
       flagAbi.allFlagFunctions.find((item) => item.name === data.flagFunction),
-      serializeMintInputsData.content.inputData
+      serializeMintInputsData.content.inputData,
+      data.flagArgs
     )
 
     if (resSignTx.status === 400) return resSignTx
@@ -211,7 +212,8 @@ const MintFunction = () => {
             flagAbi.allFlagFunctions.find(
               (item) => item.name === data.flagFunction
             ),
-            data.contractAddress
+            data.contractAddress,
+            data.flagArgs
           )
 
           if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
@@ -279,7 +281,8 @@ const MintFunction = () => {
                 mintAbi.allMintFunctions.find(
                   (item) => item.name === data.mintFunction
                 ),
-                serializeMintInputs
+                serializeMintInputs,
+                data.flagArgs
               )
             } else {
               resSentTx = await metaMask.flashbotSendSignedTx(
