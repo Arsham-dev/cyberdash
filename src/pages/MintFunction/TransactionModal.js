@@ -50,7 +50,7 @@ const TransactionModal = ({
               data.flagInputs.map((item, index) => (
                 <TransactionModalItems
                   lable={`Froffies(${item}):`}
-                  value={data.flagArgs[index]}
+                  value={data.flagArgs[index].toString()}
                   key={item}
                 />
               ))}
@@ -58,7 +58,7 @@ const TransactionModal = ({
               data.mintInputs.map((item, index) => (
                 <TransactionModalItems
                   lable={`${item}:`}
-                  value={data.mintArgs[index]}
+                  value={data.mintArgs[index].toString()}
                   key={item}
                 />
               ))}

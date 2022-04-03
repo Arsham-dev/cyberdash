@@ -72,15 +72,23 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null)
   }
   const node = new Node()
+
+  const history = useHistory()
   useEffect(() => {
     setInterval(async () => {
       const response = await node.getGas()
       setgasValue(response)
     }, 10000)
+    setInterval(async () => {
+      const checkAddress = await metaMask.onLoadConnect()
+      // console.log(checkAddress)
+      if (!checkAddress) {
+        sessionStorage.clear()
+        history.push('/')
+      }
+    }, 2000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const history = useHistory()
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 

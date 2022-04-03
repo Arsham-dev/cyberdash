@@ -101,9 +101,9 @@ class MetaMask {
         const accounts = await this.ethereum.request({ method: 'eth_accounts' })
         if (String(accounts).includes('0x')) return true
       }
-      return false
+      return true
     } catch {
-      return false
+      return true
     }
   }
 
@@ -295,15 +295,9 @@ class MetaMask {
     args
   ) => {
     try {
-      console.log('start')
-
       const web3 = new Web3(this.web3Endpoint)
 
       const data = AbiCoder.encodeFunctionCall(mintAbi, args)
-
-      console.log('============= data =============')
-
-      console.log(data)
 
       const transactionParameters = {
         from: fromAddress,
@@ -321,16 +315,10 @@ class MetaMask {
         data: data
       }
 
-      console.log(transactionParameters)
-
-      console.log(this.ethereum)
-
       const resTx = await this.ethereum.request({
         method: 'eth_sendTransaction',
         params: [transactionParameters]
       })
-
-      console.log(resTx)
 
       return { status: 200, content: { data: resTx } }
     } catch (e) {
