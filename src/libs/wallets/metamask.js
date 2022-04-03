@@ -61,19 +61,20 @@ class MetaMask {
     return rounding
   }
 
-  estimateGas = async (fromAddress, contractAddress) => {
+  estimateGas = async (fromAddress, contractAddress, data) => {
     try {
       const web3 = new Web3(this.web3Endpoint)
       const gasEstimate = await web3.eth.estimateGas({
         from: fromAddress,
         to: contractAddress,
         value: Number(0),
+        data: data,
         maxFeePerGas: Number(0),
         maxPriorityFeePerGas: Number(0)
       })
 
       if (String(gasEstimate).toLowerCase().includes('revert'))
-        return { status: 200, content: { result: false } }
+        return { status: 200, content: { result: true } }
 
       return { status: 200, content: { result: true } }
     } catch (e) {
@@ -94,25 +95,41 @@ class MetaMask {
     }
   }
 
-  onClickConnect = async () => {
-    if (this.#isMetaMaskInstalled()) {
-      await this.ethereum.request({ method: 'eth_requestAccounts' })
-      const accounts = await this.ethereum.request({ method: 'eth_accounts' })
-      const ethereumAddress = accounts[0]
-      return { status: 200, content: { address: ethereumAddress } }
-    }
-
-    return {
-      status: 400,
-      content: { message: 'MetaMask Not Found ! \n Please Install MetaMask' }
+  onLoadConnect = async () => {
+    try {
+      if (this.#isMetaMaskInstalled()) {
+        const accounts = await this.ethereum.request({ method: 'eth_accounts' })
+        if (String(accounts).includes('0x')) return true
+      }
+      return false
+    } catch {
+      return false
     }
   }
 
-  onLoadConnect = () => {
-    if (this.#isMetaMaskInstalled()) {
-      return this.ethereum.isConnected()
+  onClickConnect = async () => {
+    try {
+      console.log(await this.onLoadConnect())
+      if (this.#isMetaMaskInstalled()) {
+        await this.ethereum.request({ method: 'eth_requestAccounts' })
+        const accounts = await this.ethereum.request({ method: 'eth_accounts' })
+        const ethereumAddress = accounts[0]
+        return { status: 200, content: { address: ethereumAddress } }
+      }
+      return {
+        status: 400,
+        content: { message: 'MetaMask Not Found ! \n Please Install MetaMask' }
+      }
+    } catch (e) {
+      return {
+        status: 400,
+        content: { message: e.message }
+      }
     }
-    return false
+  }
+
+  encodedMintAbiData = async (mintAbi, args) => {
+    return await AbiCoder.encodeFunctionCall(mintAbi, args)
   }
 
   signTx = async (
@@ -124,7 +141,8 @@ class MetaMask {
     contractAddress,
     mintAbi,
     flagAbi,
-    args
+    args,
+    flagArgs
   ) => {
     try {
       if (maxFeePerGas <= maxPriorityFeePerGas)
@@ -139,16 +157,17 @@ class MetaMask {
 
       const utils = ethers.utils
 
-      const GWEI = 10n ** 9n
+      const maxFee = web3.utils.toHex(
+        web3.utils.toWei(Number(maxFeePerGas).toString(), 'gwei')
+      )
 
-      // eslint-disable-next-line no-eval
-      const maxFee = GWEI * eval(`${maxFeePerGas}n`)
-      // eslint-disable-next-line no-eval
-      const maxPriorityFee = GWEI * eval(`${maxPriorityFeePerGas}n`)
+      const maxPriorityFee = web3.utils.toHex(
+        web3.utils.toWei(Number(maxPriorityFeePerGas).toString(), 'gwei')
+      )
 
-      value = web3.utils.toWei(String(value), 'ether')
-      // eslint-disable-next-line no-eval
-      value = eval(`${value}n`)
+      value = web3.utils.toHex(
+        web3.utils.toWei(Number(value).toString(), 'ether')
+      )
 
       if (mintAbi == null)
         return {
@@ -169,7 +188,11 @@ class MetaMask {
             }
           }
 
-        const resCheckFlag = await this.checkFlag(flagAbi, contractAddress)
+        const resCheckFlag = await this.checkFlag(
+          flagAbi,
+          contractAddress,
+          flagArgs
+        )
 
         if (resCheckFlag.status === 400)
           return {
@@ -177,7 +200,11 @@ class MetaMask {
             content: { message: resCheckFlag.content.message }
           }
       } else {
-        const resEstimateGas = await this.estimateGas(address, contractAddress)
+        const resEstimateGas = await this.estimateGas(
+          address,
+          contractAddress,
+          data
+        )
         if (resEstimateGas.status === 400) return resEstimateGas
       }
 
@@ -189,10 +216,10 @@ class MetaMask {
         type: 2,
         value: value,
         data: data,
-        gasLimit: parseInt(gasLimit),
+        gasLimit: gasLimit,
         maxFeePerGas: maxFee,
         maxPriorityFeePerGas: maxPriorityFee,
-        to: contractAddress
+        to: address
       }
 
       const signingDataHashed = utils.keccak256(utils.serializeTransaction(tx))
@@ -211,17 +238,19 @@ class MetaMask {
     }
   }
 
-  checkFlag = async (flagAbi, contractAddress) => {
+  checkFlag = async (flagAbi, contractAddress, flagArgs) => {
     try {
       const web3 = new Web3(this.web3Endpoint)
 
       const contract = new web3.eth.Contract([flagAbi], contractAddress)
 
-      let result = await contract.methods
-      // eslint-disable-next-line no-eval
-      result = await eval(`result.${flagAbi.name}().call()`)
+      let result = await contract.methods[flagAbi.name]().call()
 
-      console.log(result)
+      if (flagArgs != null && flagArgs.length > 0) {
+        if (String(result) == String(flagArgs[0]))
+          return { status: 200, content: { result: true } }
+        else return { status: 200, content: { result: false } }
+      }
 
       return { status: 200, content: { result: result } }
     } catch (e) {
@@ -266,9 +295,15 @@ class MetaMask {
     args
   ) => {
     try {
+      console.log('start')
+
       const web3 = new Web3(this.web3Endpoint)
 
       const data = AbiCoder.encodeFunctionCall(mintAbi, args)
+
+      console.log('============= data =============')
+
+      console.log(data)
 
       const transactionParameters = {
         from: fromAddress,
@@ -277,14 +312,18 @@ class MetaMask {
           web3.utils.toWei(Number(value).toString(), 'ether')
         ),
         maxPriorityFeePerGas: web3.utils.numberToHex(
-          web3.utils.toWei(maxPriorityFeePerGas, 'gwei')
+          web3.utils.toWei(Number(maxPriorityFeePerGas).toString(), 'gwei')
         ),
         maxFeePerGas: web3.utils.numberToHex(
-          web3.utils.toWei(maxFeePerGas, 'gwei')
+          web3.utils.toWei(Number(maxFeePerGas).toString(), 'gwei')
         ),
-        gasLimit: gasLimit,
+        gasLimit: parseInt(gasLimit),
         data: data
       }
+
+      console.log(transactionParameters)
+
+      console.log(this.ethereum)
 
       const resTx = await this.ethereum.request({
         method: 'eth_sendTransaction',

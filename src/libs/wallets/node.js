@@ -8,7 +8,7 @@ class Node {
   getGas = async () => {
     try {
       const resGas = await axios.get(
-        'https://api.etherscan.io/api?module=gastracker&action=gasoracle'
+        'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=J8JE42SMEHGS3BKD3SEQZQZ3BQR71ZY5BT'
       )
       if (resGas.status === 200 && resGas.data?.status == '1') {
         return resGas.data?.result?.FastGasPrice
@@ -19,14 +19,14 @@ class Node {
     }
   }
 
-  checkContract = async (contractAddress) => {
+  checkContract = async (contractAddress, hasProxy) => {
     try {
       if (String(contractAddress).includes('/')) {
         const pieces = contractAddress.split(/[\s/]+/)
         contractAddress = pieces[pieces.length - 1]
       }
 
-      const rawAbiUrl = `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&format=raw`
+      const rawAbiUrl = `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&format=raw&apikey=J8JE42SMEHGS3BKD3SEQZQZ3BQR71ZY5BT`
       const responseRawAbi = await axios.get(rawAbiUrl)
       if (
         responseRawAbi.status === 200 &&
@@ -35,8 +35,6 @@ class Node {
         const responseABI = responseRawAbi.data
         const mintedAbi = this.#getMintABI(responseABI)
         const flagsAbi = this.#getFlagABI(responseABI)
-
-        console.log(mintedAbi)
 
         // alert(`mint ABI => \n  ${mintedAbi} \n Flags Abi => \n ${flagsAbi}  `)
         return {

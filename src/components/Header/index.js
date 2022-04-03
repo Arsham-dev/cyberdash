@@ -48,9 +48,13 @@ const ResponsiveAppBar = () => {
   const handleConnectWallet = () => {
     metaMask.onClickConnect().then((item) => {
       if (item.status === 400) {
-        toast('MetaMask Not Found ! \n Please Install MetaMask', {
-          type: 'error'
-        })
+        toast(
+          item.content?.message ||
+            'MetaMask Not Found ! \n Please Install MetaMask',
+          {
+            type: 'error'
+          }
+        )
       } else {
         toast('Wallet is Connected', { type: 'success' })
         setwallet(item.content.address)
