@@ -1,4 +1,10 @@
-import { Button, CircularProgress, Typography } from '@material-ui/core'
+import {
+  Button,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  Typography
+} from '@material-ui/core'
 import useStyles from './styles/index.styles'
 import { Node } from '../../libs/wallets'
 import { useState } from 'react'
@@ -12,10 +18,11 @@ const Contract = () => {
   const history = useHistory()
   const [contractAddress, setContractAddress] = useState()
   const [isLoading, setisLoading] = useState()
+  const [isProxy, setisProxy] = useState(false)
   const checkContract = () => {
     setisLoading(true)
     if (sessionStorage.getItem('key')) {
-      node.checkContract(contractAddress, 'HAS PROXY').then((data) => {
+      node.checkContract(contractAddress, isProxy).then((data) => {
         if (!data.error) {
           toast('Contract loaded successfully', { type: 'success' })
           history.push({
@@ -58,7 +65,23 @@ const Contract = () => {
           className={classes.searchBox}
           onChange={(event) => setContractAddress(event.target.value)}
         />
+        <div>
+          <FormControlLabel
+            className={classes.checkBoxColor}
+            control={
+              <Checkbox
+                className={classes.checkBoxColor}
+                color="primary"
+                checked={isProxy}
+                onChange={(event) => setisProxy(event.target.checked)}
+                name="IsProxy"
+              />
+            }
+            label="Is Proxy"
+          />
+        </div>
       </div>
+
       <div className={classes.buttonContainer}>
         <Button
           className={classes.button}

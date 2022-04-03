@@ -17,9 +17,12 @@ const useStyles = makeStyles((theme) => ({
   },
   searchBoxContainer: {
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    rowGap: 15,
     flex: 1,
     width: '40%',
-    marginBottom: 58,
+    marginBottom: 40,
     [theme.breakpoints.down('sm')]: {
       width: '90%'
     }
@@ -65,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
   },
   circularProgress: {
     color: '#000F24'
+  },
+  checkBoxColor: {
+    color: '#FFF !important'
   }
 }))
 export default useStyles
