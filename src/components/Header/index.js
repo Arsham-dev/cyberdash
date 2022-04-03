@@ -85,6 +85,7 @@ const ResponsiveAppBar = () => {
       if (!checkAddress) {
         sessionStorage.clear()
         history.push('/')
+        setwallet('')
       }
     }, 2000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
