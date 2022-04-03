@@ -89,6 +89,8 @@ const MintFunction = () => {
     try {
       let mintInputsType = []
 
+      console.log(inputsData)
+
       for (let i = 0; i < mintAbi.inputs.length; i++) {
         mintInputsType.push(mintAbi.inputs[i].type)
       }
@@ -100,12 +102,13 @@ const MintFunction = () => {
         }
 
       for (let k = 0; k < mintInputsType.length; k++) {
+        console.log(mintInputsType[k])
         if (String(mintInputsType[k]).toLowerCase().includes('bool')) {
           if (
-            inputsData[k].toLowerCase() === 'false' ||
-            inputsData[k].toLowerCase() === true
+            String(inputsData[k]).toLowerCase() === 'false' ||
+            String(inputsData[k]).toLowerCase() === 'true'
           )
-            inputsData[k] = Boolean(inputsData[k])
+            inputsData[k] = Boolean(String(inputsData[k]).toLowerCase())
           else
             return {
               status: 400,
@@ -122,6 +125,7 @@ const MintFunction = () => {
           inputsData[k] = parseInt(inputsData[k])
         }
         if (String(mintInputsType[k]).toLowerCase().includes('byte')) {
+          console.log('byt')
           inputsData[k] = String(inputsData[k])
         }
       }
@@ -131,6 +135,7 @@ const MintFunction = () => {
         content: { inputData: inputsData }
       }
     } catch (e) {
+      console.log(e)
       return {
         status: 400,
         content: { message: e.message }
@@ -142,6 +147,8 @@ const MintFunction = () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
+    console.log(data.mintArgs)
+    console.log('-----------------')
     const serializeMintInputsData = checkValidateMintInputs(
       mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
       data.mintArgs
@@ -152,7 +159,7 @@ const MintFunction = () => {
     settransactionModalIsOpen(false)
     setisLooping(true)
     // setMoreInfoModalIsOpen(true)
-    LOOP_FOR_LOADING('send', serializeMintInputsData.content.inputData)
+    await LOOP_FOR_LOADING('send', serializeMintInputsData.content.inputData)
   }
 
   const I_UNDERSTAND_CLICK_EVENT = async () => {
@@ -185,7 +192,7 @@ const MintFunction = () => {
     settransactionModalIsOpen(false)
     setisLooping(true)
     setMoreInfoModalIsOpen(true)
-    LOOP_FOR_LOADING(
+    await LOOP_FOR_LOADING(
       resSignTx.content.rawTx,
       serializeMintInputsData.content.inputData
     )
@@ -195,6 +202,22 @@ const MintFunction = () => {
 
   const LOOP_FOR_LOADING = async (signedRawTx, serializeMintInputs) => {
     try {
+      const serializeMintInputsData = checkValidateMintInputs(
+        mintAbi.allMintFunctions.find(
+          (item) => item.name === data.mintFunction
+        ),
+        data.mintArgs
+      )
+
+      if (serializeMintInputsData.status === 400) return serializeMintInputsData
+
+      const encodedData = await metaMask.encodedMintAbiData(
+        mintAbi.allMintFunctions.find(
+          (item) => item.name === data.mintFunction
+        ),
+        serializeMintInputsData.content.inputData
+      )
+
       while (true) {
         if (stopWhileRef.current) break
 
@@ -217,6 +240,7 @@ const MintFunction = () => {
           )
 
           if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
+            setisConnect(true)
             let resTx
             if (signedRawTx == 'send') {
               resTx = await metaMask.sendTx(
@@ -236,7 +260,6 @@ const MintFunction = () => {
             }
 
             if (resTx.status === 200) {
-              setisConnect(true)
               setisLooping(false)
               setsuccessModalIsOpen(true)
               setsucessfullModaAddress(resTx.content.data)
@@ -250,7 +273,7 @@ const MintFunction = () => {
               setisLooping(false)
               setfailedModalMessage(resTx.content.message)
               setFailedModalIsOpen(true)
-              // toast(resTx.content.message, { type: 'error' })
+              //toast(resTx.content.message, { type: 'error' })
               return {
                 status: 400,
                 content: {
@@ -262,13 +285,15 @@ const MintFunction = () => {
         } else {
           const resCheckEstimateGas = await metaMask.estimateGas(
             mainAddress,
-            data.contractAddress
+            data.contractAddress,
+            encodedData
           )
 
           if (
             resCheckEstimateGas.status == 200 &&
             resCheckEstimateGas.content?.result == true
           ) {
+            setisConnect(true)
             let resSentTx
             if (signedRawTx == 'send') {
               resSentTx = await metaMask.sendTx(
@@ -292,7 +317,6 @@ const MintFunction = () => {
             }
 
             if (resSentTx.status === 200) {
-              setisConnect(true)
               setisLooping(false)
               setsuccessModalIsOpen(true)
               setsucessfullModaAddress(resSentTx.content.data)

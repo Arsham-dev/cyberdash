@@ -15,7 +15,7 @@ const Contract = () => {
   const checkContract = () => {
     setisLoading(true)
     if (sessionStorage.getItem('key')) {
-      node.checkContract(contractAddress).then((data) => {
+      node.checkContract(contractAddress, 'HAS PROXY').then((data) => {
         if (!data.error) {
           toast('Contract loaded successfully', { type: 'success' })
           history.push({

@@ -19,7 +19,7 @@ class Node {
     }
   }
 
-  checkContract = async (contractAddress) => {
+  checkContract = async (contractAddress, hasProxy) => {
     try {
       if (String(contractAddress).includes('/')) {
         const pieces = contractAddress.split(/[\s/]+/)
