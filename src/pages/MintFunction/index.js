@@ -347,6 +347,7 @@ const MintFunction = () => {
 
   const customButtonFunction = async (values) => {
     if (isLooping) {
+      setisConnect(false)
       setisLooping(false)
       stopWhileRef.current = true
     } else {
@@ -684,7 +685,7 @@ const MintFunction = () => {
                             values.maxPriorityFeePerGas,
                             values.gasLimit
                           ) && MinimumEther
-                        } eth required in wallet`}</Typography>
+                        } eth is required in your wallet`}</Typography>
                       </div>
                     )
                   // ))
