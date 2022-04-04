@@ -64,7 +64,7 @@ const useStyles = makeStyles(() => ({
     padding: 10,
     borderRadius: 7,
     boxShadow: ' 2px 2px 27px 1px rgba(0,0,0,0.4)',
-    fontSize: 10.5
+    fontSize: 12.5
     // color: theme.palette.common.black
   },
   helperTextContainer: {

@@ -354,6 +354,7 @@ const MintFunction = () => {
       setisLooping(false)
       stopWhileRef.current = true
     } else {
+      stopWhileRef.current = false
       setdata({ ...inputsData, ...values })
       if (isSign) {
         // setisLoading(true)
