@@ -26,6 +26,7 @@ const TransactionModal = ({
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
+  console.log(data)
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">
@@ -49,7 +50,7 @@ const TransactionModal = ({
             {data.flagFunction &&
               data.flagInputs.map((item, index) => (
                 <TransactionModalItems
-                  lable={`Froffies(${item}):`}
+                  lable={`Froffies (${item}):`}
                   value={data.flagArgs[index].toString()}
                   key={item}
                 />
@@ -89,7 +90,7 @@ const TransactionModal = ({
               disabled={isLoading}
               onClick={() => {
                 setisLoading(true)
-                onClickFunction().then((item) => {
+                onClickFunction(data).then((item) => {
                   if (item)
                     if (item.status === 200) {
                       toast(item.txId.message, { type: 'success' })

@@ -43,7 +43,7 @@ const MintFunction = () => {
   const [failedModalMessage, setfailedModalMessage] = useState('')
   const stopWhileRef = useRef()
 
-  const [data, setdata] = useState({})
+  const [inputsData, setdata] = useState({})
 
   const location = useLocation()
   const flagAbi = location?.state?.flagAbi
@@ -138,7 +138,7 @@ const MintFunction = () => {
     }
   }
 
-  const SIGN_CLICK = async () => {
+  const SIGN_CLICK = async (data) => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
@@ -154,10 +154,14 @@ const MintFunction = () => {
     settransactionModalIsOpen(false)
     setisLooping(true)
     // setMoreInfoModalIsOpen(true)
-    await LOOP_FOR_LOADING('send', serializeMintInputsData.content.inputData)
+    await LOOP_FOR_LOADING(
+      'send',
+      serializeMintInputsData.content.inputData,
+      data
+    )
   }
 
-  const I_UNDERSTAND_CLICK_EVENT = async () => {
+  const I_UNDERSTAND_CLICK_EVENT = async (data) => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
@@ -191,13 +195,14 @@ const MintFunction = () => {
     setMoreInfoModalIsOpen(true)
     await LOOP_FOR_LOADING(
       resSignTx.content.rawTx,
-      serializeMintInputsData.content.inputData
+      serializeMintInputsData.content.inputData,
+      inputsData
     )
   }
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-  const LOOP_FOR_LOADING = async (signedRawTx, serializeMintInputs) => {
+  const LOOP_FOR_LOADING = async (signedRawTx, serializeMintInputs, data) => {
     try {
       const mintInputsData = data.mintArgs
 
@@ -345,10 +350,10 @@ const MintFunction = () => {
       setisLooping(false)
       stopWhileRef.current = true
     } else {
-      setdata({ ...data, ...values })
+      setdata({ ...inputsData, ...values })
       if (isSign) {
         // setisLoading(true)
-        SIGN_CLICK().then((item) => {
+        SIGN_CLICK({ ...inputsData, ...values }).then((item) => {
           if (item)
             if (item.status === 200) {
               toast(item.txId.message, { type: 'success' })
@@ -369,7 +374,7 @@ const MintFunction = () => {
     if (!location.state || !sessionStorage.getItem('key')) {
       history.replace('/contract')
     } else {
-      setdata({ ...data, contractAddress })
+      setdata({ ...inputsData, contractAddress })
     }
   }, [])
   const classes = useStyles()
@@ -539,7 +544,12 @@ const MintFunction = () => {
                         'mintInputs',
                         mintAbi?.allMintFunctions
                           .find((item) => item.name === event.target.value)
-                          ?.inputs.map((item) => item.name)
+                          ?.inputs.map(
+                            (item) =>
+                              `${item.name || ''}${
+                                item.name ? ` (${item.type})` : item.type
+                              }`
+                          )
                       )
                     }}
                     placholder="Select Mint Function"
@@ -696,7 +706,7 @@ const MintFunction = () => {
       <TransactionModal
         isOpen={transactionModalIsOpen}
         onClose={() => settransactionModalIsOpen(false)}
-        data={data}
+        data={inputsData}
         onClickFunction={isSign ? SIGN_CLICK : I_UNDERSTAND_CLICK_EVENT}
         isSign={isSign}
       />
