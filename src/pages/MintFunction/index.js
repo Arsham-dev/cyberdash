@@ -89,6 +89,8 @@ const MintFunction = () => {
     try {
       let mintInputsType = []
 
+      console.log(mintAbi)
+
       console.log(inputsData)
 
       for (let i = 0; i < mintAbi.inputs.length; i++) {
@@ -147,8 +149,6 @@ const MintFunction = () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
-    console.log(data.mintArgs)
-    console.log('-----------------')
     const serializeMintInputsData = checkValidateMintInputs(
       mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
       data.mintArgs
@@ -540,7 +540,7 @@ const MintFunction = () => {
                         return (
                           <CustomInput
                             key={item.name}
-                            label={item.name}
+                            label={`${item.name} (${item.type})`}
                             id={`mintArgs[${index}]`}
                             // type="number"
                             name={`mintArgs[${index}]`}
