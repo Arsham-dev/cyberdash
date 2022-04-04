@@ -294,7 +294,8 @@ const MintFunction = () => {
           const resCheckEstimateGas = await metaMask.estimateGas(
             mainAddress,
             data.contractAddress,
-            encodedData
+            encodedData,
+            parseFloat(data.value)
           )
 
           if (
