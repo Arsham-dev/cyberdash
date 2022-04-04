@@ -63,7 +63,14 @@ class MetaMask {
     return rounding
   }
 
-  estimateGas = async (fromAddress, contractAddress, data, value) => {
+  estimateGas = async (
+    fromAddress,
+    contractAddress,
+    data,
+    value,
+    maxFeePerGas,
+    maxPriorityFeePerGas
+  ) => {
     try {
       const web3 = new Web3(this.web3Endpoint)
       const gasEstimate = await web3.eth.estimateGas({
@@ -74,10 +81,10 @@ class MetaMask {
         ),
         data: data,
         maxFeePerGas: web3.utils.toHex(
-          web3.utils.toWei(Number(1).toString(), 'gwei')
+          web3.utils.toWei(Number(maxFeePerGas).toString(), 'gwei')
         ),
         maxPriorityFeePerGas: web3.utils.toHex(
-          web3.utils.toWei(Number(0).toString(), 'gwei')
+          web3.utils.toWei(Number(maxPriorityFeePerGas).toString(), 'gwei')
         )
       })
 
@@ -214,7 +221,9 @@ class MetaMask {
           address,
           contractAddress,
           data,
-          oldValue
+          oldValue,
+          maxFeePerGas,
+          maxPriorityFeePerGas
         )
         if (resEstimateGas.status === 400) return resEstimateGas
       }

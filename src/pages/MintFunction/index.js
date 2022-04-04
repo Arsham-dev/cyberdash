@@ -295,7 +295,9 @@ const MintFunction = () => {
             mainAddress,
             data.contractAddress,
             encodedData,
-            parseFloat(data.value)
+            parseFloat(data.value),
+            parseInt(data.maxFeePerGas),
+            parseInt(data.maxPriorityFeePerGas)
           )
 
           if (
