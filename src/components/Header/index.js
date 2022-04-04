@@ -45,8 +45,6 @@ const ResponsiveAppBar = () => {
 
   useEffect(() => {
     setProvider(window.ethereum)
-    console.log('--------------')
-    console.log(window.ethereum)
   }, [])
 
   const metaMask = new MetaMask(provider)

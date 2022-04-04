@@ -215,8 +215,6 @@ const MintFunction = () => {
 
       if (serializeMintInputsData.status === 400) return serializeMintInputsData
 
-      console.log(serializeMintInputsData)
-
       const encodedData = await metaMask.encodedMintAbiData(
         mintAbi.allMintFunctions.find(
           (item) => item.name === data.mintFunction
@@ -281,6 +279,7 @@ const MintFunction = () => {
               setisLooping(false)
               setfailedModalMessage(resTx.content.message)
               setFailedModalIsOpen(true)
+              setisConnect(false)
               //toast(resTx.content.message, { type: 'error' })
               return {
                 status: 400,
@@ -299,6 +298,14 @@ const MintFunction = () => {
             parseInt(data.maxFeePerGas),
             parseInt(data.maxPriorityFeePerGas)
           )
+
+          if (resCheckEstimateGas.status === 400) {
+            setisConnect(false)
+            setisLooping(false)
+            setfailedModalMessage(resCheckEstimateGas.content?.message)
+            setFailedModalIsOpen(true)
+            break
+          }
 
           if (
             resCheckEstimateGas.status == 200 &&
@@ -337,6 +344,18 @@ const MintFunction = () => {
                 status: 200,
                 content: {
                   txId: resSentTx.content.data
+                }
+              }
+            } else if (resSentTx.status === 400) {
+              setisLooping(false)
+              setfailedModalMessage(resSentTx.content?.message)
+              setFailedModalIsOpen(true)
+              setisConnect(false)
+              //toast(resTx.content.message, { type: 'error' })
+              return {
+                status: 400,
+                content: {
+                  message: resSentTx.content.message
                 }
               }
             }

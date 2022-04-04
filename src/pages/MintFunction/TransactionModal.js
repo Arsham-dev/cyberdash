@@ -26,7 +26,6 @@ const TransactionModal = ({
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
-  console.log(data)
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Slide in={isOpen} direction="down">

@@ -93,8 +93,9 @@ class MetaMask {
 
       return { status: 200, content: { result: true } }
     } catch (e) {
+      const RETURN_DATA = ['supply', 'insufficient']
       console.log(e.message)
-      if (String(e.message).toLowerCase().includes('supply')) {
+      if (String(e.message).toLowerCase().includes(RETURN_DATA)) {
         return {
           status: 400,
           content: { message: e.message }
