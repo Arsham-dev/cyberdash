@@ -13,6 +13,7 @@ import mintFunctionValidation from './validation'
 import SuccessModal from './SuccessModal'
 import FailedModal from './FailedModal'
 import MoreInfoModal from './MoreInfoModal'
+import { toast } from 'react-toastify'
 
 const toolTipMessage = {
   gasLimit: `Gas limit is the maximum amount of gas you wish to spend on a transaction. Normally, for minting an NFT, you need between 100000 to 150000 but for hyped projects, you should increase that. Something between 200000 and 350000 would suffice in 99% of the time. Note that you only pay the gas necessary for a transaction and if you enter higher than needed, it’s not deducted from your account, however, you need enough money in your account to cover the fee you enter.`,
@@ -89,10 +90,6 @@ const MintFunction = () => {
     try {
       let mintInputsType = []
 
-      console.log(mintAbi)
-
-      console.log(inputsData)
-
       for (let i = 0; i < mintAbi.inputs.length; i++) {
         mintInputsType.push(mintAbi.inputs[i].type)
       }
@@ -104,13 +101,11 @@ const MintFunction = () => {
         }
 
       for (let k = 0; k < mintInputsType.length; k++) {
-        console.log(mintInputsType[k])
         if (String(mintInputsType[k]).toLowerCase().includes('bool')) {
-          if (
-            String(inputsData[k]).toLowerCase() === 'false' ||
-            String(inputsData[k]).toLowerCase() === 'true'
-          )
-            inputsData[k] = Boolean(String(inputsData[k]).toLowerCase())
+          if (String(inputsData[k]).toLowerCase() === 'false')
+            inputsData[k] = false
+          else if (String(inputsData[k]).toLowerCase() === 'true')
+            inputsData[k] = true
           else
             return {
               status: 400,
@@ -127,7 +122,6 @@ const MintFunction = () => {
           inputsData[k] = parseInt(inputsData[k])
         }
         if (String(mintInputsType[k]).toLowerCase().includes('byte')) {
-          console.log('byt')
           inputsData[k] = String(inputsData[k])
         }
       }
@@ -137,7 +131,6 @@ const MintFunction = () => {
         content: { inputData: inputsData }
       }
     } catch (e) {
-      console.log(e)
       return {
         status: 400,
         content: { message: e.message }
@@ -149,9 +142,11 @@ const MintFunction = () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
+    const mintInputsData = data.mintArgs
+
     const serializeMintInputsData = checkValidateMintInputs(
       mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
-      data.mintArgs
+      mintInputsData
     )
 
     if (serializeMintInputsData.status === 400) return serializeMintInputsData
@@ -166,9 +161,11 @@ const MintFunction = () => {
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
+    const mintInputsData = data.mintArgs
+
     const serializeMintInputsData = checkValidateMintInputs(
       mintAbi.allMintFunctions.find((item) => item.name === data.mintFunction),
-      data.mintArgs
+      mintInputsData
     )
 
     if (serializeMintInputsData.status === 400) return serializeMintInputsData
@@ -202,14 +199,18 @@ const MintFunction = () => {
 
   const LOOP_FOR_LOADING = async (signedRawTx, serializeMintInputs) => {
     try {
+      const mintInputsData = data.mintArgs
+
       const serializeMintInputsData = checkValidateMintInputs(
         mintAbi.allMintFunctions.find(
           (item) => item.name === data.mintFunction
         ),
-        data.mintArgs
+        mintInputsData
       )
 
       if (serializeMintInputsData.status === 400) return serializeMintInputsData
+
+      console.log(serializeMintInputsData)
 
       const encodedData = await metaMask.encodedMintAbiData(
         mintAbi.allMintFunctions.find(
@@ -240,6 +241,7 @@ const MintFunction = () => {
           )
 
           if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
+            console.log('FLAG TIMESTMAP => ' + Date.now())
             setisConnect(true)
             let resTx
             if (signedRawTx == 'send') {
@@ -260,6 +262,7 @@ const MintFunction = () => {
             }
 
             if (resTx.status === 200) {
+              console.log('TX TIMESTMAP => ' + Date.now())
               setisLooping(false)
               setsuccessModalIsOpen(true)
               setsucessfullModaAddress(resTx.content.data)
@@ -293,6 +296,7 @@ const MintFunction = () => {
             resCheckEstimateGas.status == 200 &&
             resCheckEstimateGas.content?.result == true
           ) {
+            console.log('FLAG TIMESTMAP => ' + Date.now())
             setisConnect(true)
             let resSentTx
             if (signedRawTx == 'send') {
@@ -317,6 +321,7 @@ const MintFunction = () => {
             }
 
             if (resSentTx.status === 200) {
+              console.log('TX TIMESTMAP => ' + Date.now())
               setisLooping(false)
               setsuccessModalIsOpen(true)
               setsucessfullModaAddress(resSentTx.content.data)
@@ -335,13 +340,26 @@ const MintFunction = () => {
     }
   }
 
-  const customButtonFunction = (values) => {
+  const customButtonFunction = async (values) => {
     if (isLooping) {
       setisLooping(false)
       stopWhileRef.current = true
     } else {
-      settransactionModalIsOpen(true)
       setdata({ ...data, ...values })
+      if (isSign) {
+        // setisLoading(true)
+        SIGN_CLICK().then((item) => {
+          if (item)
+            if (item.status === 200) {
+              toast(item.txId.message, { type: 'success' })
+            } else {
+              toast(item.content.message, { type: 'error' })
+            }
+        })
+        // setisLoading(false)
+      } else {
+        settransactionModalIsOpen(true)
+      }
     }
   }
   useEffect(() => {

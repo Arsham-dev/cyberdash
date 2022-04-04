@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Web3 from 'web3'
 
 class Node {
   constructor(web3Endpoint) {
@@ -24,6 +25,15 @@ class Node {
       if (String(contractAddress).includes('/')) {
         const pieces = contractAddress.split(/[\s/]+/)
         contractAddress = pieces[pieces.length - 1]
+      }
+
+      if (hasProxy) {
+        const web3 = new Web3(this.web3Endpoint)
+        const implementationStorage = await web3.eth.getStorageAt(
+          contractAddress,
+          '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc'
+        )
+        contractAddress = '0x' + implementationStorage.slice(26)
       }
 
       const rawAbiUrl = `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&format=raw&apikey=J8JE42SMEHGS3BKD3SEQZQZ3BQR71ZY5BT`

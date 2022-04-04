@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   messageText: {
     textAlign: 'center',
     fontSize: 25,
-    color: 'rgb(4, 198, 247)'
+    color: '#D1D1D1'
   }
 }))
 export default useStyles

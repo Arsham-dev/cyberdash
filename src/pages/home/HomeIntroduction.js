@@ -1,10 +1,18 @@
 import { Button, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import useStyles from './styles/HomeIntroduction.style'
+import useIntersectionObserver from '@react-hook/intersection-observer'
+import { useRef } from 'react'
 
 const HomeIntroduction = () => {
   const classes = useStyles()
   const history = useHistory()
+  const containerRef = useRef()
+  const lockRef = useRef(false)
+  const { isIntersecting } = useIntersectionObserver(containerRef)
+  if (isIntersecting) {
+    lockRef.current = true
+  }
   return (
     <div>
       <center>
@@ -25,17 +33,21 @@ const HomeIntroduction = () => {
           onClick={() => history.push('/contract')}>
           Mint (Comming Soon)
         </Button>
-        <div className={classes.youtubePlayerContainer}>
-          <iframe
-            width="560"
-            height="315"
-            className={classes.youtubePlayer}
-            src="https://www.youtube.com/embed/-X_71WrV63c"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          />
+        <div>
+          <div className={classes.youtubePlayerContainer} ref={containerRef}>
+            {lockRef.current && (
+              <iframe
+                width="560"
+                height="315"
+                className={classes.youtubePlayer}
+                src="https://www.youtube.com/embed/-X_71WrV63c"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            )}
+          </div>
         </div>
       </center>
     </div>

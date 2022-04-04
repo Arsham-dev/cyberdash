@@ -31,7 +31,9 @@ class MetaMask {
   #isMetaMaskInstalled = () => {
     return Boolean(this.ethereum && this.ethereum.isMetaMask)
   }
-
+  #isMetaMaskInstalledLocally = (ethereum) => {
+    return Boolean(ethereum && ethereum.isMetaMask)
+  }
   getBalance = async (address) => {
     try {
       const web3 = new Web3(this.web3Endpoint)
@@ -95,11 +97,12 @@ class MetaMask {
     }
   }
 
-  onLoadConnect = async () => {
+  onLoadConnect = async (ethereum) => {
     try {
-      if (this.#isMetaMaskInstalled()) {
-        const accounts = await this.ethereum.request({ method: 'eth_accounts' })
-        if (String(accounts).includes('0x')) return true
+      if (this.#isMetaMaskInstalledLocally(ethereum)) {
+        const accounts = await ethereum.request({ method: 'eth_accounts' })
+        const ethereumAddress = accounts[0]
+        if (String(ethereumAddress).includes('0x')) return true
       }
       return false
     } catch {
@@ -109,7 +112,6 @@ class MetaMask {
 
   onClickConnect = async () => {
     try {
-      console.log(await this.onLoadConnect())
       if (this.#isMetaMaskInstalled()) {
         await this.ethereum.request({ method: 'eth_requestAccounts' })
         const accounts = await this.ethereum.request({ method: 'eth_accounts' })
@@ -216,7 +218,7 @@ class MetaMask {
         type: 2,
         value: value,
         data: data,
-        gasLimit: gasLimit,
+        gasLimit: parseInt(gasLimit),
         maxFeePerGas: maxFee,
         maxPriorityFeePerGas: maxPriorityFee,
         to: address
@@ -295,15 +297,9 @@ class MetaMask {
     args
   ) => {
     try {
-      console.log('start')
-
       const web3 = new Web3(this.web3Endpoint)
 
       const data = AbiCoder.encodeFunctionCall(mintAbi, args)
-
-      console.log('============= data =============')
-
-      console.log(data)
 
       const transactionParameters = {
         from: fromAddress,
@@ -321,16 +317,10 @@ class MetaMask {
         data: data
       }
 
-      console.log(transactionParameters)
-
-      console.log(this.ethereum)
-
       const resTx = await this.ethereum.request({
         method: 'eth_sendTransaction',
         params: [transactionParameters]
       })
-
-      console.log(resTx)
 
       return { status: 200, content: { data: resTx } }
     } catch (e) {

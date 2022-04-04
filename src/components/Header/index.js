@@ -38,10 +38,17 @@ const ResponsiveAppBar = () => {
   const [wallet, setwallet] = useState('')
   const [gasValue, setgasValue] = useState(0)
   const classes = useStyles()
+
   useEffect(() => {
-    setProvider(window.ethereum)
     setwallet(sessionStorage.getItem('key'))
   }, [])
+
+  useEffect(() => {
+    setProvider(window.ethereum)
+    console.log('--------------')
+    console.log(window.ethereum)
+  }, [])
+
   const metaMask = new MetaMask(provider)
 
   const [anchorElNav, setAnchorElNav] = useState(null)
@@ -72,15 +79,23 @@ const ResponsiveAppBar = () => {
     setAnchorElNav(null)
   }
   const node = new Node()
+
+  const history = useHistory()
   useEffect(() => {
     setInterval(async () => {
       const response = await node.getGas()
       setgasValue(response)
     }, 10000)
+    setInterval(async () => {
+      const checkAddress = await metaMask.onLoadConnect(window.ethereum)
+      if (!checkAddress) {
+        sessionStorage.clear()
+        history.push('/')
+        setwallet('')
+      }
+    }, 2000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const history = useHistory()
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
 
