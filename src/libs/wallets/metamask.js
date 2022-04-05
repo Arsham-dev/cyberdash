@@ -89,12 +89,22 @@ class MetaMask {
       })
 
       if (String(gasEstimate).toLowerCase().includes('revert'))
-        return { status: 200, content: { result: true } }
+        return { status: 200, content: { result: false } }
 
       return { status: 200, content: { result: true } }
     } catch (e) {
-      const RETURN_DATA = ['supply', 'insufficient']
-      console.log(e.message)
+      const RETURN_DATA = ['supply', 'insufficient', 'value', 'limit']
+      if (
+        String(e.message).toLowerCase().includes('value') ||
+        String(e.message).toLowerCase().includes('incorrect') ||
+        String(e.message).toLowerCase().includes('limit') ||
+        String(e.message).toLowerCase().includes('incorrect ')
+      ) {
+        return {
+          status: 400,
+          content: { message: e.message }
+        }
+      }
       if (String(e.message).toLowerCase().includes(RETURN_DATA)) {
         return {
           status: 400,
@@ -240,7 +250,7 @@ class MetaMask {
         gasLimit: parseInt(gasLimit),
         maxFeePerGas: maxFee,
         maxPriorityFeePerGas: maxPriorityFee,
-        to: address
+        to: contractAddress
       }
 
       const signingDataHashed = utils.keccak256(utils.serializeTransaction(tx))
