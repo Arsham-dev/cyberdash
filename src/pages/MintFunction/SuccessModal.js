@@ -17,7 +17,7 @@ const SuccessModal = ({ isOpen, onClose, data }) => {
           <div className={classes.linkContainer}>
             <Typography className={classes.linkText}>
               Your NFT was successfully
-              <br /> minted Check out the transaction
+              <br /> minted. Check out the transaction{' '}
               <a
                 href={`https://etherscan.io/tx/${data}`}
                 target="_blank"

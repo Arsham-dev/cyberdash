@@ -36,11 +36,14 @@ const MintFunction = () => {
   const [failedModalIsOpen, setFailedModalIsOpen] = useState(false)
   const [moreInfoModalIsOpen, setMoreInfoModalIsOpen] = useState(false)
   const [isLooping, setisLooping] = useState(false)
+  const [FlagtimeStamp, setFlagtimeStamp] = useState(false)
   const [isConnect, setisConnect] = useState(false)
   const [isSign, setisSign] = useState(false)
   const [MinimumEther, setMinimumEther] = useState('')
   const [sucessfullModaAddress, setsucessfullModaAddress] = useState('')
   const [failedModalMessage, setfailedModalMessage] = useState('')
+  const [passedTimeBeforMint, setpassedTimeBeforMint] = useState(0)
+  let passedTimeBeforMintInterval
   const stopWhileRef = useRef()
 
   const [inputsData, setdata] = useState({})
@@ -153,6 +156,7 @@ const MintFunction = () => {
 
     settransactionModalIsOpen(false)
     setisLooping(true)
+    setpassedTimeBeforMint(0)
     // setMoreInfoModalIsOpen(true)
     await LOOP_FOR_LOADING(
       'send',
@@ -193,6 +197,7 @@ const MintFunction = () => {
     settransactionModalIsOpen(false)
     setisLooping(true)
     setMoreInfoModalIsOpen(true)
+    setpassedTimeBeforMint(0)
     await LOOP_FOR_LOADING(
       resSignTx.content.rawTx,
       serializeMintInputsData.content.inputData,
@@ -221,7 +226,6 @@ const MintFunction = () => {
         ),
         serializeMintInputsData.content.inputData
       )
-
       while (true) {
         if (stopWhileRef.current) break
 
@@ -245,6 +249,13 @@ const MintFunction = () => {
 
           if (resCheckFlag.status === 200 && resCheckFlag.content.result) {
             console.log('FLAG TIMESTMAP => ' + Date.now())
+            if (!passedTimeBeforMintInterval) {
+              passedTimeBeforMintInterval = setInterval(
+                () => setpassedTimeBeforMint((num) => num + 1),
+                1000
+              )
+            }
+            setFlagtimeStamp(true)
             setisConnect(true)
             let resTx
             if (signedRawTx == 'send') {
@@ -312,6 +323,13 @@ const MintFunction = () => {
             resCheckEstimateGas.content?.result == true
           ) {
             console.log('FLAG TIMESTMAP => ' + Date.now())
+            if (!passedTimeBeforMintInterval) {
+              passedTimeBeforMintInterval = setInterval(
+                () => setpassedTimeBeforMint((num) => num + 1),
+                1000
+              )
+            }
+            setFlagtimeStamp(true)
             setisConnect(true)
             let resSentTx
             if (signedRawTx == 'send') {
@@ -446,14 +464,28 @@ const MintFunction = () => {
                     wrapperBorderRadius={27}
                   />
                 </div>
-                {isLooping && (
-                  <div className={classes.waitingFlagContainer}>
-                    <CircularProgress size={45} />
-                    <Typography className={classes.waitingFlagText}>
-                      Waiting for flag ...
-                    </Typography>
-                  </div>
-                )}
+                {isLooping &&
+                  (!FlagtimeStamp ? (
+                    <div className={classes.waitingFlagContainer}>
+                      <CircularProgress size={45} />
+                      <Typography className={classes.waitingFlagText}>
+                        Waiting for flag ...
+                      </Typography>
+                    </div>
+                  ) : (
+                    <div className={classes.waitingForMintContainer}>
+                      {/* <CircularProgress size={45} /> */}
+                      <Typography className={classes.waitingFlagText}>
+                        {`Your transaction was sent in ${passedTimeBeforMint} sec ago`}
+                      </Typography>
+                      <div className={classes.waitingForMint}>
+                        <Typography className={classes.waitingFlagText}>
+                          Waiting to be minted
+                        </Typography>
+                        <CircularProgress size={45} />
+                      </div>
+                    </div>
+                  ))}
                 <div
                   className={[
                     classes.contractInfo,

@@ -90,6 +90,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 19,
     fontWeight: 400,
     color: '#FFF'
-  }
+  },
+  waitingForMint: {
+    display: 'flex',
+    // flexDirection:'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    columnGap: 10
+  },
+  waitingForMintContainer: {
+    color: '#FFF',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '10px 0 20px 0',
+    rowGap: 20
+  },
 }))
 export default useStyles
