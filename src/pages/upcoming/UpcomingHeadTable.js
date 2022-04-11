@@ -1,5 +1,4 @@
 import { Typography } from '@material-ui/core'
-import { useRef } from 'react'
 import useStyles from './styles/UpcomingHeadTable.style'
 
 const UpcomingHeadTable = () => {
@@ -15,21 +14,3 @@ const UpcomingHeadTable = () => {
   )
 }
 export default UpcomingHeadTable
-const TextInput = ({ onClick }) => (
-  <div>
-    <input type="text" />
-  </div>
-)
-
-const App = () => {
-  const one = useRef()
-
-  return (
-    <div>
-      <TextInput onClick />
-      <TextInput />
-      <button>Button 1</button>
-      <button>Button 2</button>
-    </div>
-  )
-}
