@@ -291,7 +291,6 @@ const MintFunction = () => {
               setfailedModalMessage(resTx.content.message)
               setFailedModalIsOpen(true)
               setisConnect(false)
-              //toast(resTx.content.message, { type: 'error' })
               return {
                 status: 400,
                 content: {
@@ -394,7 +393,6 @@ const MintFunction = () => {
       stopWhileRef.current = false
       setdata({ ...inputsData, ...values })
       if (isSign) {
-        // setisLoading(true)
         SIGN_CLICK({ ...inputsData, ...values }).then((item) => {
           if (item)
             if (item.status === 200) {
@@ -403,7 +401,6 @@ const MintFunction = () => {
               toast(item.content.message, { type: 'error' })
             }
         })
-        // setisLoading(false)
       } else {
         settransactionModalIsOpen(true)
       }
