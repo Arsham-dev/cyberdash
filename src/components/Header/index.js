@@ -113,7 +113,7 @@ const ResponsiveAppBar = () => {
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={() => history.push(page)}
+                  onClick={() => history.push(page.toLocaleLowerCase())}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                   className={classes.headerButton}>
                   {page}
