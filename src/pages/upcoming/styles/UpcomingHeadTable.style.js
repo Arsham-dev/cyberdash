@@ -119,6 +119,21 @@ const useStyles = makeStyles(() => ({
     cursor: 'pointer',
     borderTopRightRadius: '0.75rem',
     borderBottomRightRadius: '0.75rem'
+  },
+  buttonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonBase: {
+    borderRadius: 20
+  },
+  tableLoading: { height: 50 },
+  loadingContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }))
 export default useStyles

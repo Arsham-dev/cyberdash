@@ -90,24 +90,23 @@ const UpcomingHeadTable = ({ tableData }) => {
                   </CustomTableCell>
                   <CustomTableCell
                     align="center"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
+                    className={classes.buttonContainer}>
                     <ButtonBase
+                      className={classes.buttonBase}
                       onClick={() => {
                         window.open(row.opensea_link, '_blank')
                       }}>
                       <img src={openSea} alt="openSea" />
                     </ButtonBase>
                     <ButtonBase
+                      className={classes.buttonBase}
                       onClick={() => {
                         window.open(row.twitter_link, '_blank')
                       }}>
                       <img src={twitterNoBackground} alt="twitter" />
                     </ButtonBase>
                     <ButtonBase
+                      className={classes.buttonBase}
                       onClick={() => {
                         window.open(row.discord_link, '_blank')
                       }}>
@@ -119,14 +118,8 @@ const UpcomingHeadTable = ({ tableData }) => {
             </TableBody>
           </Table>
         ) : (
-          <Table style={{ height: 50 }}>
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
+          <Table className={classes.tableLoading}>
+            <div className={classes.loadingContainer}>
               <CircularProgress />
             </div>
           </Table>
@@ -136,17 +129,3 @@ const UpcomingHeadTable = ({ tableData }) => {
   )
 }
 export default UpcomingHeadTable
-//  : (
-//   <TableBody style={{ backgroundColor: 'red', display: 'flex' }}>
-//     <div
-//       style={{
-//         width: '100%',
-//         display: 'flex',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         flex: 1
-//       }}>
-//       <CircularProgress />
-//     </div>
-//   </TableBody>
-// )
