@@ -1,5 +1,4 @@
 import {
-  ButtonBase,
   Paper,
   Table,
   TableBody,
@@ -7,7 +6,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  withStyles
+  withStyles,
+  ButtonBase
 } from '@material-ui/core'
 import openSea from '../../assets/images/opensea.svg'
 import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
@@ -83,14 +83,29 @@ const UpcomingHeadTable = () => {
                 <CustomTableCell align="center">
                   {row.publicsale_mint_timestamp}
                 </CustomTableCell>
-                <CustomTableCell align="center">
-                  <ButtonBase>
+                <CustomTableCell
+                  align="center"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                  <ButtonBase
+                    onClick={() => {
+                      window.open(row.opensea_link, '_blank')
+                    }}>
                     <img src={openSea} alt="openSea" />
                   </ButtonBase>
-                  <ButtonBase>
+                  <ButtonBase
+                    onClick={() => {
+                      window.open(row.twitter_link, '_blank')
+                    }}>
                     <img src={twitterNoBackground} alt="twitter" />
                   </ButtonBase>
-                  <ButtonBase>
+                  <ButtonBase
+                    onClick={() => {
+                      window.open(row.discord_link, '_blank')
+                    }}>
                     <img src={discordNoBackground} alt="discord" />
                   </ButtonBase>
                 </CustomTableCell>
