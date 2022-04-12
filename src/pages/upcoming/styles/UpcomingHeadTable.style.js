@@ -2,16 +2,14 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   root: {
-    minWidth: 'auto',
-    height: 'auto'
+    // width: '100%',
+    padding: '0 89px'
+  },
+  table: {
+    // width: '100%'
   },
   container: {
-    display: 'flex',
-    flex: '1 0 auto',
-    minWidth: 'auto',
-    height: 'auto',
-    backgroundColor: 'rgb(11, 30, 57)',
-    borderRadius: '0.75rem'
+    backgroundColor: 'transparent'
   },
   text: {
     fontSize: 16,
