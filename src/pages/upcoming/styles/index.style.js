@@ -7,6 +7,16 @@ const useStyles = makeStyles(() => ({
     margin: '30px 0',
     backgroundColor: 'transparent'
     // margin: '0 20px'
+  },
+  main: {
+    // width: '100%',
+    padding: '0 89px'
+  },
+  table: {
+    // width: '100%'
+  },
+  container: {
+    backgroundColor: 'transparent'
   }
 }))
 export default useStyles
