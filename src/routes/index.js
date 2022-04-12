@@ -3,7 +3,7 @@ import Footer from '../components/Footer'
 import ResponsiveAppBar from '../components/Header'
 import Contract from '../pages/contract/'
 import Home from '../pages/home'
-import MintFunction from '../pages/mintFunction'
+import MintFunction from '../pages/MintFunction'
 import PageNotFound from '../pages/pageNotFound'
 import Upcoming from '../pages/upcoming'
 
