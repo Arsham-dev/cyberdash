@@ -78,7 +78,7 @@ const TransactionModal = ({
               value={`${data.maxFeePerGas} GWEI`}
             />
             <TransactionModalItems
-              lable="Priority Fee:"
+              lable="Max Priority Fee:"
               value={`${data.maxPriorityFeePerGas} GWEI`}
             />
             <TransactionModalItems lable="Gas limit:" value={data.gasLimit} />

@@ -175,7 +175,7 @@ class MetaMask {
         return {
           status: 400,
           content: {
-            message: 'maxFeePerGas may more then MaxPriorityFeePerGas'
+            message: 'Max Fee Per Gas must be more than Max Priority Fee'
           }
         }
 
