@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 13
   },
   title: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontSize: 40,
-    fontWeight: 'bold'
+    color: '#fff',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   closeButton: {
     fontSize: 35,
@@ -56,9 +56,9 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   button: {
-    backgroundColor: 'rgb(4,3,250)',
+    backgroundColor: '#1956E2',
     '&:hover': {
-      backgroundColor: 'rgba(4,3,250,0.5) !important'
+      backgroundColor: 'rgba(25, 86, 226,0.6) !important'
     }
   },
   messageContainer: {
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   messageText: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 14,
     color: '#D1D1D1'
   }
 }))

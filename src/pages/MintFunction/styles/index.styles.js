@@ -20,6 +20,15 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: 30
     }
   },
+  switchRpcContainer: {
+    height: 50,
+    width: 288,
+    borderRadius: 27,
+    margin: '5px 0 16px 0',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 30
+    }
+  },
   inputContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -105,6 +114,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     margin: '10px 0 20px 0',
     rowGap: 20
-  },
+  }
 }))
 export default useStyles

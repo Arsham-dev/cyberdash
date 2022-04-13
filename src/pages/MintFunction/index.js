@@ -2,12 +2,12 @@ import { CircularProgress, Typography } from '@material-ui/core'
 import { useEffect, useRef, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import SwitchSelector from 'react-switch-selector'
+import SwitchRpcSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
 import useStyles from './styles/index.styles'
 import TransactionModal from './TransactionModal'
 import { Form, Formik } from 'formik'
-
 import { MetaMask } from '../../libs/wallets'
 import mintFunctionValidation from './validation'
 import SuccessModal from './SuccessModal'
@@ -40,6 +40,7 @@ const MintFunction = () => {
   const [FlagtimeStamp, setFlagtimeStamp] = useState(false)
   const [isConnect, setisConnect] = useState(false)
   const [isSign, setisSign] = useState(false)
+  const [isFlashbot, setIsFlashbot] = useState(false)
   const [MinimumEther, setMinimumEther] = useState('')
   const [sucessfullModaAddress, setsucessfullModaAddress] = useState('')
   const [failedModalMessage, setfailedModalMessage] = useState('')
@@ -466,6 +467,25 @@ const MintFunction = () => {
                     wrapperBorderRadius={27}
                   />
                 </div>
+                <div
+                  className={[
+                    classes.contractInfo,
+                    isConnect
+                      ? classes.contractInfoIsConnect
+                      : classes.contractInfoIsNotConnect
+                  ].join(' ')}>
+                  <Typography className={classes.contractText}>
+                    Contract Status
+                  </Typography>
+                  <div
+                    className={[
+                      classes.contractValue,
+                      isConnect
+                        ? classes.contractValueIsConnect
+                        : classes.contractValueIsNotConnect
+                    ].join(' ')}
+                  />
+                </div>
                 {isLooping &&
                   (!FlagtimeStamp ? (
                     <div className={classes.waitingFlagContainer}>
@@ -488,25 +508,33 @@ const MintFunction = () => {
                       </div>
                     </div>
                   ))}
-                <div
-                  className={[
-                    classes.contractInfo,
-                    isConnect
-                      ? classes.contractInfoIsConnect
-                      : classes.contractInfoIsNotConnect
-                  ].join(' ')}>
-                  <Typography className={classes.contractText}>
-                    Contract Status
-                  </Typography>
-                  <div
-                    className={[
-                      classes.contractValue,
-                      isConnect
-                        ? classes.contractValueIsConnect
-                        : classes.contractValueIsNotConnect
-                    ].join(' ')}
+                <div className={classes.switchRpcContainer}>
+                  <SwitchRpcSelector
+                    fontSize={16}
+                    disabled={isLooping}
+                    options={[
+                      {
+                        selectedBackgroundColor: '#1956E2',
+                        label: 'Normal',
+                        value: 'Normal'
+                      },
+                      {
+                        selectedBackgroundColor: '#1956E2',
+                        label: 'Flashbot',
+                        value: 'Flashbot'
+                      }
+                    ]}
+                    onChange={(event) => {
+                      setIsFlashbot(!isFlashbot)
+                    }}
+                    border="1px solid #1956E2"
+                    optionBorderRadius={27}
+                    fontColor="#fff"
+                    backgroundColor="transpart"
+                    wrapperBorderRadius={27}
                   />
                 </div>
+
                 <div className={classes.inputContainer}>
                   <CustomInput
                     name="flagFunction"
@@ -688,7 +716,7 @@ const MintFunction = () => {
                     toolTip={toolTipMessage.maxFee}
                   />
                   <CustomInput
-                    label="Max Priority Fee Per Gas"
+                    label="Max Priority Fee"
                     inputMode="numeric"
                     value={values.maxPriorityFeePerGas}
                     name="maxPriorityFeePerGas"
