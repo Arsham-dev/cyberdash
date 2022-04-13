@@ -168,6 +168,8 @@ const MintFunction = () => {
   }
 
   const I_UNDERSTAND_CLICK_EVENT = async (data) => {
+    console.log('FLASH BOT ===> ' + isFlashbot)
+
     const resMetaMask = await metaMask.onClickConnect()
     if (resMetaMask.status === 400) return resMetaMask
 
@@ -274,7 +276,7 @@ const MintFunction = () => {
                 serializeMintInputs
               )
             } else {
-              resTx = await metaMask.flashbotSendSignedTx(signedRawTx, false)
+              resTx = await metaMask.sendSignedTx(signedRawTx, isFlashbot)
             }
 
             if (resTx.status === 200) {
@@ -348,10 +350,7 @@ const MintFunction = () => {
                 data.flagArgs
               )
             } else {
-              resSentTx = await metaMask.flashbotSendSignedTx(
-                signedRawTx,
-                false
-              )
+              resSentTx = await metaMask.sendSignedTx(signedRawTx, isFlashbot)
             }
 
             if (resSentTx.status === 200) {

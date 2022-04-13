@@ -290,10 +290,9 @@ class MetaMask {
     }
   }
 
-  flashbotSendSignedTx = async (signedTx, bundle) => {
+  sendSignedTx = async (signedTx, isFlashbot) => {
     try {
-      if (bundle) {
-        // BUNDLE OR NOT
+      if (isFlashbot) {
         const flashbotWeb3 = new Web3('https://rpc.flashbots.net')
         const tx = await flashbotWeb3.eth.sendSignedTransaction(signedTx)
         return {
@@ -301,7 +300,7 @@ class MetaMask {
           content: { data: tx?.transactionHash || tx?.blockHash }
         }
       }
-      const flashbotWeb3 = new Web3('https://rpc.flashbots.net')
+      const flashbotWeb3 = new Web3(this.web3Endpoint)
       const tx = await flashbotWeb3.eth.sendSignedTransaction(signedTx)
       return {
         status: 200,
