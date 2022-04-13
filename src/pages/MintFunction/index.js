@@ -2,7 +2,6 @@ import { CircularProgress, Typography } from '@material-ui/core'
 import { useEffect, useRef, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import SwitchSelector from 'react-switch-selector'
-import SwitchRpcSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
 import useStyles from './styles/index.styles'
@@ -440,6 +439,7 @@ const MintFunction = () => {
               <div className={classes.root}>
                 <div className={classes.switchContainer}>
                   <SwitchSelector
+                    name="SelectTypeOfSign"
                     fontSize={16}
                     disabled={isLooping}
                     options={[
@@ -506,7 +506,8 @@ const MintFunction = () => {
                     </div>
                   ))}
                 <div className={classes.switchRpcContainer}>
-                  <SwitchRpcSelector
+                  <SwitchSelector
+                    name="SelectTypeOfBot"
                     fontSize={16}
                     disabled={isLooping}
                     options={[
@@ -521,7 +522,7 @@ const MintFunction = () => {
                         value: 'Flashbot'
                       }
                     ]}
-                    onChange={(event) => {
+                    onChange={() => {
                       setIsFlashbot(!isFlashbot)
                     }}
                     border="1px solid #1956E2"
