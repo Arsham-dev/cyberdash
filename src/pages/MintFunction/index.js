@@ -21,7 +21,8 @@ const toolTipMessage = {
   maxPriorityFee: `It’s an 'optional' additional fee that is paid directly to miners in order to incentivize them to include your transaction in a block. Normally, you can enter '2' for this but if you enter higher numbers the changes on the fee is nominal. We haven’t seen any tangible difference in accepting transactions by miners when adding higher tips.`,
   value: `Enter mint price. Note that if you mint more than 1 piece, enter the total value of all pieces. For example, if mint price is 0.08 eth and you want to mint 3 NFTs, enter 0.24`,
   flag: `This is the function in the contract that when it’s turned on, the bot starts minting process. If you don’t know which one the function is, just select main flag. The bot automatically finds the relevant function and mints as soon as it’s flipped from off to on.`,
-  mint: `Select the relevant mint function; Whitelist, public sale, etc.`
+  mint: `Select the relevant mint function; Whitelist, public sale, etc.`,
+  flagDelay: `Set Delay for check flag     ( milisecond )`
 }
 
 const MintFunction = () => {
@@ -67,7 +68,8 @@ const MintFunction = () => {
     maxPriorityFeePerGas: '',
     maxFeePerGas: '',
     gasLimit: '',
-    value: ''
+    value: '',
+    flagDelay: ''
   }
   const history = useHistory()
   const contractAddress = location?.state?.contractAddress
@@ -229,7 +231,7 @@ const MintFunction = () => {
       while (true) {
         if (stopWhileRef.current) break
 
-        await delay(1000)
+        await delay(data.flagDelay)
         let mainAddress = sessionStorage.getItem('key')
 
         const selectedFlagAbiFunction = flagAbi.allFlagFunctions.find(
@@ -258,7 +260,7 @@ const MintFunction = () => {
             setFlagtimeStamp(true)
             setisConnect(true)
             let resTx
-            if (signedRawTx == 'send') {
+            if (signedRawTx === 'send') {
               resTx = await metaMask.sendTx(
                 mainAddress,
                 parseFloat(data.value),
@@ -318,8 +320,8 @@ const MintFunction = () => {
           }
 
           if (
-            resCheckEstimateGas.status == 200 &&
-            resCheckEstimateGas.content?.result == true
+            resCheckEstimateGas.status === 200 &&
+            resCheckEstimateGas.content?.result === true
           ) {
             console.log('FLAG TIMESTMAP => ' + Date.now())
             if (!passedTimeBeforMintInterval) {
@@ -331,7 +333,7 @@ const MintFunction = () => {
             setFlagtimeStamp(true)
             setisConnect(true)
             let resSentTx
-            if (signedRawTx == 'send') {
+            if (signedRawTx === 'send') {
               resSentTx = await metaMask.sendTx(
                 mainAddress,
                 parseFloat(data.value),
@@ -719,6 +721,25 @@ const MintFunction = () => {
                       setFieldValue('gasLimit', event.target.value)
                     }}
                     toolTip={toolTipMessage.gasLimit}
+                  />
+
+                  <CustomInput
+                    label="Delay for CheckFlag (milisecond)"
+                    inputMode="numeric"
+                    step="1"
+                    value={values.flagDelay}
+                    type="number"
+                    name="checkFlag"
+                    error={touched.flagDelay && !!errors.flagDelay}
+                    helperText={
+                      touched.flagDelay ? errors.flagDelay : undefined
+                    }
+                    onBlur={handleBlur}
+                    disabled={isLooping}
+                    onChange={(event) => {
+                      setFieldValue('flagDelay', event.target.value)
+                    }}
+                    toolTip={toolTipMessage.flagDelay}
                   />
                 </div>
                 {

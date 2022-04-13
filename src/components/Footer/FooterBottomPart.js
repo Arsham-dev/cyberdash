@@ -11,7 +11,7 @@ const FooterBottomPart = () => {
     <div className={classes.root}>
       <div>
         <Typography className={classes.desciprtion} color="initial">
-          © 2022 CyberDassh. All rights reserved.
+          © 2022 CyberDash. All rights reserved.
         </Typography>
       </div>
       <div className={classes.mediaContiner}>
