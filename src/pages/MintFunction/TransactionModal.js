@@ -82,6 +82,10 @@ const TransactionModal = ({
               value={`${data.maxPriorityFeePerGas} GWEI`}
             />
             <TransactionModalItems lable="Gas limit:" value={data.gasLimit} />
+            <TransactionModalItems
+              lable="Delay for CheckFlag:"
+              value={data.flagDelay}
+            />
           </div>
           <div className={classes.buttonContainer}>
             <Button

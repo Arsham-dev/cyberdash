@@ -16,6 +16,10 @@ const mintFunctionValidation = yup.object().shape({
   maxPriorityFeePerGas: yup
     .number()
     .integer('Max Priority Fee Per Gas must be an integer')
-    .required('Max Priority Fee Per Gas is required')
+    .required('Max Priority Fee Per Gas is required'),
+  flagDelay: yup
+    .number()
+    .integer('Flag Delay must be an integer')
+    .required('Flag Delay is required')
 })
 export default mintFunctionValidation
