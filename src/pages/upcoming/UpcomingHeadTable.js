@@ -14,6 +14,7 @@ import openSea from '../../assets/images/opensea.svg'
 import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
 import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import useStyles from './styles/UpcomingHeadTable.style'
+import { useEffect, useState } from 'react'
 
 const CustomTableCell = withStyles(() => ({
   root: {
@@ -40,32 +41,100 @@ const CustomTableRow = withStyles(() => ({
   }
 }))(TableRow)
 const UpcomingHeadTable = ({ tableData }) => {
+  const [data, setdata] = useState(tableData)
+  const [currentHead, setcurrentHead] = useState('')
+  useEffect(() => {
+    setdata(tableData)
+  }, [tableData])
+  const sortFunction = (index, isNumer) => {
+    const value = currentHead === index ? -1 : 1
+    setcurrentHead(index === currentHead ? '' : index)
+    if (isNumer)
+      setdata([
+        ...data.sort((first, second) => {
+          if (
+            Number.parseInt(first[index].replace(/\D/g, '') || '0', 10) <
+            Number.parseInt(second[index].replace(/\D/g, '') || '0', 10)
+          )
+            return value
+          else return -value
+        })
+      ])
+    else
+      setdata([
+        ...data.sort((first, second) => {
+          if (first[index] < second[index]) return value
+          else return -value
+        })
+      ])
+  }
+
   const classes = useStyles()
   return (
     <div className={classes.root}>
       <TableContainer component={Paper} className={classes.container}>
-        {tableData ? (
+        {data ? (
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <CustomTableCell align="center">Collection</CustomTableCell>
-                <CustomTableCell align="center">Quantity</CustomTableCell>
-                <CustomTableCell align="center">Presale Price</CustomTableCell>
                 <CustomTableCell align="center">
-                  Public Sale Price
-                </CustomTableCell>
-                <CustomTableCell align="center">Max Mint</CustomTableCell>
-                <CustomTableCell align="center">
-                  Presale Mint TimeStamp
+                  <ButtonBase
+                    className={classes.textButton}
+                    onClick={() => sortFunction('collection_name')}>
+                    Collection
+                  </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
-                  PublicSale Mint TimeStamp
+                  <ButtonBase
+                    className={classes.textButton}
+                    onClick={() => sortFunction('quantity', true)}>
+                    Quantity
+                  </ButtonBase>
+                </CustomTableCell>
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={classes.textButton}
+                    onClick={() => sortFunction('presale_price', true)}>
+                    Presale Price
+                  </ButtonBase>
+                </CustomTableCell>
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={classes.textButton}
+                    onClick={() => sortFunction('publicsale_price', true)}>
+                    Public Sale Price
+                  </ButtonBase>
+                </CustomTableCell>
+                <CustomTableCell
+                  align="center"
+                  onClick={() => sortFunction('max_mint', true)}>
+                  <ButtonBase className={classes.textButton}>
+                    Max Mint
+                  </ButtonBase>
+                </CustomTableCell>
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={classes.textButton}
+                    onClick={() =>
+                      sortFunction('presale_mint_timestamp', true)
+                    }>
+                    Presale Mint TimeStamp
+                  </ButtonBase>
+                </CustomTableCell>
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={classes.textButton}
+                    onClick={() =>
+                      sortFunction('publicsale_mint_timestamp', true)
+                    }>
+                    PublicSale Mint TimeStamp
+                  </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">Social Media</CustomTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map((row) => (
+              {data.map((row) => (
                 <CustomTableRow key={row.name}>
                   <CustomTableCell align="center">
                     {row.collection_name}

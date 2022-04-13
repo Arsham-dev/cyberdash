@@ -12,7 +12,7 @@ const Upcoming = () => {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ5Nzk3MjU4LCJleHAiOjE2NDk4MzMyNTh9.QkMP3A0hhbGIwfQNLKrloKadhioRL_HQSs-InMw0c14`
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ5ODQ0OTM0LCJleHAiOjE2NDk4ODA5MzR9.pY09LY8m11OLRc5GSxrKDWuucBbxLVRATneYnj_0ZrA`
         }
       }
     )

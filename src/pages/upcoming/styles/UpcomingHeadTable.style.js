@@ -134,6 +134,11 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  textButton: {
+    fontSize: 14,
+    color: 'rgb(25, 86, 226)',
+    fontWeight: 'bold'
   }
 }))
 export default useStyles
