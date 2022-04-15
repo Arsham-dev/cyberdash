@@ -138,7 +138,15 @@ const useStyles = makeStyles(() => ({
   textButton: {
     fontSize: 14,
     color: 'rgb(25, 86, 226)',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    position: 'relative'
+  },
+  orderSort: {
+    position: 'absolute',
+    // marginLeft: 5,
+    top: -6,
+    right: -25,
+    fontSize: 10
   }
 }))
 export default useStyles

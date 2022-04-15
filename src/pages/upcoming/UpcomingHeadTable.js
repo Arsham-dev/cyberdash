@@ -10,6 +10,8 @@ import {
   ButtonBase,
   CircularProgress
 } from '@material-ui/core'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import openSea from '../../assets/images/opensea.svg'
 import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
 import discordNoBackground from '../../assets/images/discordNoBackground.svg'
@@ -43,12 +45,13 @@ const CustomTableRow = withStyles(() => ({
 const UpcomingHeadTable = ({ tableData }) => {
   const [data, setdata] = useState(tableData)
   const [currentHead, setcurrentHead] = useState('')
+  const [orderSort, setorderSort] = useState(1)
   useEffect(() => {
     setdata(tableData)
   }, [tableData])
   const sortFunction = (index, isNumer) => {
-    const value = currentHead === index ? -1 : 1
-    setcurrentHead(index === currentHead ? '' : index)
+    const value = orderSort
+    setcurrentHead(index)
     if (isNumer)
       setdata([
         ...data.sort((first, second) => {
@@ -67,9 +70,15 @@ const UpcomingHeadTable = ({ tableData }) => {
           else return -value
         })
       ])
+    setorderSort(-orderSort)
   }
 
   const classes = useStyles()
+  const ShowOrder = () => (
+    <div className={classes.orderSort}>
+      {orderSort === 1 ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+    </div>
+  )
   return (
     <div className={classes.root}>
       <TableContainer component={Paper} className={classes.container}>
@@ -82,6 +91,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                     className={classes.textButton}
                     onClick={() => sortFunction('collection_name')}>
                     Collection
+                    {currentHead === 'collection_name' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
@@ -89,6 +99,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                     className={classes.textButton}
                     onClick={() => sortFunction('quantity', true)}>
                     Quantity
+                    {currentHead === 'quantity' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
@@ -96,6 +107,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                     className={classes.textButton}
                     onClick={() => sortFunction('presale_price', true)}>
                     Presale Price
+                    {currentHead === 'presale_price' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
@@ -103,6 +115,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                     className={classes.textButton}
                     onClick={() => sortFunction('publicsale_price', true)}>
                     Public Sale Price
+                    {currentHead === 'publicsale_price' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell
@@ -110,6 +123,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                   onClick={() => sortFunction('max_mint', true)}>
                   <ButtonBase className={classes.textButton}>
                     Max Mint
+                    {currentHead === 'max_mint' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
@@ -119,6 +133,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                       sortFunction('presale_mint_timestamp', true)
                     }>
                     Presale Mint TimeStamp
+                    {currentHead === 'presale_mint_timestamp' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
@@ -128,6 +143,9 @@ const UpcomingHeadTable = ({ tableData }) => {
                       sortFunction('publicsale_mint_timestamp', true)
                     }>
                     PublicSale Mint TimeStamp
+                    {currentHead === 'publicsale_mint_timestamp' && (
+                      <ShowOrder />
+                    )}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">Social Media</CustomTableCell>
