@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: '40px 0',
     display: 'flex',
@@ -8,17 +8,24 @@ const useStyles = makeStyles(() => ({
     columnGap: 40,
     flex: 1,
     width: 'calc(100% - 100px)',
-    marginTop: -80
+    marginTop: -80,
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      width: 'calc(100% - 10px)'
+    }
   },
   backgroundImageContainer: {
     // with:'100',
     marginTop: 20,
-    margin: '0 3px',
+    // margin: '0 3px',
     height: 150,
     backgroundColor: 'rgb(127, 127, 239)',
     display: 'flex',
     width: 'calc(100% - 100px)',
-    borderRadius: 5
+    borderRadius: 5,
+    [theme.breakpoints.down('sm')]: {
+      width: 'calc(100% - 22px)'
+    }
   },
   collection_background_image: {
     height: 150,
@@ -90,7 +97,11 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     rowGap: 30,
-    flex: 1
+    flex: 1,
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      width: 'calc(100% - 10px)'
+    }
     // width: '100%'
   },
   rightPartTitle: {
