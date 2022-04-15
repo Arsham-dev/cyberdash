@@ -187,6 +187,7 @@ const UpcomingHeadTable = ({ tableData }) => {
             <TableBody>
               {data.map((row, index) => (
                 <CustomTableRow
+                  onClick={() => window.open('resources/' + row.id, '_blank')}
                   key={row.collection_name + index.toString()}
                   className={classes.tableBodyRow}>
                   <CustomTableCell align="center">

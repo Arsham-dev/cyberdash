@@ -92,6 +92,14 @@ const useStyles = makeStyles(() => ({
     fontSize: 16,
     fontWeight: 700,
     color: '#FFF'
+  },
+  collection_image: {
+    width: 120,
+    height: 130,
+    borderRadius: 5
+  },
+  collection_imageContainer: {
+    backgroundColor: 'transparent'
   }
 }))
 export default useStyles
