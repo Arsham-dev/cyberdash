@@ -7,20 +7,21 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     columnGap: 40,
     flex: 1,
-    width: 'calc(100% - 100px)'
+    width: 'calc(100% - 100px)',
+    marginTop: -80
   },
   backgroundImageContainer: {
     // with:'100',
     marginTop: 20,
     margin: '0 3px',
-    height: 60,
+    height: 150,
     backgroundColor: 'rgb(127, 127, 239)',
     display: 'flex',
     width: 'calc(100% - 100px)',
     borderRadius: 5
   },
   collection_background_image: {
-    height: 60,
+    height: 150,
     width: 'calc(100% - 100px)',
     borderRadius: 5
   },

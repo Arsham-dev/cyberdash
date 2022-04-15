@@ -9,7 +9,8 @@ import {
   withStyles,
   ButtonBase,
   CircularProgress,
-  Typography
+  Typography,
+  TextField
 } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
@@ -83,6 +84,11 @@ const UpcomingHeadTable = ({ tableData }) => {
   )
   return (
     <div className={classes.root}>
+      <TextField
+        variant="filled"
+        style={{backgroundColor:'' }}
+        label="Search in colletion name"
+      />
       <TableContainer component={Paper} className={classes.container}>
         {data ? (
           <Table className={classes.table}>
