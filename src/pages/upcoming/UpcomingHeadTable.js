@@ -89,7 +89,12 @@ const UpcomingHeadTable = ({ tableData }) => {
               <TableRow>
                 <CustomTableCell align="center">
                   <ButtonBase
-                    className={classes.textButton}
+                    className={[
+                      classes.textButton,
+                      currentHead === 'collection_name'
+                        ? classes.selectedHead
+                        : ''
+                    ].join(' ')}
                     onClick={() => sortFunction('collection_name')}>
                     Collection
                     {currentHead === 'collection_name' && <ShowOrder />}
@@ -97,7 +102,10 @@ const UpcomingHeadTable = ({ tableData }) => {
                 </CustomTableCell>
                 <CustomTableCell align="center">
                   <ButtonBase
-                    className={classes.textButton}
+                    className={[
+                      classes.textButton,
+                      currentHead === 'quantity' ? classes.selectedHead : ''
+                    ].join(' ')}
                     onClick={() => sortFunction('quantity', true)}>
                     Quantity
                     {currentHead === 'quantity' && <ShowOrder />}
@@ -105,7 +113,12 @@ const UpcomingHeadTable = ({ tableData }) => {
                 </CustomTableCell>
                 <CustomTableCell align="center">
                   <ButtonBase
-                    className={classes.textButton}
+                    className={[
+                      classes.textButton,
+                      currentHead === 'presale_price'
+                        ? classes.selectedHead
+                        : ''
+                    ].join(' ')}
                     onClick={() => sortFunction('presale_price', true)}>
                     Presale Price
                     {currentHead === 'presale_price' && <ShowOrder />}
@@ -113,7 +126,12 @@ const UpcomingHeadTable = ({ tableData }) => {
                 </CustomTableCell>
                 <CustomTableCell align="center">
                   <ButtonBase
-                    className={classes.textButton}
+                    className={[
+                      classes.textButton,
+                      currentHead === 'publicsale_price'
+                        ? classes.selectedHead
+                        : ''
+                    ].join(' ')}
                     onClick={() => sortFunction('publicsale_price', true)}>
                     Public Sale Price
                     {currentHead === 'publicsale_price' && <ShowOrder />}
@@ -122,14 +140,23 @@ const UpcomingHeadTable = ({ tableData }) => {
                 <CustomTableCell
                   align="center"
                   onClick={() => sortFunction('max_mint', true)}>
-                  <ButtonBase className={classes.textButton}>
+                  <ButtonBase
+                    className={[
+                      classes.textButton,
+                      currentHead === 'max_mint' ? classes.selectedHead : ''
+                    ].join(' ')}>
                     Max Mint
                     {currentHead === 'max_mint' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
                   <ButtonBase
-                    className={classes.textButton}
+                    className={[
+                      classes.textButton,
+                      currentHead === 'presale_mint_timestamp'
+                        ? classes.selectedHead
+                        : ''
+                    ].join(' ')}
                     onClick={() =>
                       sortFunction('presale_mint_timestamp', true)
                     }>
@@ -139,7 +166,12 @@ const UpcomingHeadTable = ({ tableData }) => {
                 </CustomTableCell>
                 <CustomTableCell align="center">
                   <ButtonBase
-                    className={classes.textButton}
+                    className={[
+                      classes.textButton,
+                      currentHead === 'publicsale_mint_timestamp'
+                        ? classes.selectedHead
+                        : ''
+                    ].join(' ')}
                     onClick={() =>
                       sortFunction('publicsale_mint_timestamp', true)
                     }>
@@ -154,7 +186,9 @@ const UpcomingHeadTable = ({ tableData }) => {
             </TableHead>
             <TableBody>
               {data.map((row, index) => (
-                <CustomTableRow key={row.collection_name + index.toString()}>
+                <CustomTableRow
+                  key={row.collection_name + index.toString()}
+                  className={classes.tableBodyRow}>
                   <CustomTableCell align="center">
                     {row.collection_name}
                   </CustomTableCell>

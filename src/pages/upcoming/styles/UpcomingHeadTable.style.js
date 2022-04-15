@@ -147,6 +147,13 @@ const useStyles = makeStyles(() => ({
     top: -6,
     right: -25,
     fontSize: 10
+  },
+  tableBodyRow: {
+    cursor: 'grab'
+  },
+  selectedHead: {
+    // paddingBottom: 3,
+    borderBottom: '2px solid rgb(227, 227, 254)'
   }
 }))
 export default useStyles
