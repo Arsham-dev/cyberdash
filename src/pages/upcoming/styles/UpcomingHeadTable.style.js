@@ -1,9 +1,12 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     // width: '100%',
-    padding: '0 89px'
+    padding: '0 89px',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0 20px'
+    }
   },
   table: {
     // width: '100%'
