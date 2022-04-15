@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import useStyles from './styles/index.style'
@@ -23,6 +24,14 @@ const Upcoming = () => {
   }, [])
   return (
     <div className={classes.root}>
+      <div className={classes.header}>
+        <Typography className={classes.headerTitle}>
+          All Upcoming Drops
+        </Typography>
+        <Typography className={classes.headerDiscription}>
+          Check out all collections that are dropping soon!
+        </Typography>
+      </div>
       <UpcomingHeadTable tableData={tableData} />
     </div>
   )

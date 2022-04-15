@@ -17,6 +17,23 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     backgroundColor: 'transparent'
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 3,
+    alignItems: 'flex-start',
+    marginBottom: 20,
+    margin: '0 89px'
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 500,
+    color: '#FFF'
+  },
+  headerDiscription: {
+    fontSize: 17,
+    color: 'rgb(197,197,224)'
   }
 }))
 export default useStyles

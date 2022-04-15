@@ -8,9 +8,7 @@ import {
   TableRow,
   withStyles,
   ButtonBase,
-  CircularProgress,
-  Typography,
-  TextField
+  CircularProgress
 } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
