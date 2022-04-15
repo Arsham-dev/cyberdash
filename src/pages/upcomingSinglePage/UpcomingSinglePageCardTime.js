@@ -16,15 +16,15 @@ const month = [
   'November',
   'December'
 ]
-const UpcomingSinglePageCardTime = () => {
-  const tempTime = 1650096073335
-  const [time, settime] = useState(
-    Math.floor((tempTime - new Date().getTime()) / 1000)
-  )
-  const date = new Date(tempTime)
+const UpcomingSinglePageCardTime = ({ dateTime }) => {
+  const [time, settime] = useState()
+  const date = new Date(time)
   useEffect(() => {
-    setInterval(() => settime((value) => value - 1), 1000)
-  }, [])
+    if (dateTime) {
+      settime(Math.floor((Number(dateTime) - new Date().getTime()) / 1000))
+      setInterval(() => settime((value) => value - 1), 1000)
+    }
+  }, [dateTime])
 
   const classes = useStyles()
   return (

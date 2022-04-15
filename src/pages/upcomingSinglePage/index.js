@@ -7,6 +7,7 @@ import UpcomingSinglePageCardTime from './UpcomingSinglePageCardTime'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
 
 const UpcomingSinglePage = () => {
   const [data, setdata] = useState({})
@@ -111,7 +112,10 @@ const UpcomingSinglePage = () => {
               <Typography>{data.listing_fee}</Typography>
             </div>
           </div>
-          <UpcomingSinglePageCardTime />
+          <UpcomingSinglePageCardOption />
+          <UpcomingSinglePageCardTime
+            dateTime={data.publicsale_mint_timestamp}
+          />
         </Paper>
         <div className={classes.rightPart}>
           <Typography className={classes.rightPartTitle}>
