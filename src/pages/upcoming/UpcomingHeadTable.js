@@ -17,6 +17,7 @@ import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
 import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import useStyles from './styles/UpcomingHeadTable.style'
 import { useEffect, useState } from 'react'
+import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
 
 const CustomTableCell = withStyles(() => ({
   root: {
@@ -152,8 +153,8 @@ const UpcomingHeadTable = ({ tableData }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row) => (
-                <CustomTableRow key={row.name}>
+              {data.map((row, index) => (
+                <CustomTableRow key={row.collection_name + index.toString()}>
                   <CustomTableCell align="center">
                     {row.collection_name}
                   </CustomTableCell>
@@ -170,10 +171,12 @@ const UpcomingHeadTable = ({ tableData }) => {
                     {row.max_mint}
                   </CustomTableCell>
                   <CustomTableCell align="center">
-                    {row.presale_mint_timestamp}
+                    <UpcomingShowTimeStamp time={row.presale_mint_timestamp} />
                   </CustomTableCell>
                   <CustomTableCell align="center">
-                    {row.publicsale_mint_timestamp}
+                    <UpcomingShowTimeStamp
+                      time={row.publicsale_mint_timestamp}
+                    />
                   </CustomTableCell>
                   <CustomTableCell
                     align="center"
