@@ -1,5 +1,6 @@
 import { Typography } from '@material-ui/core'
 import { useEffect, useState } from 'react'
+import ImageIcon from '@material-ui/icons/Image'
 import useStyles from './styles/UpcomingCard.style'
 const month = [
   'January',
@@ -29,7 +30,17 @@ const UpcomingCard = ({ data }) => {
   }, [])
   return (
     <div className={classes.root}>
-      <div className={classes.imageContainer}></div>
+      <div className={classes.imageContainer}>
+        {data.collection_image ? (
+          <img
+            alt="imageContainer"
+            src={data.collection_image}
+            className={classes.image}
+          />
+        ) : (
+          <ImageIcon className={classes.image} />
+        )}
+      </div>
       <div className={classes.infoContainer}>
         <Typography className={classes.collectionName}>
           {data.collection_name}
