@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: 5,
     rowGap: 7
   },
+
   title: {
     color: 'rgba(255,255,255,0.3)',
     fontSize: 12,

@@ -9,6 +9,22 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     width: 'calc(100% - 100px)'
   },
+  backgroundImageContainer: {
+    // with:'100',
+    marginTop: 20,
+    margin: '0 3px',
+    height: 60,
+    backgroundColor: 'rgb(127, 127, 239)',
+    display: 'flex',
+    width: 'calc(100% - 100px)',
+    borderRadius: 5
+  },
+  collection_background_image: {
+    height: 60,
+    width: 'calc(100% - 100px)',
+    borderRadius: 5
+  },
+
   leftPaper: {
     width: 325,
     padding: 15,

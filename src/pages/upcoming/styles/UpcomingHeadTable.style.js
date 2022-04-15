@@ -19,6 +19,11 @@ const useStyles = makeStyles(() => ({
     // textAlign: 'end'
     // display: 'flex'
   },
+  collection: {
+    display: 'flex',
+    columnGap: 5,
+    alignItems: 'center'
+  },
   collections: {
     boxSizing: 'border-box',
     flex: '300 0 auto',
@@ -154,6 +159,20 @@ const useStyles = makeStyles(() => ({
   selectedHead: {
     // paddingBottom: 3,
     borderBottom: '2px solid rgb(227, 227, 254)'
+  },
+  collection_image: {
+    width: 40,
+    height: 40,
+    borderRadius: 4
+  },
+  collection_imageContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 4,
+    backgroundColor: 'transparent'
+  },
+  collection_imageContainerNo: {
+    backgroundColor: 'rgb(11, 30, 57)'
   }
 }))
 export default useStyles

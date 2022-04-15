@@ -8,7 +8,8 @@ import {
   TableRow,
   withStyles,
   ButtonBase,
-  CircularProgress
+  CircularProgress,
+  Typography
 } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
@@ -190,7 +191,24 @@ const UpcomingHeadTable = ({ tableData }) => {
                   onClick={() => window.open('resources/' + row.id, '_blank')}
                   key={row.collection_name + index.toString()}
                   className={classes.tableBodyRow}>
-                  <CustomTableCell align="center">
+                  <CustomTableCell
+                    align="center"
+                    className={classes.collection}>
+                    <div
+                      className={[
+                        classes.collection_imageContainer,
+                        row.collection_image
+                          ? ''
+                          : classes.collection_imageContainerNo
+                      ].join(' ')}>
+                      {row.collection_image && (
+                        <img
+                          alt="collection_image"
+                          src={row.collection_image}
+                          className={classes.collection_image}
+                        />
+                      )}
+                    </div>
                     {row.collection_name}
                   </CustomTableCell>
                   <CustomTableCell align="center">
