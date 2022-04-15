@@ -2,6 +2,7 @@ import { Typography } from '@material-ui/core'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import useStyles from './styles/index.style'
+import UpcomingCardBox from './UpcomingCardBox'
 import UpcomingHeadTable from './UpcomingHeadTable'
 
 const Upcoming = () => {
@@ -24,6 +25,7 @@ const Upcoming = () => {
   }, [])
   return (
     <div className={classes.root}>
+      <UpcomingCardBox data={tableData} />
       <div className={classes.header}>
         <Typography className={classes.headerTitle}>
           All Upcoming Drops
