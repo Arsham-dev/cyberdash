@@ -17,7 +17,7 @@ const month = [
   'December'
 ]
 
-const UpcomingCard = ({ data }) => {
+const UpcomingCard = ({ data, isPresale }) => {
   const classes = useStyles()
   const [time, settime] = useState(
     Math.floor(
@@ -57,6 +57,9 @@ const UpcomingCard = ({ data }) => {
             time > 0 ? `${Math.floor(time % 60)}s` : '0s'
           }`}
         </Typography>
+        {isPresale && (
+          <Typography className={classes.isPresale}>Is Presale</Typography>
+        )}
       </div>
     </div>
   )

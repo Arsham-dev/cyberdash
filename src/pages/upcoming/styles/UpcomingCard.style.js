@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles(() => ({
   root: {
     borderRadius: 10,
-    padding: '8px 15px',
+    padding: '8px 15px 14px 15px',
     backgroundColor: 'rgb(19, 19, 41)',
     display: 'flex',
     alignItems: 'center',
@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: 10
   },
   infoContainer: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -42,6 +43,14 @@ const useStyles = makeStyles(() => ({
   },
   timeCounter: {
     color: 'rgba(181, 129, 153,0.9)'
+  },
+  isPresale: {
+    position: 'absolute',
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 10,
+    fontWeight: 400,
+    bottom: -13,
+    left: 0
   }
 }))
 export default useStyles

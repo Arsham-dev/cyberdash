@@ -33,7 +33,35 @@ const UpcomingCardBox = ({ data }) => {
           // innerWidth={230}
           items={
             data
-              ? [...data, ...data].map((item) => <UpcomingCard data={item} />)
+              ? [
+                  ...data
+                    .filter(
+                      (item) =>
+                        Number(item.publicsale_mint_timestamp) -
+                          new Date().getTime() <
+                        86400000
+                    )
+                    .map((item, index) => (
+                      <UpcomingCard
+                        data={item}
+                        key={item.collection_name + index.toString()}
+                      />
+                    )),
+                  ...data
+                    .filter(
+                      (item) =>
+                        Number(item.presale_mint_timestamp) -
+                          new Date().getTime() <
+                        86400000
+                    )
+                    .map((item, index) => (
+                      <UpcomingCard
+                        data={item}
+                        key={item.collection_name + index.toString()}
+                        isPresale
+                      />
+                    ))
+                ]
               : undefined
           }
           responsive={responsive}

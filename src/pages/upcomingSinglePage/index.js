@@ -16,7 +16,6 @@ const UpcomingSinglePage = () => {
     const data = await axios.get(
       process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming/id/' + params.id
     )
-    console.log(data)
     setdata(data.data ? data.data : undefined)
   }
   useEffect(() => {
