@@ -1,6 +1,8 @@
+import { Typography } from '@material-ui/core'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import useStyles from './styles/index.style'
+import UpcomingCardBox from './UpcomingCardBox'
 import UpcomingHeadTable from './UpcomingHeadTable'
 
 const Upcoming = () => {
@@ -8,11 +10,11 @@ const Upcoming = () => {
   const [tableData, settableData] = useState(undefined)
   const getData = async () => {
     const data = await axios.get(
-      process.env.REACT_APP_API_BASE_URL + '/v1/admins/tables/listings',
+      process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming/',
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ5ODQ0OTM0LCJleHAiOjE2NDk4ODA5MzR9.pY09LY8m11OLRc5GSxrKDWuucBbxLVRATneYnj_0ZrA`
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjUwMDA0MzA3LCJleHAiOjE2NTAwNDAzMDd9.jErbz_bbv8QocV231doX4k45rFg0_cLOxl2b7jQuT-s`
         }
       }
     )
@@ -23,6 +25,15 @@ const Upcoming = () => {
   }, [])
   return (
     <div className={classes.root}>
+      <UpcomingCardBox data={tableData} />
+      <div className={classes.header}>
+        <Typography className={classes.headerTitle}>
+          All Upcoming Drops
+        </Typography>
+        <Typography className={classes.headerDiscription}>
+          Check out all collections that are dropping soon!
+        </Typography>
+      </div>
       <UpcomingHeadTable tableData={tableData} />
     </div>
   )

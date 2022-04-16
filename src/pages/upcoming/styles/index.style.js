@@ -1,12 +1,12 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     // maxWidth: 'auto'
     width: '100%',
     margin: '30px 0',
     backgroundColor: 'transparent'
-    // margin: '0 20px'
+    // margin: '0 20px',
   },
   main: {
     // width: '100%',
@@ -17,6 +17,27 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     backgroundColor: 'transparent'
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 3,
+    alignItems: 'flex-start',
+    marginBottom: 20,
+    margin: '0 89px',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0 20px',
+      marginBottom: 20
+    }
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 500,
+    color: '#FFF'
+  },
+  headerDiscription: {
+    fontSize: 17,
+    color: 'rgb(197,197,224)'
   }
 }))
 export default useStyles

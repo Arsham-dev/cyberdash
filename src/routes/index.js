@@ -6,6 +6,7 @@ import Home from '../pages/home'
 import MintFunction from '../pages/mintFunction'
 import PageNotFound from '../pages/pageNotFound'
 import Upcoming from '../pages/upcoming'
+import UpcomingSinglePage from '../pages/upcomingSinglePage'
 
 const Routes = () => {
   return (
@@ -22,6 +23,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/resources">
           <Upcoming />
+        </Route>
+        <Route exact path="/resources/:id">
+          <UpcomingSinglePage />
         </Route>
         <Route exact path="/mint-function">
           <MintFunction />

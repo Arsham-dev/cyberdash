@@ -1,9 +1,12 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     // width: '100%',
-    padding: '0 89px'
+    padding: '0 89px',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0 20px'
+    }
   },
   table: {
     // width: '100%'
@@ -18,6 +21,11 @@ const useStyles = makeStyles(() => ({
     // verticalAlign: 'middle',
     // textAlign: 'end'
     // display: 'flex'
+  },
+  collection: {
+    display: 'flex',
+    columnGap: 5,
+    alignItems: 'center'
   },
   collections: {
     boxSizing: 'border-box',
@@ -138,7 +146,36 @@ const useStyles = makeStyles(() => ({
   textButton: {
     fontSize: 14,
     color: 'rgb(25, 86, 226)',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    position: 'relative'
+  },
+  orderSort: {
+    position: 'absolute',
+    // marginLeft: 5,
+    top: -6,
+    right: -25,
+    fontSize: 10
+  },
+  tableBodyRow: {
+    cursor: 'grab'
+  },
+  selectedHead: {
+    // paddingBottom: 3,
+    borderBottom: '2px solid rgb(227, 227, 254)'
+  },
+  collection_image: {
+    width: 40,
+    height: 40,
+    borderRadius: 4
+  },
+  collection_imageContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 4,
+    backgroundColor: 'transparent'
+  },
+  collection_imageContainerNo: {
+    backgroundColor: 'rgb(11, 30, 57)'
   }
 }))
 export default useStyles
