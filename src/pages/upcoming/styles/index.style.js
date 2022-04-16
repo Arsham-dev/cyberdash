@@ -31,12 +31,12 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: 500,
+    color: '#FFF'
+  },
+  pageTitle: {
     color: '#FFF'
   },
   headerDiscription: {
-    fontSize: 17,
     color: 'rgb(197,197,224)'
   }
 }))

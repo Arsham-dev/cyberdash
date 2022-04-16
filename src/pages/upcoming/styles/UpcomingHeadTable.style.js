@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textButton: {
     fontSize: 14,
-    color: 'rgb(25, 86, 226)',
+    color: 'rgb(197,197,224)',
     fontWeight: 'bold',
     position: 'relative'
   },

@@ -11,13 +11,13 @@ const UpcomingCardBox = ({ data }) => {
     568: { items: 2 },
     1024: { items: 3 }
   }
+  //      <!-- <Typography className={classes.headerTitle}>Drops</Typography>
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.headerTitle}>Drops</Typography>
       <div className={classes.sliderContainer}>
         <Typography className={classes.title}>
-          Upcoming mint {'  '}
+          Today's Mint {'  '}
           <AccessTimeIcon />
         </Typography>
         <AliceCarousel

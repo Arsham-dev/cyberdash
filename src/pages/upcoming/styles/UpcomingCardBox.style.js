@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   headerTitle: {
     color: 'rgba(255,255,255,0.75)',
+    marginLeft: '50%',
     marginBottom: 20,
     fontSize: 31,
     fontWeight: 600

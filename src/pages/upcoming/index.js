@@ -1,4 +1,3 @@
-import { Typography } from '@material-ui/core'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import useStyles from './styles/index.style'
@@ -10,13 +9,7 @@ const Upcoming = () => {
   const [tableData, settableData] = useState(undefined)
   const getData = async () => {
     const data = await axios.get(
-      process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming/',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjUwMDA0MzA3LCJleHAiOjE2NTAwNDAzMDd9.jErbz_bbv8QocV231doX4k45rFg0_cLOxl2b7jQuT-s`
-        }
-      }
+      process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming/'
     )
     settableData(data.data ? data.data.rows : undefined)
   }
@@ -25,14 +18,15 @@ const Upcoming = () => {
   }, [])
   return (
     <div className={classes.root}>
+      <div className={classes.header}>
+        <h1 className={classes.pageTitle}>Drops</h1>
+      </div>
       <UpcomingCardBox data={tableData} />
       <div className={classes.header}>
-        <Typography className={classes.headerTitle}>
-          All Upcoming Drops
-        </Typography>
-        <Typography className={classes.headerDiscription}>
-          Check out all collections that are dropping soon!
-        </Typography>
+        <h2 className={classes.headerTitle}>Upcoming Calendar</h2>
+        <h3 className={classes.headerDiscription}>
+          In this table you can find upcoming NFT projects
+        </h3>
       </div>
       <UpcomingHeadTable tableData={tableData} />
     </div>

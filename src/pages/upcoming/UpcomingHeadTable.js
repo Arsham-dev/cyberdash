@@ -24,8 +24,8 @@ const CustomTableCell = withStyles(() => ({
     borderBottom: 'none'
   },
   head: {
-    backgroundColor: 'rgba(9,9,60,1)',
-    color: 'rgb(25, 86, 226)'
+    backgroundColor: '#0a1e39',
+    color: 'rgb(197,197,224)'
   },
   body: {
     fontSize: 14,
@@ -35,10 +35,10 @@ const CustomTableCell = withStyles(() => ({
 const CustomTableRow = withStyles(() => ({
   root: {
     '&:nth-of-type(odd)': {
-      backgroundColor: 'rgb(27,27,54)'
+      backgroundColor: '#102847'
     },
     '&:nth-of-type(even)': {
-      backgroundColor: 'rgb(20,20,43)',
+      backgroundColor: '#0a1e39',
       color: '#FFF !important'
     }
   }
@@ -107,7 +107,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                       currentHead === 'quantity' ? classes.selectedHead : ''
                     ].join(' ')}
                     onClick={() => sortFunction('quantity', true)}>
-                    Quantity
+                    Supply
                     {currentHead === 'quantity' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
@@ -160,7 +160,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                     onClick={() =>
                       sortFunction('presale_mint_timestamp', true)
                     }>
-                    Presale Mint TimeStamp
+                    Presale Mint Time
                     {currentHead === 'presale_mint_timestamp' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
@@ -175,7 +175,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                     onClick={() =>
                       sortFunction('publicsale_mint_timestamp', true)
                     }>
-                    PublicSale Mint TimeStamp
+                    PublicSale Mint Time
                     {currentHead === 'publicsale_mint_timestamp' && (
                       <ShowOrder />
                     )}
@@ -230,6 +230,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                       time={row.publicsale_mint_timestamp}
                     />
                   </CustomTableCell>
+
                   <CustomTableCell
                     align="center"
                     className={classes.buttonContainer}>
