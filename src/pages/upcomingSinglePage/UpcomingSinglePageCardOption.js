@@ -14,13 +14,14 @@ const UpcomingSinglePageCardOption = () => {
 
   return (
     <div className={classes.root}>
+      <Typography className={classes.header}>Gas estimate</Typography>
       <ButtonGroup>
         <Button
           variant={typeOfButtonIsNormal ? 'contained' : 'outlined'}
           onClick={() => {
             settypeOfButtonIsNormal(true)
           }}>
-          Normal
+          Manual
         </Button>
         <Button
           variant={!typeOfButtonIsNormal ? 'contained' : 'outlined'}

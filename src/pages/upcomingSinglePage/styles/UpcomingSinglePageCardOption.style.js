@@ -27,6 +27,12 @@ const useStyles = makeStyles(() => ({
   },
   input: {
     color: 'rgba(255,255,255,0.87)'
+  },
+  header: {
+    color: '#FFF',
+    fontWeight: 600,
+    fontSize: 16,
+    marginBottom: 10
   }
 }))
 export default useStyles
