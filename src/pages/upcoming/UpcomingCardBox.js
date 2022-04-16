@@ -14,6 +14,7 @@ const UpcomingCardBox = ({ data }) => {
 
   return (
     <div className={classes.root}>
+      <Typography className={classes.headerTitle}>Drops</Typography>
       <div className={classes.sliderContainer}>
         <Typography className={classes.title}>
           Upcoming mint {'  '}

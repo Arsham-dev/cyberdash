@@ -5,7 +5,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexDirection: 'column'
   },
   sliderContainer: {
     width: 815,
@@ -32,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
     '& svg': {
       color: 'rgb(90, 102, 243)'
     }
+  },
+  headerTitle: {
+    color: 'rgba(255,255,255,0.75)',
+    marginBottom: 20,
+    fontSize: 31,
+    fontWeight: 600
   }
 }))
 export default useStyles
