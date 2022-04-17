@@ -46,7 +46,7 @@ const CustomTableRow = withStyles(() => ({
     }
   }
 }))(TableRow)
-const UpcomingHeadTable = ({ tableData }) => {
+const UpcomingHeadTable = ({ tableData, isNormal }) => {
   const [data, setdata] = useState(tableData)
   const [currentHead, setcurrentHead] = useState('')
   const [orderSort, setorderSort] = useState(1)
@@ -220,6 +220,19 @@ const UpcomingHeadTable = ({ tableData }) => {
                     {currentHead === 'category' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
+                {!isNormal && (
+                  <CustomTableCell align="center">
+                    <ButtonBase
+                      className={[
+                        classes.textButton,
+                        currentHead === 'isNormal' ? classes.selectedHead : ''
+                      ].join(' ')}
+                      onClick={() => sortFunction('isNormal', true)}>
+                      isNotNormal
+                      {currentHead === 'isNormal' && <ShowOrder />}
+                    </ButtonBase>
+                  </CustomTableCell>
+                )}
                 <CustomTableCell align="center">Social Media</CustomTableCell>
               </TableRow>
             </TableHead>
@@ -279,7 +292,11 @@ const UpcomingHeadTable = ({ tableData }) => {
                   <CustomTableCell align="center">
                     {row.category}
                   </CustomTableCell>
-
+                  {!isNormal && (
+                    <CustomTableCell align="center">
+                      isNotNormal
+                    </CustomTableCell>
+                  )}
                   <CustomTableCell
                     align="center"
                     className={classes.buttonContainer}>

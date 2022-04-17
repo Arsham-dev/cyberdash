@@ -45,11 +45,19 @@ const useStyles = makeStyles((theme) => ({
   },
   filterListContainer: {
     marginBottom: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     margin: '0 89px',
     [theme.breakpoints.down('sm')]: {
       margin: '0 20px',
       marginBottom: 20
     }
-  }
+  },
+  filterListContainerButton: {
+    color: '#FFF',
+    borderColor: '#FFF'
+  },
+  filterListContainerButtonGroup: {}
 }))
 export default useStyles

@@ -28,6 +28,7 @@ const UpcomingFilterList = ({ categories }) => {
     setAnchorEl(null)
   }
   return (
+    
     <div className={classes.root}>
       <div>
         <TextField

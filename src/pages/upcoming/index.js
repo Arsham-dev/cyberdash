@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Button, ButtonGroup, Typography } from '@material-ui/core'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import useStyles from './styles/index.style'
@@ -10,6 +10,7 @@ const Upcoming = () => {
   const classes = useStyles()
   const [tableData, settableData] = useState(undefined)
   const [categories, setcategories] = useState([])
+  const [isNormal, setisNormal] = useState(true)
   const getData = async () => {
     const data = await axios.get(
       process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming'
@@ -43,9 +44,24 @@ const Upcoming = () => {
         </Typography>
       </div>
       <div className={classes.filterListContainer}>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined button group"
+          className={classes.filterListContainerButtonGroup}>
+          <Button
+            className={classes.filterListContainerButton}
+            onClick={() => setisNormal(true)}>
+            Normal
+          </Button>
+          <Button
+            className={classes.filterListContainerButton}
+            onClick={() => setisNormal(false)}>
+            Revil
+          </Button>
+        </ButtonGroup>
         <UpcomingFilterList categories={categories} />
       </div>
-      <UpcomingHeadTable tableData={tableData} />
+      <UpcomingHeadTable tableData={tableData} isNormal={isNormal} />
     </div>
   )
 }
