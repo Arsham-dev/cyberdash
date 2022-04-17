@@ -22,6 +22,9 @@ import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
 const CustomTableCell = withStyles(() => ({
   root: {
     borderBottom: 'none'
+    // display: 'flex',
+    // flex: 1
+    // flexDirection: 'column',
   },
   head: {
     backgroundColor: '#0a1e39',
@@ -228,6 +231,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                   className={classes.tableBodyRow}>
                   <CustomTableCell
                     align="center"
+                    al
                     className={classes.collection}>
                     <div
                       className={[

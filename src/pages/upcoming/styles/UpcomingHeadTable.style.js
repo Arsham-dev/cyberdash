@@ -25,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   collection: {
     display: 'flex',
     columnGap: 5,
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    margin: 'auto'
+    // justifyContent
+    // flex: 1
   },
   collections: {
     boxSizing: 'border-box',

@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
+import UpcomingSinglePageShowStatus from './UpcomingSinglePageShowStatus'
 
 const UpcomingSinglePage = () => {
   const [data, setdata] = useState({})
@@ -78,12 +79,17 @@ const UpcomingSinglePage = () => {
               {data.collection_name}
             </Typography>
           </div>
+          <UpcomingSinglePageShowStatus
+            publicsale_mint_timestamp={data.publicsale_mint_timestamp}
+            presale_mint_timestamp={data.presale_mint_timestamp}
+          />
           <div>
-            <ButtonBase className={classes.upcomingButton}>
+            {/* <ButtonBase className={classes.upcomingButton}>
               <Typography className={classes.upcomingButtonText}>
                 Upcoming
               </Typography>
-            </ButtonBase>
+            </ButtonBase> */}
+            <div className={classes.animatedItem} />
           </div>
           <div className={classes.moreInfoContainer}>
             <div>
@@ -94,10 +100,6 @@ const UpcomingSinglePage = () => {
               <Typography>Floor</Typography>
               <Typography>{data.floor}</Typography>
             </div>
-            {/* <div>
-            <Typography>Gas Fee</Typography>
-            <Typography>0.02 ETH</Typography>
-          </div> */}
             <div>
               <Typography>OS Royalty</Typography>
               <Typography>{data.os_royalty}</Typography>

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     rowGap: 3,
     alignItems: 'flex-start',
-    marginBottom: 20,
+    marginBottom: 15,
     margin: '0 89px',
     [theme.breakpoints.down('sm')]: {
       margin: '0 20px',
@@ -31,13 +31,25 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   headerTitle: {
-    color: '#FFF'
+    color: '#FFF',
+    fontSize: 30,
+    fontWeight: 700
   },
   pageTitle: {
     color: '#FFF'
   },
   headerDiscription: {
-    color: 'rgb(197,197,224)'
+    color: 'rgb(197,197,224)',
+    fontSize: 20,
+    fontWeight: 500
+  },
+  filterListContainer: {
+    marginBottom: 20,
+    margin: '0 89px',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0 20px',
+      marginBottom: 20
+    }
   }
 }))
 export default useStyles

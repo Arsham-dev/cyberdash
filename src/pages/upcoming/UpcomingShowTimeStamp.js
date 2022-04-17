@@ -18,6 +18,7 @@ const month = [
 
 const UpcomingShowTimeStamp = ({ time }) => {
   const classes = useStyles()
+  const isNumber = /^-?\d+$/.test(time)
   const date = new Date(Number(time, 10))
   const [counrerTime, setcounrerTime] = useState(
     Math.floor((Number(time, 10) - new Date().getTime()) / 1000)
@@ -30,31 +31,41 @@ const UpcomingShowTimeStamp = ({ time }) => {
   const ShowDate = ({ value }) => {
     return (
       <div>
-        {value > 86400 ? (
-          <Typography>
-            {`${Math.floor(value / 86400)}d ${Math.floor(
-              (value % 86400) / 3600
-            )}h`}
-          </Typography>
-        ) : value > 3600 ? (
-          <Typography>{`${Math.floor(value / 3600)}h ${Math.floor(
-            (value % 3600) / 60
-          )}m`}</Typography>
+        {value > 0 ? (
+          value > 86400 ? (
+            <Typography>
+              {`${Math.floor(value / 86400)}d ${Math.floor(
+                (value % 86400) / 3600
+              )}h`}
+            </Typography>
+          ) : value > 3600 ? (
+            <Typography>{`${Math.floor(value / 3600)}h ${Math.floor(
+              (value % 3600) / 60
+            )}m`}</Typography>
+          ) : (
+            <Typography>{`${Math.floor(value / 60)}m ${Math.floor(
+              value % 60
+            )}s`}</Typography>
+          )
         ) : (
-          <Typography>{`${Math.floor(value / 60)}m ${Math.floor(
-            value % 60
-          )}s`}</Typography>
+          <Typography>0s</Typography>
         )}
       </div>
     )
   }
   return (
     <div className={classes.root}>
-      <ShowDate value={counrerTime} />
+      {isNumber ? (
+        <ShowDate value={counrerTime} />
+      ) : (
+        <Typography>{time}</Typography>
+      )}{' '}
       <Typography className={classes.dateText}>
-        {`${
-          month[date.getMonth()]
-        } ${date.getDay()}, ${date.getHours()}:${date.getMinutes()}`}
+        {isNumber
+          ? `${
+              month[date.getMonth()]
+            } ${date.getDay()}, ${date.getHours()}:${date.getMinutes()}`
+          : '-'}
       </Typography>
     </div>
   )

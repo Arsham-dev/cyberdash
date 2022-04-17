@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    rowGap: 3,
+    rowGap: 10,
     '& div': {
       display: 'flex',
       flexDirection: 'row',
