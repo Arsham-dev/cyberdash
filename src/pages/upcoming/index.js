@@ -9,13 +9,14 @@ const Upcoming = () => {
   const [tableData, settableData] = useState(undefined)
   const getData = async () => {
     const data = await axios.get(
-      process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming/'
+      process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming'
     )
     settableData(data.data ? data.data.rows : undefined)
   }
   useEffect(() => {
     getData()
   }, [])
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>

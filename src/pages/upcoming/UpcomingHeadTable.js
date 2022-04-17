@@ -73,7 +73,6 @@ const UpcomingHeadTable = ({ tableData }) => {
       ])
     setorderSort(-orderSort)
   }
-
   const classes = useStyles()
   const ShowOrder = () => (
     <div className={classes.orderSort}>
@@ -109,6 +108,32 @@ const UpcomingHeadTable = ({ tableData }) => {
                     onClick={() => sortFunction('quantity', true)}>
                     Supply
                     {currentHead === 'quantity' && <ShowOrder />}
+                  </ButtonBase>
+                </CustomTableCell>
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={[
+                      classes.textButton,
+                      currentHead === 'twitter_member'
+                        ? classes.selectedHead
+                        : ''
+                    ].join(' ')}
+                    onClick={() => sortFunction('twitter_member', true)}>
+                    Twitter Member
+                    {currentHead === 'twitter_member' && <ShowOrder />}
+                  </ButtonBase>
+                </CustomTableCell>
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={[
+                      classes.textButton,
+                      currentHead === 'discord_member'
+                        ? classes.selectedHead
+                        : ''
+                    ].join(' ')}
+                    onClick={() => sortFunction('discord_member', true)}>
+                    Discord Member
+                    {currentHead === 'discord_member' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
@@ -181,6 +206,17 @@ const UpcomingHeadTable = ({ tableData }) => {
                     )}
                   </ButtonBase>
                 </CustomTableCell>
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={[
+                      classes.textButton,
+                      currentHead === 'category' ? classes.selectedHead : ''
+                    ].join(' ')}
+                    onClick={() => sortFunction('category', true)}>
+                    Category
+                    {currentHead === 'category' && <ShowOrder />}
+                  </ButtonBase>
+                </CustomTableCell>
                 <CustomTableCell align="center">Social Media</CustomTableCell>
               </TableRow>
             </TableHead>
@@ -214,6 +250,12 @@ const UpcomingHeadTable = ({ tableData }) => {
                     {row.quantity}
                   </CustomTableCell>
                   <CustomTableCell align="center">
+                    {row.twitter_member}
+                  </CustomTableCell>
+                  <CustomTableCell align="center">
+                    {row.discord_member}
+                  </CustomTableCell>
+                  <CustomTableCell align="center">
                     {row.presale_price}
                   </CustomTableCell>
                   <CustomTableCell align="center">
@@ -229,6 +271,9 @@ const UpcomingHeadTable = ({ tableData }) => {
                     <UpcomingShowTimeStamp
                       time={row.publicsale_mint_timestamp}
                     />
+                  </CustomTableCell>
+                  <CustomTableCell align="center">
+                    {row.category}
                   </CustomTableCell>
 
                   <CustomTableCell
