@@ -10,12 +10,14 @@ const Upcoming = () => {
   const classes = useStyles()
   const [tableData, settableData] = useState(undefined)
   const [categories, setcategories] = useState([])
+  const [filteredData, setfilteredData] = useState([])
   const [isNormal, setisNormal] = useState(true)
   const getData = async () => {
     const data = await axios.get(
       process.env.REACT_APP_API_BASE_URL + '/v1/tables/upcoming'
     )
     settableData(data.data ? data.data.rows : undefined)
+    setfilteredData(data.data ? data.data.rows : undefined)
   }
   const getCategories = async () => {
     const data = await axios.get(
@@ -68,9 +70,13 @@ const Upcoming = () => {
             Revil
           </Button>
         </ButtonGroup>
-        <UpcomingFilterList categories={categories} />
+        <UpcomingFilterList
+          categories={categories}
+          data={tableData}
+          setData={setfilteredData}
+        />
       </div>
-      <UpcomingHeadTable tableData={tableData} isNormal={isNormal} />
+      <UpcomingHeadTable tableData={filteredData} isNormal={isNormal} />
     </div>
   )
 }
