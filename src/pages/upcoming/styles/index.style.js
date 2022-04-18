@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     flexDirection: 'column',
-    rowGap: 3,
+    rowGap: 6,
     alignItems: 'flex-start',
     marginBottom: 15,
     margin: '0 89px',
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500
   },
   filterListContainer: {
-    marginBottom: 20,
+    marginBottom: 5,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -56,8 +56,21 @@ const useStyles = makeStyles((theme) => ({
   },
   filterListContainerButton: {
     color: '#FFF',
-    borderColor: '#FFF'
+    width: 100,
+    borderColor: 'rgb(11, 30, 57)',
+    backgroundColor: 'rgb(11, 30, 57)',
+    textTransform: 'capitalize'
   },
-  filterListContainerButtonGroup: {}
+  filterListContainerButtonSelected: {
+    backgroundColor: 'rgb(25, 86, 226)',
+    '&:hover': {
+      backgroundColor: 'rgba(25, 86, 226,0.6)'
+    }
+  },
+  pageTitleDescription: {
+    fontWeight: 'Normal',
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)'
+  }
 }))
 export default useStyles

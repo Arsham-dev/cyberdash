@@ -33,6 +33,9 @@ const Upcoming = () => {
     <div className={classes.root}>
       <div className={classes.header}>
         <h1 className={classes.pageTitle}>Drops</h1>
+        <Typography className={classes.pageTitleDescription}>
+          We only include the project that are worth mentioning
+        </Typography>
       </div>
       <UpcomingCardBox data={tableData} />
       <div className={classes.header}>
@@ -49,12 +52,18 @@ const Upcoming = () => {
           aria-label="outlined button group"
           className={classes.filterListContainerButtonGroup}>
           <Button
-            className={classes.filterListContainerButton}
+            className={[
+              classes.filterListContainerButton,
+              isNormal ? classes.filterListContainerButtonSelected : ''
+            ].join(' ')}
             onClick={() => setisNormal(true)}>
-            Normal
+            Upcoming
           </Button>
           <Button
-            className={classes.filterListContainerButton}
+            className={[
+              classes.filterListContainerButton,
+              !isNormal ? classes.filterListContainerButtonSelected : ''
+            ].join(' ')}
             onClick={() => setisNormal(false)}>
             Revil
           </Button>
