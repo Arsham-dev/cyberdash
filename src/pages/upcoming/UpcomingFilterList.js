@@ -53,7 +53,8 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
         touched,
         handleBlur,
         isSubmitting,
-        handleChange
+        handleChange,
+        resetForm
       }) => {
         console.log(errors)
         return (
@@ -319,6 +320,10 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                       variant="outlined"
                       color="primary"
                       type="reset"
+                      onClick={() => {
+                        resetForm()
+                        upcomingFilterListFunction(values, setData, data, '')
+                      }}
                       className={classes.button}>
                       Cancel
                     </Button>
