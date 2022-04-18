@@ -209,17 +209,6 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                     )}
                   </ButtonBase>
                 </CustomTableCell>
-                <CustomTableCell align="center">
-                  <ButtonBase
-                    className={[
-                      classes.textButton,
-                      currentHead === 'category' ? classes.selectedHead : ''
-                    ].join(' ')}
-                    onClick={() => sortFunction('category', true)}>
-                    Category
-                    {currentHead === 'category' && <ShowOrder />}
-                  </ButtonBase>
-                </CustomTableCell>
                 {!isNormal && (
                   <CustomTableCell align="center">
                     <ButtonBase
@@ -233,6 +222,18 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                     </ButtonBase>
                   </CustomTableCell>
                 )}
+                <CustomTableCell align="center">
+                  <ButtonBase
+                    className={[
+                      classes.textButton,
+                      currentHead === 'category' ? classes.selectedHead : ''
+                    ].join(' ')}
+                    onClick={() => sortFunction('category')}>
+                    Category
+                    {currentHead === 'category' && <ShowOrder />}
+                  </ButtonBase>
+                </CustomTableCell>
+
                 <CustomTableCell align="center">Social Media</CustomTableCell>
               </TableRow>
             </TableHead>
@@ -246,22 +247,24 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                     align="center"
                     al
                     className={classes.collection}>
-                    <div
-                      className={[
-                        classes.collection_imageContainer,
-                        row.collection_image
-                          ? ''
-                          : classes.collection_imageContainerNo
-                      ].join(' ')}>
-                      {row.collection_image && (
-                        <img
-                          alt="collection_image"
-                          src={row.collection_image}
-                          className={classes.collection_image}
-                        />
-                      )}
+                    <div className={classes.collectionRoot}>
+                      <div
+                        className={[
+                          classes.collection_imageContainer,
+                          row.collection_image
+                            ? ''
+                            : classes.collection_imageContainerNo
+                        ].join(' ')}>
+                        {row.collection_image && (
+                          <img
+                            alt="collection_image"
+                            src={row.collection_image}
+                            className={classes.collection_image}
+                          />
+                        )}
+                      </div>
+                      {row.collection_name}
                     </div>
-                    {row.collection_name}
                   </CustomTableCell>
                   <CustomTableCell align="center">
                     {row.quantity}
@@ -284,19 +287,21 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   <CustomTableCell align="center">
                     <UpcomingShowTimeStamp time={row.presale_mint_timestamp} />
                   </CustomTableCell>
+
                   <CustomTableCell align="center">
                     <UpcomingShowTimeStamp
                       time={row.publicsale_mint_timestamp}
                     />
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    {row.category}
                   </CustomTableCell>
                   {!isNormal && (
                     <CustomTableCell align="center">
                       isNotNormal
                     </CustomTableCell>
                   )}
+                  <CustomTableCell align="center">
+                    {row.category}
+                  </CustomTableCell>
+
                   <CustomTableCell
                     align="center"
                     className={classes.buttonContainer}>
