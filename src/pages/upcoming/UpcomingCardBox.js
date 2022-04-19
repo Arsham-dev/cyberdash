@@ -11,7 +11,6 @@ const UpcomingCardBox = ({ data }) => {
     568: { items: 2 },
     1024: { items: 3 }
   }
-  //      <!-- <Typography className={classes.headerTitle}>Drops</Typography>
 
   return (
     <div className={classes.root}>

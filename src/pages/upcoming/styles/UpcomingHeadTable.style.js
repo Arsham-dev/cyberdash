@@ -23,9 +23,29 @@ const useStyles = makeStyles((theme) => ({
     // display: 'flex'
   },
   collection: {
+    // display: 'flex',
+    // columnGap: 5,
+    // alignItems: 'center',
+    // flexDirection: 'row',
+    // alignSelf: 'center',
+    // margin: 'auto'
+    // justifyContent
+    // flex: 1,
+    width: '100px',
+    position: 'relative'
+  },
+  collectionRoot: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100px',
+    height: '100%',
     display: 'flex',
+    alignItems: 'center',
     columnGap: 5,
-    alignItems: 'center'
+    justifyContent: 'center'
+
+    // backgroundColor: 'red'
   },
   collections: {
     boxSizing: 'border-box',

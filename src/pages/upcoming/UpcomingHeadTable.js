@@ -22,6 +22,9 @@ import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
 const CustomTableCell = withStyles(() => ({
   root: {
     borderBottom: 'none'
+    // display: 'flex',
+    // flex: 1
+    // flexDirection: 'column',
   },
   head: {
     backgroundColor: '#0a1e39',
@@ -43,7 +46,7 @@ const CustomTableRow = withStyles(() => ({
     }
   }
 }))(TableRow)
-const UpcomingHeadTable = ({ tableData }) => {
+const UpcomingHeadTable = ({ tableData, isNormal }) => {
   const [data, setdata] = useState(tableData)
   const [currentHead, setcurrentHead] = useState('')
   const [orderSort, setorderSort] = useState(1)
@@ -206,17 +209,31 @@ const UpcomingHeadTable = ({ tableData }) => {
                     )}
                   </ButtonBase>
                 </CustomTableCell>
+                {!isNormal && (
+                  <CustomTableCell align="center">
+                    <ButtonBase
+                      className={[
+                        classes.textButton,
+                        currentHead === 'isNormal' ? classes.selectedHead : ''
+                      ].join(' ')}
+                      onClick={() => sortFunction('isNormal', true)}>
+                      Revil
+                      {currentHead === 'isNormal' && <ShowOrder />}
+                    </ButtonBase>
+                  </CustomTableCell>
+                )}
                 <CustomTableCell align="center">
                   <ButtonBase
                     className={[
                       classes.textButton,
                       currentHead === 'category' ? classes.selectedHead : ''
                     ].join(' ')}
-                    onClick={() => sortFunction('category', false)}>
+                    onClick={() => sortFunction('category')}>
                     Category
                     {currentHead === 'category' && <ShowOrder />}
                   </ButtonBase>
                 </CustomTableCell>
+
                 <CustomTableCell align="center">Social Media</CustomTableCell>
               </TableRow>
             </TableHead>
@@ -228,23 +245,26 @@ const UpcomingHeadTable = ({ tableData }) => {
                   className={classes.tableBodyRow}>
                   <CustomTableCell
                     align="center"
+                    al
                     className={classes.collection}>
-                    <div
-                      className={[
-                        classes.collection_imageContainer,
-                        row.collection_image
-                          ? ''
-                          : classes.collection_imageContainerNo
-                      ].join(' ')}>
-                      {row.collection_image && (
-                        <img
-                          alt="collection_image"
-                          src={row.collection_image}
-                          className={classes.collection_image}
-                        />
-                      )}
+                    <div className={classes.collectionRoot}>
+                      <div
+                        className={[
+                          classes.collection_imageContainer,
+                          row.collection_image
+                            ? ''
+                            : classes.collection_imageContainerNo
+                        ].join(' ')}>
+                        {row.collection_image && (
+                          <img
+                            alt="collection_image"
+                            src={row.collection_image}
+                            className={classes.collection_image}
+                          />
+                        )}
+                      </div>
+                      {row.collection_name}
                     </div>
-                    {row.collection_name}
                   </CustomTableCell>
                   <CustomTableCell align="center">
                     {row.quantity}
@@ -267,11 +287,15 @@ const UpcomingHeadTable = ({ tableData }) => {
                   <CustomTableCell align="center">
                     <UpcomingShowTimeStamp time={row.presale_mint_timestamp} />
                   </CustomTableCell>
+
                   <CustomTableCell align="center">
                     <UpcomingShowTimeStamp
                       time={row.publicsale_mint_timestamp}
                     />
                   </CustomTableCell>
+                  {!isNormal && (
+                    <CustomTableCell align="center">Revil</CustomTableCell>
+                  )}
                   <CustomTableCell align="center">
                     {row.category}
                   </CustomTableCell>
