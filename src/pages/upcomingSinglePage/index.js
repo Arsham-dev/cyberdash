@@ -66,6 +66,13 @@ const UpcomingSinglePage = () => {
                 <ButtonBase
                   className={classes.buttonBase}
                   onClick={() => {
+                    window.open(data.opensea_link, '_blank')
+                  }}>
+                  <img src={openSea} alt="openSea" />
+                </ButtonBase>
+                <ButtonBase
+                  className={classes.buttonBase}
+                  onClick={() => {
                     window.open(data.twitter_link, '_blank')
                   }}>
                   <img src={twitterNoBackground} alt="twitter" />
