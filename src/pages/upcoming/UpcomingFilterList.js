@@ -6,12 +6,8 @@ import {
   Checkbox,
   Fade,
   FormControlLabel,
-  FormGroup,
   IconButton,
-  Menu,
   Popover,
-  Radio,
-  RadioGroup,
   TextField,
   Typography
 } from '@material-ui/core'

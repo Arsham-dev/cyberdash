@@ -18,6 +18,7 @@ import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import useStyles from './styles/UpcomingHeadTable.style'
 import { useEffect, useState } from 'react'
 import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
+import { useHistory } from 'react-router-dom'
 
 const CustomTableCell = withStyles(() => ({
   root: {
@@ -82,6 +83,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
       {orderSort === 1 ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
     </div>
   )
+  const history = useHistory()
   return (
     <div className={classes.root}>
       <TableContainer component={Paper} className={classes.container}>
@@ -245,7 +247,6 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   className={classes.tableBodyRow}>
                   <CustomTableCell
                     align="center"
-                    al
                     className={classes.collection}>
                     <div className={classes.collectionRoot}>
                       <div
