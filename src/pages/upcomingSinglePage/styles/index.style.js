@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 15
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#FFF',
     marginBottom: 10
@@ -89,7 +89,9 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      color: 'rgb(255,255,255,0.9)'
+      color: 'rgb(255,255,255,0.9)',
+      fontWeight: 'bold',
+      fontSize: 16
     },
     marginBottom: 10
   },
@@ -128,6 +130,29 @@ const useStyles = makeStyles((theme) => ({
   },
   collection_imageContainer: {
     backgroundColor: 'transparent'
+  },
+  statusContianer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end'
+  },
+  status: { marginTop: 30 },
+  gasFeeButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    columnGap: 9
+  },
+  gasFeeButton: {
+    backgroundColor: 'rgb(25, 86, 226)',
+    borderRadius: 0,
+    '&:hover': {
+      backgroundColor: 'rgba(25, 86, 226,0.5)'
+    }
+  },
+  gasFeeIcon: {
+    fontSize: 16,
+    color: '#FFF'
   }
 }))
 export default useStyles

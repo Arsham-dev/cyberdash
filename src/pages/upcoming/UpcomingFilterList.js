@@ -3,7 +3,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
-  Checkbox,
   Fade,
   FormControlLabel,
   IconButton,

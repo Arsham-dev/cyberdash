@@ -91,9 +91,6 @@ const useStyles = makeStyles((theme) => ({
       '&.Mui-focused fieldset': {
         borderColor: '#FFF'
       }
-    },
-    '& placeholder': {
-      color: 'red'
     }
   },
   menuItemTextFieldPlacerHolder: {
