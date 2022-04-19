@@ -212,7 +212,7 @@ const UpcomingHeadTable = ({ tableData }) => {
                       classes.textButton,
                       currentHead === 'category' ? classes.selectedHead : ''
                     ].join(' ')}
-                    onClick={() => sortFunction('category', true)}>
+                    onClick={() => sortFunction('category', false)}>
                     Category
                     {currentHead === 'category' && <ShowOrder />}
                   </ButtonBase>
