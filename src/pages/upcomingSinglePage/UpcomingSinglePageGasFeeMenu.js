@@ -2,8 +2,9 @@ import { Button } from '@material-ui/core'
 import { useState } from 'react'
 import useStlyes from './styles/UpcomingSinglePageGasFeeMenu.style'
 import UpcomingSinglePageGasFeeMenuCustomTab from './UpcomingSinglePageGasFeeMenuCustomTab'
+import UpcomingSinglePageGasFeeMenuMutiplier from './UpcomingSinglePageGasFeeMenuMutiplier'
 
-const UpcomingSinglePageGasFeeMenu = ({ closeMenu }) => {
+const UpcomingSinglePageGasFeeMenu = ({ closeMenu, setgasfee }) => {
   const classes = useStlyes()
   const [selectedTab, setselectedTab] = useState(2)
   return (
@@ -13,7 +14,10 @@ const UpcomingSinglePageGasFeeMenu = ({ closeMenu }) => {
           color="primary"
           variant={selectedTab === 0 ? 'contained' : 'outlined'}
           size="small"
-          onClick={closeMenu}
+          onClick={() => {
+            closeMenu()
+            setgasfee('1 ETH')
+          }}
           className={classes.tabButton}>
           Fast (90)
         </Button>
@@ -34,7 +38,17 @@ const UpcomingSinglePageGasFeeMenu = ({ closeMenu }) => {
           Custom
         </Button>
       </div>
-      {selectedTab === 2 ? <UpcomingSinglePageGasFeeMenuCustomTab /> : <div />}
+      {selectedTab === 2 ? (
+        <UpcomingSinglePageGasFeeMenuCustomTab
+          closeMenu={closeMenu}
+          setgasfee={setgasfee}
+        />
+      ) : (
+        <UpcomingSinglePageGasFeeMenuMutiplier
+          closeMenu={closeMenu}
+          setgasfee={setgasfee}
+        />
+      )}
     </div>
   )
 }

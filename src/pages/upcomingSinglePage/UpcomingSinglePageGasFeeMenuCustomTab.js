@@ -3,12 +3,15 @@ import { Form, Formik } from 'formik'
 import useStyles from './styles/UpcomingSinglePageGasFeeMenuCustomTab.style'
 import UpcomingSinglePageGasFeeMenuCustomTabValidation from './validation/UpcomingSinglePageGasFeeMenuCustomTab'
 
-const UpcomingSinglePageGasFeeMenuCustomTab = () => {
+const UpcomingSinglePageGasFeeMenuCustomTab = ({ closeMenu, setgasfee }) => {
   const initialValues = { maxFee: '', maxPriority: '', gasLimit: '' }
   const classes = useStyles()
   return (
     <Formik
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => {
+        setgasfee('64 ETH')
+        closeMenu()
+      }}
       initialValues={initialValues}
       validationSchema={UpcomingSinglePageGasFeeMenuCustomTabValidation}>
       {({
@@ -21,7 +24,6 @@ const UpcomingSinglePageGasFeeMenuCustomTab = () => {
         handleChange,
         resetForm
       }) => {
-        console.log(errors)
         return (
           <Form>
             <div className={classes.root}>

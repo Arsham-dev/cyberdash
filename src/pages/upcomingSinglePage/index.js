@@ -137,6 +137,7 @@ const UpcomingSinglePage = () => {
           {showGasFeeMenu && (
             <UpcomingSinglePageGasFeeMenu
               closeMenu={() => setshowGasFeeMenu(false)}
+              setgasfee={setgasfee}
             />
           )}
           <UpcomingSinglePageCardOption />
