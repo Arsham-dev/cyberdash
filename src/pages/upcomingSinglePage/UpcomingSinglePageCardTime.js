@@ -18,6 +18,7 @@ const month = [
 ]
 const UpcomingSinglePageCardTime = ({ dateTime }) => {
   const [time, settime] = useState()
+  const isNumber = /^-?\d+$/.test(dateTime)
   const date = new Date(time)
   useEffect(() => {
     if (dateTime) {
@@ -44,9 +45,11 @@ const UpcomingSinglePageCardTime = ({ dateTime }) => {
       </div>
       <div>
         <Typography className={classes.dateText}>
-          {`${
-            month[date.getMonth()]
-          } ${date.getDay()}, ${date.getHours()}:${date.getMinutes()}`}
+          {isNumber
+            ? `${
+                month[date.getMonth()]
+              } ${date.getDay()}, ${date.getHours()}:${date.getMinutes()}`
+            : '-'}
         </Typography>
       </div>
     </div>
