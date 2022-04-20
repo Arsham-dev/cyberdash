@@ -30,8 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     margin: '7px 15px',
+    color: '#FFF'
+  },
+  closeIcon: {
+    fontSize: 26,
     color: '#FFF'
   },
   menuItem: {
