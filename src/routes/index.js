@@ -21,10 +21,10 @@ const Routes = () => {
         <Route exact path="/mint-function">
           <MintFunction />
         </Route>
-        <Route exact path="/resources">
+        <Route exact path="/upcoming">
           <Upcoming />
         </Route>
-        <Route exact path="/resources/:id">
+        <Route exact path="/upcoming/:id">
           <UpcomingSinglePage />
         </Route>
         <Route exact path="/mint-function">

@@ -245,7 +245,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
             <TableBody>
               {data.map((row, index) => (
                 <CustomTableRow
-                  onClick={() => window.open('/resources/' + row.id, '_blank')}
+                  onClick={() => window.open('/upcoming/' + row.id, '_blank')}
                   key={row.collection_name + index.toString()}
                   className={classes.tableBodyRow}>
                   <CustomTableCell
@@ -299,9 +299,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   </CustomTableCell>
                   {!isNormal && (
                     <CustomTableCell align="center">
-                      <UpcomingShowTimeStamp
-                      time={row.reveal_timestamp}
-                    />
+                      <UpcomingShowTimeStamp time={row.reveal_timestamp} />
                     </CustomTableCell>
                   )}
                   <CustomTableCell
