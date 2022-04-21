@@ -23,42 +23,42 @@ const upcomingFilterListFunction = (filterList, setData, data, category) => {
   if (filterList.supplyMin) {
     tempData = tempData.filter(
       (items) =>
-        Number(items.quantity.replace(/\D/g, '')) >
+        Number(items.quantity.replace(/\D/g, '')) >=
         Number(filterList.supplyMin.replace(/\D/g, ''))
     )
   }
   if (filterList.supplyMax) {
     tempData = tempData.filter(
       (items) =>
-        Number(items.quantity.replace(/\D/g, '')) <
+        Number(items.quantity.replace(/\D/g, '')) <=
         Number(filterList.supplyMax.replace(/\D/g, ''))
     )
   }
   if (filterList.presalePriceMin) {
     tempData = tempData.filter(
       (items) =>
-        Number(items.presale_price.replace(/\D/g, '')) >
+        Number(items.presale_price.replace(/\D/g, '')) >=
         Number(filterList.presalePriceMin.replace(/\D/g, ''))
     )
   }
   if (filterList.presalePriceMax) {
     tempData = tempData.filter(
       (items) =>
-        Number(items.presale_price.replace(/\D/g, '')) <
+        Number(items.presale_price.replace(/\D/g, '')) <=
         Number(filterList.presalePriceMax.replace(/\D/g, ''))
     )
   }
   if (filterList.publicSalePriceMin) {
     tempData = tempData.filter(
       (items) =>
-        Number(items.publicsale_price.replace(/\D/g, '')) >
+        Number(items.publicsale_price.replace(/\D/g, '')) >=
         Number(filterList.publicSalePriceMin.replace(/\D/g, ''))
     )
   }
   if (filterList.publicSalePriceMax) {
     tempData = tempData.filter(
       (items) =>
-        Number(items.publicsale_price.replace(/\D/g, '')) <
+        Number(items.publicsale_price.replace(/\D/g, '')) <=
         Number(filterList.publicSalePriceMax.replace(/\D/g, ''))
     )
   }

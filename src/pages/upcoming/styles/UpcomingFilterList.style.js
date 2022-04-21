@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     // alignItems: 'flex-end',
-    flex: 1,
+    // flex: 1,
+    width: 400,
     // maxWidth: 500,
     // rowGap: 6,
     justifyContent: 'center',
@@ -78,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+
     columnGap: 20,
     color: '#FFF',
     marginBottom: -19
