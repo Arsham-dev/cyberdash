@@ -2,6 +2,8 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    position: 'sticky',
+    top: 0,
     background: '#0B1E39',
     padding: '0 15px',
     [theme.breakpoints.down('sm')]: {
