@@ -221,7 +221,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                           : ''
                       ].join(' ')}
                       onClick={() => sortFunction('reveal_timestamp', true)}>
-                      Reveal Time Mint
+                      Reveal
                       {currentHead === 'reveal_timestamp' && <ShowOrder />}
                     </ButtonBase>
                   </CustomTableCell>

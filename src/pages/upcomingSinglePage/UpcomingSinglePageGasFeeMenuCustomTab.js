@@ -36,7 +36,7 @@ const UpcomingSinglePageGasFeeMenuCustomTab = ({ closeMenu, setgasfee }) => {
                 size="small"
                 name="maxFee"
                 id="maxFee"
-                label="Max Fee (gewi)"
+                label="Max Fee (GWEI)"
                 variant="outlined"
                 InputProps={{
                   className: classes.textFieldPlacerHolder
@@ -51,7 +51,7 @@ const UpcomingSinglePageGasFeeMenuCustomTab = ({ closeMenu, setgasfee }) => {
               <TextField
                 name="maxPriority"
                 id="maxPriority"
-                label="Max priority Fee (gewi)"
+                label="Max priority Fee (GWEI)"
                 variant="outlined"
                 size="small"
                 value={values.maxPriority}

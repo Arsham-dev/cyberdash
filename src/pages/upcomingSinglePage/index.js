@@ -8,9 +8,10 @@ import axios from 'axios'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
+//import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
 import UpcomingSinglePageShowStatus from './UpcomingSinglePageShowStatus'
 import UpcomingSinglePageGasFeeMenu from './UpcomingSinglePageGasFeeMenu'
+import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
 export const UpcomingSinglePageMenuContext = createContext()
 const UpcomingSinglePage = () => {
   const [data, setdata] = useState({})
@@ -31,6 +32,9 @@ const UpcomingSinglePage = () => {
   useEffect(() => {
     getData()
   }, [])
+  /*
+    <UpcomingSinglePageCardOption />
+  */
   const classes = useStyles()
   return (
     <>
@@ -139,7 +143,7 @@ const UpcomingSinglePage = () => {
                 <IconButton
                   className={classes.gasFeeButton}
                   size="small"
-                  onClick={() => setshowGasFeeMenu(true)}>
+                  onClick={() => setshowGasFeeMenu(!showGasFeeMenu)}>
                   <SettingsIcon className={classes.gasFeeIcon} />
                 </IconButton>
               </div>
