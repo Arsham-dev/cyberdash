@@ -15,7 +15,11 @@ const upcomingFilterListFunction = (filterList, setData, data, category) => {
     )
 
   if (category.length > 0)
-    tempData = tempData.filter((items) => category.includes(items.category))
+    tempData = tempData.filter(
+      (items) =>
+        items.categories.filter((item) => category.includes(item.title))
+          .length > 0
+    )
   if (filterList.supplyMin) {
     tempData = tempData.filter(
       (items) =>
