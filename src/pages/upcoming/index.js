@@ -21,10 +21,9 @@ const Upcoming = () => {
   }
   const getCategories = async () => {
     const data = await axios.get(
-      process.env.REACT_APP_API_BASE_URL +
-        '/v1/tables/upcoming/filters/categories'
+      process.env.REACT_APP_API_BASE_URL + '/v1/tables/categories'
     )
-    setcategories(data.data ? data.data.categories : undefined)
+    setcategories(data.data ? data.data.rows : undefined)
   }
   useEffect(() => {
     getData()

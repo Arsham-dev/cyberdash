@@ -9,6 +9,7 @@ import {
   IconButton,
   Popover,
   TextField,
+  Tooltip,
   Typography
 } from '@material-ui/core'
 import { useState } from 'react'
@@ -291,16 +292,18 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                     </AccordionSummary>
                     <AccordionDetails className={classes.checkBoxContainer}>
                       {categories.map((item) => (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={category.includes(item)}
-                              onChange={handleChangeCateGory}
-                              name={item}
-                            />
-                          }
-                          label={item}
-                        />
+                        <Tooltip placement="top-start" title={item.tooltip}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={category.includes(item.title)}
+                                onChange={handleChangeCateGory}
+                                name={item.title}
+                              />
+                            }
+                            label={item.title}
+                          />
+                        </Tooltip>
                       ))}
                     </AccordionDetails>
                   </Accordion>
