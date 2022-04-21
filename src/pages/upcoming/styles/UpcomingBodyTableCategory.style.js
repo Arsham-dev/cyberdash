@@ -2,8 +2,9 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: 'flex',
+    display: 'grid',
     flexDirection: 'row',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
     alignItems: 'center',
     position: 'absolute',
     justifyContent: 'center',
@@ -11,7 +12,8 @@ const useStyles = makeStyles(() => ({
     left: 0,
     width: 'auto',
     minWidth: '100%',
-    height: '100%'
+    minHeight: '100%',
+    height: 'auto'
   },
   item: {
     display: 'flex',
@@ -31,7 +33,8 @@ const useStyles = makeStyles(() => ({
   expandMoreIcon: {
     fontSize: 16,
     cursor: 'pointer',
-    marginLeft: 0
+    marginLeft: 0,
+    padding: 5
   }
 }))
 export default useStyles

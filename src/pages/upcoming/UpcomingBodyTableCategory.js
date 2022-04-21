@@ -6,6 +6,7 @@ import { Tooltip } from '@material-ui/core'
 const UpcomingBodyTableCategory = ({ categories, index }) => {
   const classes = useStyles()
   const [isOpen, setisOpen] = useState(false)
+  const handleClickCategory = () => setisOpen(!isOpen)
   return (
     <div
       className={classes.root}
@@ -19,6 +20,7 @@ const UpcomingBodyTableCategory = ({ categories, index }) => {
         placement="top-start"
         classes={{ tooltip: classes.tooltip }}>
         <div
+          onClick={handleClickCategory}
           className={classes.item}
           style={{
             borderColor: categories[0].color,
@@ -44,10 +46,11 @@ const UpcomingBodyTableCategory = ({ categories, index }) => {
               placement="top-start"
               classes={{ tooltip: classes.tooltip }}>
               <div
+                onClick={handleClickCategory}
                 className={classes.item}
                 style={{
-                  borderColor: categories[0].color,
-                  color: categories[0].color
+                  borderColor: item.color,
+                  color: item.color
                 }}>
                 {item.title.substr(0, 4)}
               </div>
