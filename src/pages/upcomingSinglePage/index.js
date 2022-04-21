@@ -14,6 +14,7 @@ import UpcomingSinglePageGasFeeMenu from './UpcomingSinglePageGasFeeMenu'
 export const UpcomingSinglePageMenuContext = createContext()
 const UpcomingSinglePage = () => {
   const [data, setdata] = useState({})
+  // gas fee is here bitch
   const [gasfee, setgasfee] = useState('')
   const [MenuContextData, setMenuContextData] = useState({
     multiplier: { value: 0 },

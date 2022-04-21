@@ -38,12 +38,14 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 0,
     left: 0,
-    width: '100px',
+    width: '100%',
     height: '100%',
     display: 'flex',
     alignItems: 'center',
+    paddingLeft: 10,
     columnGap: 5,
-    justifyContent: 'center'
+    textAlign: 'left'
+    // justifyContent: 'center'
 
     // backgroundColor: 'red'
   },
@@ -146,7 +148,7 @@ const useStyles = makeStyles((theme) => ({
     width: 72,
     cursor: 'pointer',
     borderTopRightRadius: '0.75rem',
-    borderBottomRightRadius: '0.75rem'
+    borderBottomRightRagdius: '0.75rem'
   },
   buttonContainer: {
     display: 'flex',
@@ -162,6 +164,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  collectionName: {
+    display: 'block',
+    width: 250,
+    textAlign: 'left'
   },
   textButton: {
     fontSize: 14,

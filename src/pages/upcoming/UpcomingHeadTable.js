@@ -18,6 +18,8 @@ import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import useStyles from './styles/UpcomingHeadTable.style'
 import { useEffect, useState } from 'react'
 import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
+import { NavLink } from 'react-router-dom'
+import UpcomingBodyTableCategory from './UpcomingBodyTableCategory'
 
 const CustomTableCell = withStyles(() => ({
   root: {
@@ -60,8 +62,8 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
       setdata([
         ...data.sort((first, second) => {
           if (
-            Number.parseInt(first[index].replace(/\D/g, '') || '0', 10) <
-            Number.parseInt(second[index].replace(/\D/g, '') || '0', 10)
+            Number.parseInt(first[index] || ''.replace(/\D/g, '') || '0', 10) <
+            Number.parseInt(second[index] || ''.replace(/\D/g, '') || '0', 10)
           )
             return value
           else return -value
@@ -93,6 +95,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   <ButtonBase
                     className={[
                       classes.textButton,
+                      classes.collectionName,
                       currentHead === 'collection_name'
                         ? classes.selectedHead
                         : ''
@@ -214,11 +217,13 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                     <ButtonBase
                       className={[
                         classes.textButton,
-                        currentHead === 'isNormal' ? classes.selectedHead : ''
+                        currentHead === 'reveal_timestamp'
+                          ? classes.selectedHead
+                          : ''
                       ].join(' ')}
-                      onClick={() => sortFunction('isNormal', true)}>
-                      isNotNormal
-                      {currentHead === 'isNormal' && <ShowOrder />}
+                      onClick={() => sortFunction('reveal_timestamp', true)}>
+                      Reveal Time Mint
+                      {currentHead === 'reveal_timestamp' && <ShowOrder />}
                     </ButtonBase>
                   </CustomTableCell>
                 )}
@@ -240,7 +245,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
             <TableBody>
               {data.map((row, index) => (
                 <CustomTableRow
-                  onClick={() => window.open('resources/' + row.id, '_blank')}
+                  onClick={() => window.open('/resources/' + row.id, '_blank')}
                   key={row.collection_name + index.toString()}
                   className={classes.tableBodyRow}>
                   <CustomTableCell
@@ -294,11 +299,21 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   </CustomTableCell>
                   {!isNormal && (
                     <CustomTableCell align="center">
-                      isNotNormal
+                      <UpcomingShowTimeStamp
+                      time={row.reveal_timestamp}
+                    />
                     </CustomTableCell>
                   )}
-                  <CustomTableCell align="center">
-                    {row.category}
+                  <CustomTableCell
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
+                    align="center"
+                    style={{ position: 'relative' }}>
+                    <UpcomingBodyTableCategory
+                      categories={row.categories}
+                      index={index}
+                    />
                   </CustomTableCell>
 
                   <CustomTableCell
