@@ -103,8 +103,11 @@ const ResponsiveAppBar = () => {
         <Toolbar disableGutters className={classes.mobileSize}>
           <div>
             <ButtonBase
+              component={NavLink}
+              to="/"
               className={classes.logoContainer}
-              onClick={() => history.push('/')}>
+              // onClick={() => history.push('/')}
+            >
               <img src={logo} alt="logo" />
             </ButtonBase>
           </div>
@@ -115,10 +118,6 @@ const ResponsiveAppBar = () => {
                   component={NavLink}
                   to={`/${page.toLocaleLowerCase()}`}
                   key={page}
-                  // onClick={() => {
-                  //   // history.goForward()
-                  //   history.push(page.toLocaleLowerCase())
-                  // }}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                   className={classes.headerButton}>
                   {page}
