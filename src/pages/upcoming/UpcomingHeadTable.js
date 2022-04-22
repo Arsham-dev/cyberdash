@@ -217,7 +217,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                         currentHead === 'isNormal' ? classes.selectedHead : ''
                       ].join(' ')}
                       onClick={() => sortFunction('isNormal', true)}>
-                      Revil
+                      Reveal
                       {currentHead === 'isNormal' && <ShowOrder />}
                     </ButtonBase>
                   </CustomTableCell>
@@ -245,7 +245,6 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   className={classes.tableBodyRow}>
                   <CustomTableCell
                     align="center"
-                    al
                     className={classes.collection}>
                     <div className={classes.collectionRoot}>
                       <div
@@ -294,7 +293,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                     />
                   </CustomTableCell>
                   {!isNormal && (
-                    <CustomTableCell align="center">Revil</CustomTableCell>
+                    <CustomTableCell align="center">Reveal</CustomTableCell>
                   )}
                   <CustomTableCell align="center">
                     {row.category}

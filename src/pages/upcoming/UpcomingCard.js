@@ -29,7 +29,9 @@ const UpcomingCard = ({ data, isPresale }) => {
     setInterval(() => settime((value) => value - 1), 1000)
   }, [])
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      onClick={() => window.open('resources/' + data.id, '_blank')}>
       <div className={classes.imageContainer}>
         {data.collection_image ? (
           <img

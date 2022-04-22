@@ -13,8 +13,9 @@ const upcomingFilterListFunction = (filterList, setData, data, category) => {
         .toLocaleLowerCase()
         .includes(filterList.collectionName.toLocaleLowerCase())
     )
-  if (category)
-    tempData = tempData.filter((items) => items.category === category)
+
+  if (category.length > 0)
+    tempData = tempData.filter((items) => category.includes(items.category))
   if (filterList.supplyMin) {
     tempData = tempData.filter(
       (items) =>

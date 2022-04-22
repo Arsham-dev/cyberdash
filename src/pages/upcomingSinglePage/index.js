@@ -137,7 +137,11 @@ const UpcomingSinglePage = () => {
                 <IconButton
                   className={classes.gasFeeButton}
                   size="small"
-                  onClick={() => setshowGasFeeMenu(true)}>
+                  onClick={() =>
+                    showGasFeeMenu
+                      ? setshowGasFeeMenu(false)
+                      : setshowGasFeeMenu(true)
+                  }>
                   <SettingsIcon className={classes.gasFeeIcon} />
                 </IconButton>
               </div>

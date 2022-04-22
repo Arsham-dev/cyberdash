@@ -67,7 +67,7 @@ const Upcoming = () => {
               !isNormal ? classes.filterListContainerButtonSelected : ''
             ].join(' ')}
             onClick={() => setisNormal(false)}>
-            Revil
+            Reveal
           </Button>
         </ButtonGroup>
         <UpcomingFilterList

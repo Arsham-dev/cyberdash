@@ -31,24 +31,30 @@ const useStyles = makeStyles((theme) => ({
   title: {
     display: 'flex',
     justifyContent: 'flex-start',
-    margin: '7px 0',
+    margin: '7px 15px',
     color: '#FFF'
   },
   menuItem: {
-    padding: '0 10px',
+    '&::-webkit-scrollbar': {
+      display: 'none'
+    },
+    padding: '10px 10px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'flex-end',
+    flex: 1,
+    // maxWidth: 500,
     // rowGap: 6,
     justifyContent: 'center',
-    backgroundColor: 'rgb(35, 35, 51)',
-    flexGrow: 1
+    backgroundColor: 'rgb(35, 35, 51)'
+    // flexGrow: 1
     // margin: '15px 0',
   },
   accordion: {
     backgroundColor: 'rgb(35, 35, 51)',
     boxShadow: 'none',
-    color: '#FFF'
+    color: '#FFF',
+    margin: '10px 0px'
   },
   expandMoreIcon: {
     color: '#FFF'
@@ -68,7 +74,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     columnGap: 20,
-    color: '#FFF'
+    color: '#FFF',
+    marginBottom: -19
   },
   menuItemTextField: {
     color: '#FFF',
@@ -111,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr',
     alignItems: 'center',
-    columnGap: 20,
+    // columnGap: 20,
     color: '#FFF'
   },
   searchField: {

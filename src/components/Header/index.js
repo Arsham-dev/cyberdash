@@ -23,7 +23,7 @@ import logo from '../../assets/images/logo.svg'
 import gas from '../../assets/images/gas.svg'
 import useStyles from './styles/index.style'
 import { toast } from 'react-toastify'
-import { useHistory } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 const pages = [
   'Pricing',
@@ -112,8 +112,13 @@ const ResponsiveAppBar = () => {
             <div className={classes.headerButtonContainer}>
               {pages.map((page) => (
                 <Button
+                  component={NavLink}
+                  to={`/${page.toLocaleLowerCase()}`}
                   key={page}
-                  onClick={() => history.push(page.toLocaleLowerCase())}
+                  // onClick={() => {
+                  //   // history.goForward()
+                  //   history.push(page.toLocaleLowerCase())
+                  // }}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                   className={classes.headerButton}>
                   {page}

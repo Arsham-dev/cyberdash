@@ -3,13 +3,11 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  Checkbox,
   Fade,
   FormControlLabel,
   IconButton,
-  Menu,
-  Radio,
-  RadioGroup,
-  Checkbox,
+  Popover,
   TextField,
   Typography
 } from '@material-ui/core'
@@ -24,7 +22,16 @@ import upcomingFilterListFunction from './UpcomingFilterListFunction'
 const UpcomingFilterList = ({ categories, setData, data }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
-  const [category, setcategory] = useState('')
+  const [category, setcategory] = useState([])
+  console.log(category)
+  const handleChangeCateGory = (event) => {
+    console.log(event.target.name)
+    if (category.includes(event.target.name)) {
+      setcategory([...category.filter((item) => item !== event.target.name)])
+    } else {
+      setcategory([...category, event.target.name])
+    }
+  }
   const initialValues = {
     collectionName: '',
     supplyMin: '',
@@ -56,7 +63,6 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
         handleChange,
         resetForm
       }) => {
-        console.log(errors)
         return (
           <Form>
             <div className={classes.root}>
@@ -97,12 +103,22 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                 <IconButton onClick={handleClick} size="medium">
                   <FilterListIcon className={classes.filterListIcon} />
                 </IconButton>
-                <Menu
+                <Popover
                   anchorEl={anchorEl}
                   TransitionComponent={Fade}
                   open={Boolean(anchorEl)}
+                  // className={classes.menuItem}
                   classes={{ paper: classes.menuItem }}
-                  style={{ top: 0 }}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
+                  }}
+                  anchorReference="anchorPosition"
+                  anchorPosition={{ top: -10, left: window.innerWidth }}
                   onClose={handleClose}>
                   <div className={classes.title}>
                     <Typography variant="h5" color="inherit">
@@ -269,34 +285,19 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                       <ExpandMoreIcon className={classes.expandMoreIcon} />
                       <Typography>Categories</Typography>
                     </AccordionSummary>
-                    <AccordionDetails>
-                      <RadioGroup
-                        className={classes.checkBoxContainer}
-                        value={category}
-                        onChange={(event) => {
-                          setcategory(event.target.value)
-                          // console.log(event.currentTarget.isC)
-                        }}>
-                        {categories.map((item) => (
-                          <FormControlLabel
-                            key={item}
-                            value={item}
-                            control={<Checkbox />}
-                            // control={
-                            //   <Checkbox
-                            //     style={{ color: '#FFF' }}
-                            //     name={item}
-                            //     onClick={(event) => {
-                            //       setcategory(event.currentTarget.value)
-                            //       console.log(event.currentTarget.value)
-                            //     }}
-                            //     value={category}
-                            //   />
-                            // }
-                            label={item}
-                          />
-                        ))}
-                      </RadioGroup>
+                    <AccordionDetails className={classes.checkBoxContainer}>
+                      {categories.map((item) => (
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={category.includes(item)}
+                              onChange={handleChangeCateGory}
+                              name={item}
+                            />
+                          }
+                          label={item}
+                        />
+                      ))}
                     </AccordionDetails>
                   </Accordion>
                   <div className={classes.buttonContainer}>
@@ -328,7 +329,7 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                       Cancel
                     </Button>
                   </div>
-                </Menu>
+                </Popover>
               </div>
             </div>
           </Form>
