@@ -150,10 +150,19 @@ const useStyles = makeStyles((theme) => ({
     borderTopRightRadius: '0.75rem',
     borderBottomRightRagdius: '0.75rem'
   },
+  socialMedia: {
+    width: 100,
+    position: 'relative'
+  },
   buttonContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%'
   },
   buttonBase: {
     borderRadius: 20
