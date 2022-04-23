@@ -9,9 +9,11 @@ import {
   IconButton,
   Popover,
   TextField,
+  Tooltip,
   Typography
 } from '@material-ui/core'
 import { useState } from 'react'
+import CloseIcon from '@material-ui/icons/Close'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import useStyles from './styles/UpcomingFilterList.style'
@@ -124,6 +126,9 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                     <Typography variant="h5" color="inherit">
                       Filter
                     </Typography>
+                    <IconButton onClick={handleClose}>
+                      <CloseIcon className={classes.closeIcon} />
+                    </IconButton>
                   </div>
                   <Accordion className={classes.accordion} defaultExpanded>
                     <AccordionSummary>
@@ -287,16 +292,18 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                     </AccordionSummary>
                     <AccordionDetails className={classes.checkBoxContainer}>
                       {categories.map((item) => (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={category.includes(item)}
-                              onChange={handleChangeCateGory}
-                              name={item}
-                            />
-                          }
-                          label={item}
-                        />
+                        <Tooltip placement="top-start" title={item.tooltip}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={category.includes(item.title)}
+                                onChange={handleChangeCateGory}
+                                name={item.title}
+                              />
+                            }
+                            label={item.title}
+                          />
+                        </Tooltip>
                       ))}
                     </AccordionDetails>
                   </Accordion>
@@ -323,10 +330,11 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                       type="reset"
                       onClick={() => {
                         resetForm()
-                        upcomingFilterListFunction(values, setData, data, '')
+                        setcategory([])
+                        upcomingFilterListFunction(values, setData, data, [])
                       }}
                       className={classes.button}>
-                      Cancel
+                      Reset
                     </Button>
                   </div>
                 </Popover>

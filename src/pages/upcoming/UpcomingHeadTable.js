@@ -18,6 +18,7 @@ import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import useStyles from './styles/UpcomingHeadTable.style'
 import { useEffect, useState } from 'react'
 import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
+import UpcomingBodyTableCategory from './UpcomingBodyTableCategory'
 
 const CustomTableCell = withStyles(() => ({
   root: {
@@ -60,8 +61,8 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
       setdata([
         ...data.sort((first, second) => {
           if (
-            Number.parseInt(first[index].replace(/\D/g, '') || '0', 10) <
-            Number.parseInt(second[index].replace(/\D/g, '') || '0', 10)
+            Number.parseInt(first[index] || ''.replace(/\D/g, '') || '0', 10) <
+            Number.parseInt(second[index] || ''.replace(/\D/g, '') || '0', 10)
           )
             return value
           else return -value
@@ -93,6 +94,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   <ButtonBase
                     className={[
                       classes.textButton,
+                      classes.collectionName,
                       currentHead === 'collection_name'
                         ? classes.selectedHead
                         : ''
@@ -214,11 +216,13 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                     <ButtonBase
                       className={[
                         classes.textButton,
-                        currentHead === 'isNormal' ? classes.selectedHead : ''
+                        currentHead === 'reveal_timestamp'
+                          ? classes.selectedHead
+                          : ''
                       ].join(' ')}
-                      onClick={() => sortFunction('isNormal', true)}>
+                      onClick={() => sortFunction('reveal_timestamp', true)}>
                       Reveal
-                      {currentHead === 'isNormal' && <ShowOrder />}
+                      {currentHead === 'reveal_timestamp' && <ShowOrder />}
                     </ButtonBase>
                   </CustomTableCell>
                 )}
@@ -238,94 +242,108 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row, index) => (
-                <CustomTableRow
-                  onClick={() => window.open('resources/' + row.id, '_blank')}
-                  key={row.collection_name + index.toString()}
-                  className={classes.tableBodyRow}>
-                  <CustomTableCell
-                    align="center"
-                    className={classes.collection}>
-                    <div className={classes.collectionRoot}>
-                      <div
-                        className={[
-                          classes.collection_imageContainer,
-                          row.collection_image
-                            ? ''
-                            : classes.collection_imageContainerNo
-                        ].join(' ')}>
-                        {row.collection_image && (
-                          <img
-                            alt="collection_image"
-                            src={row.collection_image}
-                            className={classes.collection_image}
-                          />
-                        )}
+              {data
+                .filter((item) => isNormal || item.reveal_timestamp)
+                .map((row, index) => (
+                  <CustomTableRow
+                    onClick={() => window.open('/upcoming/' + row.id, '_blank')}
+                    key={row.collection_name + index.toString()}
+                    className={classes.tableBodyRow}>
+                    <CustomTableCell
+                      align="center"
+                      className={classes.collection}>
+                      <div className={classes.collectionRoot}>
+                        <div
+                          className={[
+                            classes.collection_imageContainer,
+                            row.collection_image
+                              ? ''
+                              : classes.collection_imageContainerNo
+                          ].join(' ')}>
+                          {row.collection_image && (
+                            <img
+                              alt="collection_image"
+                              src={row.collection_image}
+                              className={classes.collection_image}
+                            />
+                          )}
+                        </div>
+                        {row.collection_name}
                       </div>
-                      {row.collection_name}
-                    </div>
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    {row.quantity}
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    {row.twitter_member}
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    {row.discord_member}
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    {row.presale_price}
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    {row.publicsale_price}
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    {row.max_mint}
-                  </CustomTableCell>
-                  <CustomTableCell align="center">
-                    <UpcomingShowTimeStamp time={row.presale_mint_timestamp} />
-                  </CustomTableCell>
+                    </CustomTableCell>
+                    <CustomTableCell align="center">
+                      {row.quantity}
+                    </CustomTableCell>
+                    <CustomTableCell align="center">
+                      {row.twitter_member}
+                    </CustomTableCell>
+                    <CustomTableCell align="center">
+                      {row.discord_member}
+                    </CustomTableCell>
+                    <CustomTableCell align="center">
+                      {row.presale_price}
+                    </CustomTableCell>
+                    <CustomTableCell align="center">
+                      {row.publicsale_price}
+                    </CustomTableCell>
+                    <CustomTableCell align="center">
+                      {row.max_mint}
+                    </CustomTableCell>
+                    <CustomTableCell align="center">
+                      <UpcomingShowTimeStamp
+                        time={row.presale_mint_timestamp}
+                      />
+                    </CustomTableCell>
 
-                  <CustomTableCell align="center">
-                    <UpcomingShowTimeStamp
-                      time={row.publicsale_mint_timestamp}
-                    />
-                  </CustomTableCell>
-                  {!isNormal && (
-                    <CustomTableCell align="center">Reveal</CustomTableCell>
-                  )}
-                  <CustomTableCell align="center">
-                    {row.category}
-                  </CustomTableCell>
+                    <CustomTableCell align="center">
+                      <UpcomingShowTimeStamp
+                        time={row.publicsale_mint_timestamp}
+                      />
+                    </CustomTableCell>
+                    {!isNormal && (
+                      <CustomTableCell align="center">
+                        <UpcomingShowTimeStamp time={row.reveal_timestamp} />
+                      </CustomTableCell>
+                    )}
+                    <CustomTableCell
+                      onClick={(e) => {
+                        e.stopPropagation()
+                      }}
+                      align="center"
+                      style={{ position: 'relative' }}>
+                      <UpcomingBodyTableCategory
+                        categories={row.categories}
+                        index={index}
+                      />
+                    </CustomTableCell>
 
-                  <CustomTableCell
-                    align="center"
-                    className={classes.buttonContainer}>
-                    <ButtonBase
-                      className={classes.buttonBase}
-                      onClick={() => {
-                        window.open(row.opensea_link, '_blank')
-                      }}>
-                      <img src={openSea} alt="openSea" />
-                    </ButtonBase>
-                    <ButtonBase
-                      className={classes.buttonBase}
-                      onClick={() => {
-                        window.open(row.twitter_link, '_blank')
-                      }}>
-                      <img src={twitterNoBackground} alt="twitter" />
-                    </ButtonBase>
-                    <ButtonBase
-                      className={classes.buttonBase}
-                      onClick={() => {
-                        window.open(row.discord_link, '_blank')
-                      }}>
-                      <img src={discordNoBackground} alt="discord" />
-                    </ButtonBase>
-                  </CustomTableCell>
-                </CustomTableRow>
-              ))}
+                    <CustomTableCell
+                      align="center"
+                      className={classes.buttonContainer}>
+                      <ButtonBase
+                        className={classes.buttonBase}
+                        onClick={() => {
+                          window.open(row.opensea_link, '_blank')
+                        }}>
+                        <img src={openSea} alt="openSea" />
+                      </ButtonBase>
+                      <ButtonBase
+                        className={classes.buttonBase}
+                        onClick={() => {
+                          window.open(row.twitter_link, '_blank')
+                        }}>
+                        <img src={twitterNoBackground} alt="twitter" />
+                      </ButtonBase>
+                      <ButtonBase
+                        className={classes.buttonBase}
+                        onClick={() => {
+                          window.open(row.discord_link, '_blank')
+                        }}>
+                        <img src={discordNoBackground} alt="discord" />
+                      </ButtonBase>
+                    </CustomTableCell>
+                  </CustomTableRow>
+                ))}
             </TableBody>
           </Table>
         ) : (

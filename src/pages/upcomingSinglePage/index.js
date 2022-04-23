@@ -6,15 +6,21 @@ import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import UpcomingSinglePageCardTime from './UpcomingSinglePageCardTime'
 import axios from 'axios'
 import SettingsIcon from '@material-ui/icons/Settings'
-import { useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 //import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
 import UpcomingSinglePageShowStatus from './UpcomingSinglePageShowStatus'
 import UpcomingSinglePageGasFeeMenu from './UpcomingSinglePageGasFeeMenu'
-
+import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
+export const UpcomingSinglePageMenuContext = createContext()
 const UpcomingSinglePage = () => {
   const [data, setdata] = useState({})
+  // gas fee is here bitch
   const [gasfee, setgasfee] = useState('')
+  const [MenuContextData, setMenuContextData] = useState({
+    multiplier: { value: 0 },
+    custom: { maxFee: '', maxPriority: '', gasLimit: '' }
+  })
   const [showGasFeeMenu, setshowGasFeeMenu] = useState(false)
   const params = useParams()
   const getData = async () => {
@@ -137,23 +143,23 @@ const UpcomingSinglePage = () => {
                 <IconButton
                   className={classes.gasFeeButton}
                   size="small"
-                  onClick={() =>
-                    showGasFeeMenu
-                      ? setshowGasFeeMenu(false)
-                      : setshowGasFeeMenu(true)
-                  }>
+                  onClick={() => setshowGasFeeMenu(!showGasFeeMenu)}>
                   <SettingsIcon className={classes.gasFeeIcon} />
                 </IconButton>
               </div>
               {gasfee && <Typography variant="inherit">{gasfee}</Typography>}
             </div>
           </div>
-          {showGasFeeMenu && (
-            <UpcomingSinglePageGasFeeMenu
-              closeMenu={() => setshowGasFeeMenu(false)}
-              setgasfee={setgasfee}
-            />
-          )}
+          <UpcomingSinglePageMenuContext.Provider
+            value={{ data: MenuContextData, updateData: setMenuContextData }}>
+            {showGasFeeMenu && (
+              <UpcomingSinglePageGasFeeMenu
+                closeMenu={() => setshowGasFeeMenu(false)}
+                setgasfee={setgasfee}
+              />
+            )}
+          </UpcomingSinglePageMenuContext.Provider>
+          <UpcomingSinglePageCardOption />
           <UpcomingSinglePageCardTime
             dateTime={data.publicsale_mint_timestamp}
           />

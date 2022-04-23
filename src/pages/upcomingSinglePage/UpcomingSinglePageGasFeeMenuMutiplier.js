@@ -1,14 +1,17 @@
 import { Button, Slider } from '@material-ui/core'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { UpcomingSinglePageMenuContext } from '.'
 import useStyles from './styles/UpcomingSinglePageGasFeeMenuMutiplier.style'
 const valuetext = (value) => {
   return `${value}`
 }
 const UpcomingSinglePageGasFeeMenuMutiplier = ({ closeMenu, setgasfee }) => {
   const classes = useStyles()
-  const [value, setValue] = useState(0)
+  const { data, updateData } = useContext(UpcomingSinglePageMenuContext)
+  const [value, setValue] = useState(data.multiplier.value)
 
   const handleChange = (event, newValue) => {
+    updateData({ ...data, multiplier: { value: newValue } })
     setValue(newValue)
   }
   return (

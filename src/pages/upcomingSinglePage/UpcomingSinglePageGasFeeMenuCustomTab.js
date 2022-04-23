@@ -1,14 +1,19 @@
 import { Button, TextField } from '@material-ui/core'
 import { Form, Formik } from 'formik'
+import { useContext } from 'react'
+import { UpcomingSinglePageMenuContext } from '.'
 import useStyles from './styles/UpcomingSinglePageGasFeeMenuCustomTab.style'
 import UpcomingSinglePageGasFeeMenuCustomTabValidation from './validation/UpcomingSinglePageGasFeeMenuCustomTab'
 
 const UpcomingSinglePageGasFeeMenuCustomTab = ({ closeMenu, setgasfee }) => {
-  const initialValues = { maxFee: '', maxPriority: '', gasLimit: '' }
+  const { data, updateData } = useContext(UpcomingSinglePageMenuContext)
+  const initialValues = data.custom
+
   const classes = useStyles()
   return (
     <Formik
       onSubmit={(values) => {
+        updateData({ ...data, custom: values })
         setgasfee('64 ETH')
         closeMenu()
       }}

@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: '40px 0',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     columnGap: 40,
     flex: 1,
     width: 'calc(100% - 100px)',
@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10
   },
   rightPart: {
+    marginTop: 50,
     display: 'flex',
     flexDirection: 'column',
     rowGap: 30,
