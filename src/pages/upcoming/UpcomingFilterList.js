@@ -331,7 +331,12 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                       onClick={() => {
                         resetForm()
                         setcategory([])
-                        upcomingFilterListFunction(values, setData, data, [])
+                        upcomingFilterListFunction(
+                          initialValues,
+                          setData,
+                          data,
+                          []
+                        )
                       }}
                       className={classes.button}>
                       Reset
