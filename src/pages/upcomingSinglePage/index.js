@@ -8,6 +8,7 @@ import axios from 'axios'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import etherscan from '../../assets/images/etherscan.svg'
 //import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
 import UpcomingSinglePageShowStatus from './UpcomingSinglePageShowStatus'
 import UpcomingSinglePageGasFeeMenu from './UpcomingSinglePageGasFeeMenu'
@@ -70,7 +71,11 @@ const UpcomingSinglePage = () => {
                   onClick={() => {
                     window.open(data.opensea_link, '_blank')
                   }}>
-                  <img src={openSea} alt="openSea" />
+                  <img
+                    src={etherscan}
+                    alt="etherscan"
+                    className={classes.etherscan}
+                  />
                 </ButtonBase>
                 <ButtonBase
                   className={classes.buttonBase}
