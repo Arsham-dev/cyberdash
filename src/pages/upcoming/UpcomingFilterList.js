@@ -13,6 +13,7 @@ import {
   Typography
 } from '@material-ui/core'
 import { useState } from 'react'
+import SearchIcon from '@material-ui/icons/Search'
 import CloseIcon from '@material-ui/icons/Close'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import FilterListIcon from '@material-ui/icons/FilterList'
@@ -78,7 +79,8 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                   size="small"
                   fullWidth
                   InputProps={{
-                    className: classes.menuItemTextFieldPlacerHolder
+                    className: classes.menuItemTextFieldPlacerHolder,
+                    endAdornment: <SearchIcon />
                   }}
                   className={[
                     classes.menuItemTextField,
