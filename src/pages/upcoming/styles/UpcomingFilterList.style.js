@@ -79,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-
     columnGap: 20,
     color: '#FFF',
     marginBottom: -19
@@ -105,6 +104,10 @@ const useStyles = makeStyles((theme) => ({
       '&.Mui-focused fieldset': {
         borderColor: '#FFF'
       }
+    },
+    '& .MuiOutlinedInput-inputMarginDense': {
+      paddingTop: 9.75,
+      paddingBottom: 9.75
     }
   },
   menuItemTextFieldPlacerHolder: {
@@ -130,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchField: {
     borderRadius: 8,
-    width: 300,
+    width: 156,
     '& .MuiOutlinedInput-input': {}
   },
   searchFieldInput: {

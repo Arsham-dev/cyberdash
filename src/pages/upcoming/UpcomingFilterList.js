@@ -71,13 +71,13 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
             <div className={classes.root}>
               <div>
                 <TextField
-                  label="Search in Collection name"
+                  // label="Search in Collection name"
+                  label="Search"
                   variant="outlined"
                   color="primary"
                   name="collectionName"
                   id="collectionName"
                   size="small"
-                  fullWidth
                   InputProps={{
                     className: classes.menuItemTextFieldPlacerHolder,
                     endAdornment: <SearchIcon />
