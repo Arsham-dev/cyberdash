@@ -175,8 +175,9 @@ const UpcomingSinglePage = () => {
           </Typography>
           <Paper className={classes.rightPaper}>
             <Typography className={classes.rightPaperText}>
-              This mint can lead to a X% loss/profit if you flip it right after
-              miniting
+              {gasfee
+                ? 'This mint can lead to a X% loss/profit if you flip it right after miniting'
+                : 'Please set "gas fee" to see the expected profit/loss'}
             </Typography>
             <Typography className={classes.rightPaperText}>PnL:</Typography>
           </Paper>
