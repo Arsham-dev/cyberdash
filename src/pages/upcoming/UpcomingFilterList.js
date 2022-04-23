@@ -13,6 +13,7 @@ import {
   Typography
 } from '@material-ui/core'
 import { useState } from 'react'
+import SearchIcon from '@material-ui/icons/Search'
 import CloseIcon from '@material-ui/icons/Close'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import FilterListIcon from '@material-ui/icons/FilterList'
@@ -70,15 +71,16 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
             <div className={classes.root}>
               <div>
                 <TextField
-                  label="Search in Collection name"
+                  // label="Search in Collection name"
+                  label="Search"
                   variant="outlined"
                   color="primary"
                   name="collectionName"
                   id="collectionName"
                   size="small"
-                  fullWidth
                   InputProps={{
-                    className: classes.menuItemTextFieldPlacerHolder
+                    className: classes.menuItemTextFieldPlacerHolder,
+                    endAdornment: <SearchIcon />
                   }}
                   className={[
                     classes.menuItemTextField,
@@ -331,7 +333,12 @@ const UpcomingFilterList = ({ categories, setData, data }) => {
                       onClick={() => {
                         resetForm()
                         setcategory([])
-                        upcomingFilterListFunction(values, setData, data, [])
+                        upcomingFilterListFunction(
+                          initialValues,
+                          setData,
+                          data,
+                          []
+                        )
                       }}
                       className={classes.button}>
                       Reset

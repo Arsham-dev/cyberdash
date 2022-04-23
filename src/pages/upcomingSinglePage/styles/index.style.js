@@ -154,6 +154,11 @@ const useStyles = makeStyles((theme) => ({
   gasFeeIcon: {
     fontSize: 16,
     color: '#FFF'
+  },
+  etherscan: {
+    width: 20,
+    height: 20,
+    padding: 6
   }
 }))
 export default useStyles

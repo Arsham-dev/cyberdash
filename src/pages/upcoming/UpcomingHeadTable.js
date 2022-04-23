@@ -319,28 +319,30 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
 
                     <CustomTableCell
                       align="center"
-                      className={classes.buttonContainer}>
-                      <ButtonBase
-                        className={classes.buttonBase}
-                        onClick={() => {
-                          window.open(row.opensea_link, '_blank')
-                        }}>
-                        <img src={openSea} alt="openSea" />
-                      </ButtonBase>
-                      <ButtonBase
-                        className={classes.buttonBase}
-                        onClick={() => {
-                          window.open(row.twitter_link, '_blank')
-                        }}>
-                        <img src={twitterNoBackground} alt="twitter" />
-                      </ButtonBase>
-                      <ButtonBase
-                        className={classes.buttonBase}
-                        onClick={() => {
-                          window.open(row.discord_link, '_blank')
-                        }}>
-                        <img src={discordNoBackground} alt="discord" />
-                      </ButtonBase>
+                      className={classes.socialMedia}>
+                      <div className={classes.buttonContainer}>
+                        <ButtonBase
+                          className={classes.buttonBase}
+                          onClick={() => {
+                            window.open(row.opensea_link, '_blank')
+                          }}>
+                          <img src={openSea} alt="openSea" />
+                        </ButtonBase>
+                        <ButtonBase
+                          className={classes.buttonBase}
+                          onClick={() => {
+                            window.open(row.twitter_link, '_blank')
+                          }}>
+                          <img src={twitterNoBackground} alt="twitter" />
+                        </ButtonBase>
+                        <ButtonBase
+                          className={classes.buttonBase}
+                          onClick={() => {
+                            window.open(row.discord_link, '_blank')
+                          }}>
+                          <img src={discordNoBackground} alt="discord" />
+                        </ButtonBase>
+                      </div>
                     </CustomTableCell>
                   </CustomTableRow>
                 ))}

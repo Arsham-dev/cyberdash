@@ -13,7 +13,8 @@ const useStyles = makeStyles(() => ({
     width: 'auto',
     minWidth: '100%',
     minHeight: '100%',
-    height: 'auto'
+    height: 'auto',
+    cursor: 'pointer'
   },
   item: {
     display: 'flex',
@@ -29,7 +30,8 @@ const useStyles = makeStyles(() => ({
     width: 35,
     height: 35,
     // padding: 10,
-    aspectRatio: 1
+    aspectRatio: 1,
+    cursor: 'pointer'
   },
   expandMoreIcon: {
     fontSize: 16,

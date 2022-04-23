@@ -8,6 +8,7 @@ import axios from 'axios'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import etherscan from '../../assets/images/etherscan.svg'
 //import UpcomingSinglePageCardOption from './UpcomingSinglePageCardOption'
 import UpcomingSinglePageShowStatus from './UpcomingSinglePageShowStatus'
 import UpcomingSinglePageGasFeeMenu from './UpcomingSinglePageGasFeeMenu'
@@ -70,7 +71,11 @@ const UpcomingSinglePage = () => {
                   onClick={() => {
                     window.open(data.opensea_link, '_blank')
                   }}>
-                  <img src={openSea} alt="openSea" />
+                  <img
+                    src={etherscan}
+                    alt="etherscan"
+                    className={classes.etherscan}
+                  />
                 </ButtonBase>
                 <ButtonBase
                   className={classes.buttonBase}
@@ -170,8 +175,9 @@ const UpcomingSinglePage = () => {
           </Typography>
           <Paper className={classes.rightPaper}>
             <Typography className={classes.rightPaperText}>
-              This mint can lead to a X% loss/profit if you flip it right after
-              miniting
+              {gasfee
+                ? 'This mint can lead to a X% loss/profit if you flip it right after miniting'
+                : 'Please set "gas fee" to see the expected profit/loss'}
             </Typography>
             <Typography className={classes.rightPaperText}>PnL:</Typography>
           </Paper>
