@@ -49,9 +49,9 @@ const MintFunction = () => {
 
   const [inputsData, setdata] = useState({})
 
-  const location = useLocation()
-  const flagAbi = location?.state?.flagAbi
-  const mintAbi = location?.state?.mintAbi
+  const state = JSON.parse(sessionStorage.getItem('contract'))
+  const flagAbi = state?.flagAbi
+  const mintAbi = state?.mintAbi
   const initialValues = {
     flagFunction: !!mintAbi.defaultMintFunction
       ? mintAbi.allMintFunctions.findIndex(
@@ -72,7 +72,7 @@ const MintFunction = () => {
     flagDelay: ''
   }
   const history = useHistory()
-  const contractAddress = location?.state?.contractAddress
+  const contractAddress = state?.contractAddress
 
   const metaMask = new MetaMask(provider)
 
@@ -411,7 +411,7 @@ const MintFunction = () => {
     stopWhileRef.current = false
   }, [])
   useEffect(() => {
-    if (!location.state || !sessionStorage.getItem('key')) {
+    if (!sessionStorage.getItem('key') || !sessionStorage.getItem('contract')) {
       history.replace('/contract')
     } else {
       setdata({ ...inputsData, contractAddress })
