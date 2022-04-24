@@ -5,14 +5,7 @@ import {
   ListItemText,
   Typography
 } from '@material-ui/core'
-import AddTabelIcon from '@material-ui/icons/Add'
-import CategoryIcon from '@material-ui/icons/Category'
-import ConfigurationIcon from '@material-ui/icons/ConfirmationNumber'
 import DashboardIcon from '@material-ui/icons/Dashboard'
-import ActivityLogIcon from '@material-ui/icons/History'
-import WhiteListIcon from '@material-ui/icons/ListAlt'
-import ChangePasswordIcon from '@material-ui/icons/Lock'
-import AdminTableIcon from '@material-ui/icons/SupervisorAccount'
 import { NavLink } from 'react-router-dom'
 
 import useStyles from './styles/index.style'

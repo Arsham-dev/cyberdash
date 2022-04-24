@@ -1,6 +1,6 @@
 import { CircularProgress, Typography } from '@material-ui/core'
 import { useEffect, useRef, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import SwitchSelector from 'react-switch-selector'
 import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
