@@ -24,10 +24,9 @@ const Contract = () => {
     if (sessionStorage.getItem('key')) {
       node.checkContract(contractAddress, isProxy).then((data) => {
         if (!data.error) {
-          toast('Contract loaded successfully', { type: 'success' })
-          history.push({
-            pathname: '/mint-function',
-            state: {
+          sessionStorage.setItem(
+            'contract',
+            JSON.stringify({
               mintAbi: data.mintAbi,
               flagAbi: {
                 defaultFlagFunction: data.flagAbi.defaultFlagFunction,
@@ -37,14 +36,16 @@ const Contract = () => {
                     isMainFlag: true,
                     inputs: [],
                     outputs: []
-                    // should have another value
                   },
                   ...data.flagAbi.allFlagFunctions
                 ]
               },
               contractAddress
-            }
-          })
+            })
+          )
+          toast('Contract loaded successfully', { type: 'success' })
+          console.log('asdsad')
+          history.push('/dashboard/mint-function')
         } else toast(data.error, { type: 'error' })
         setisLoading(false)
       })

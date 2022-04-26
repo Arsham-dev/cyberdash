@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import openSea from '../../assets/images/opensea.svg'
+import logo from '../../assets/images/logoNoBackground.svg'
 import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
 import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import useStyles from './styles/UpcomingHeadTable.style'
@@ -326,7 +326,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                           onClick={() => {
                             window.open(row.opensea_link, '_blank')
                           }}>
-                          <img src={openSea} alt="openSea" />
+                          <img src={logo} alt="logo" className={classes.logo} />
                         </ButtonBase>
                         <ButtonBase
                           className={classes.buttonBase}

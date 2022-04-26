@@ -108,6 +108,8 @@ class Node {
 
   #getMintABI = (abi) => {
     try {
+      const abi2 = abi
+
       const CONTINUE_FILTER = [
         'presale',
         'renounce',
@@ -124,20 +126,20 @@ class Node {
       for (let i = 0; i < abi.length; i++) {
         try {
           if (
-            abi[i].inputs[0].internalType === 'uint256' &&
-            abi[i].inputs[0].type === 'uint256' &&
-            abi[i].outputs.length <= 2 &&
-            abi[i].stateMutability === 'payable' &&
-            abi[i].type === 'function'
+            abi[i].inputs[0].type === 'uint256' ||
+            (abi[i]?.inputs[1]?.type === 'uint256' &&
+              abi[i].outputs.length <= 2 &&
+              abi[i].type === 'function')
           ) {
             if (String(abi[i].name).toLowerCase().includes(CONTINUE_FILTER)) {
               continue
             } else if (
               String(abi[i].name).toLowerCase().includes(RETURN_FILTER) &&
               abi[i].inputs.length === 1
-            )
+            ) {
               DEFAULT_MINT_FUNCTION = abi[i]
-            else {
+              PERHAPS_MINT_FUNCTION.push(abi[i])
+            } else {
               PERHAPS_MINT_FUNCTION.push(abi[i])
             }
           }

@@ -151,18 +151,21 @@ const useStyles = makeStyles((theme) => ({
     borderBottomRightRagdius: '0.75rem'
   },
   socialMedia: {
-    width: 100,
-    position: 'relative'
+    // display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+    // width: 100,
+    // position: 'relative'
   },
   buttonContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%'
+    justifyContent: 'center'
+    // position: 'absolute',
+    // top: 0,
+    // left: 0,
+    // width: '100%',
+    // height: '100%'
   },
   buttonBase: {
     borderRadius: 20
@@ -212,6 +215,10 @@ const useStyles = makeStyles((theme) => ({
   },
   collection_imageContainerNo: {
     backgroundColor: 'rgb(11, 30, 57)'
+  },
+  logo: {
+    width: 32,
+    height: 26
   }
 }))
 export default useStyles

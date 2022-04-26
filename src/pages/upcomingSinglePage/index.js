@@ -30,6 +30,9 @@ const UpcomingSinglePage = () => {
     )
     setdata(data.data ? data.data : undefined)
   }
+
+  //          <UpcomingSinglePageCardOption />
+
   useEffect(() => {
     getData()
   }, [])
@@ -164,7 +167,6 @@ const UpcomingSinglePage = () => {
               />
             )}
           </UpcomingSinglePageMenuContext.Provider>
-          <UpcomingSinglePageCardOption />
           <UpcomingSinglePageCardTime
             dateTime={data.publicsale_mint_timestamp}
           />

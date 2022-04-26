@@ -50,9 +50,11 @@ const UpcomingBodyTableCategory = ({ categories, index }) => {
                 className={classes.item}
                 style={{
                   borderColor: item.color,
-                  color: item.color
+                  color: item.color,
+                  fontSize:
+                    item.title.length > 4 ? 10 : item.title.length > 3 ? 11 : 12
                 }}>
-                {item.title.substr(0, 4)}
+                {item.title.substr(0, 5)}
               </div>
             </Tooltip>
           ))}
