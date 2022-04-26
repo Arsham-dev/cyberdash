@@ -215,6 +215,10 @@ const useStyles = makeStyles((theme) => ({
   },
   collection_imageContainerNo: {
     backgroundColor: 'rgb(11, 30, 57)'
+  },
+  logo: {
+    width: 32,
+    height: 26
   }
 }))
 export default useStyles
