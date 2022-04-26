@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     borderStyle: 'solid',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 12,
+    // fontSize: 10,
     width: 35,
     height: 35,
     // padding: 10,
