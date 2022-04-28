@@ -8,6 +8,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  TextField,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -111,6 +112,16 @@ const ResponsiveAppBar = () => {
               <img src={logo} alt="logo" />
             </ButtonBase>
           </div>
+          <Hidden smDown>
+            <div className={classes.searchInputContainer}>
+              <TextField
+                variant="outlined"
+                placeholder="Search"
+                size="small"
+                style={{ backgroundColor: 'rgb(36, 70, 118)', borderRadius: 5 }}
+              />
+            </div>
+          </Hidden>
           <Hidden smDown>
             <div className={classes.headerButtonContainer}>
               <Button
