@@ -166,7 +166,8 @@ const UpcomingSinglePage = () => {
           </UpcomingSinglePageMenuContext.Provider>
           <UpcomingSinglePageCardOption />
           <UpcomingSinglePageCardTime
-            dateTime={data.publicsale_mint_timestamp}
+            publicsale_mint_timestamp={data.publicsale_mint_timestamp}
+            presale_mint_timestamp={data.presale_mint_timestamp}
           />
         </Paper>
         <div className={classes.rightPart}>
