@@ -12,7 +12,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -40,
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
-      width: 'calc(100% - 10px)'
+      width: 'calc(100% - 10px)',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   },
   backgroundImageContainer: {
