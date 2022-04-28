@@ -228,6 +228,10 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: 32,
     height: 26
+  },
+  websiteIcon: {
+    color: '#E2E8F0',
+    padding: 4
   }
 }))
 export default useStyles

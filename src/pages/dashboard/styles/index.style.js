@@ -5,18 +5,23 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#00050a',
-    minHeight: '100vh'
+    minHeight: '100vh',
+    width: '100%',
+    position: 'relative'
+    // position: 'sticky'
   },
   appBar: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    position: 'sticky',
+    top: 62
   },
   topBar: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 60,
-    backgroundColor: '#2d3238',
+    backgroundColor: 'rgb(11, 30, 57)',
     // width: '100%',
     padding: '0 10px',
     flex: 1

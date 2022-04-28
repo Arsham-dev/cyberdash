@@ -16,6 +16,7 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import logo from '../../assets/images/logoNoBackground.svg'
 import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
 import discordNoBackground from '../../assets/images/discordNoBackground.svg'
+import WebsiteIcon from '@material-ui/icons/Language'
 import useStyles from './styles/UpcomingHeadTable.style'
 import { useEffect, useState } from 'react'
 import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
@@ -333,7 +334,10 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                           onClick={() => {
                             window.open(row.opensea_link, '_blank')
                           }}>
-                          <img src={logo} alt="logo" className={classes.logo} />
+                          <WebsiteIcon
+                            // color="#E2E8F0"
+                            className={classes.websiteIcon}
+                          />
                         </ButtonBase>
                         <ButtonBase
                           className={classes.buttonBase}
