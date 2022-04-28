@@ -8,7 +8,8 @@ import {
   TableRow,
   withStyles,
   ButtonBase,
-  CircularProgress
+  CircularProgress,
+  Typography
 } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
@@ -94,14 +95,20 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   <ButtonBase
                     className={[
                       classes.textButton,
-                      classes.collectionName,
-                      currentHead === 'collection_name'
-                        ? classes.selectedHead
-                        : ''
+                      classes.collectionName
                     ].join(' ')}
                     onClick={() => sortFunction('collection_name')}>
-                    Collection
-                    {currentHead === 'collection_name' && <ShowOrder />}
+                    <Typography
+                      variant="inherit"
+                      className={[
+                        currentHead === 'collection_name'
+                          ? classes.selectedHead
+                          : '',
+                        classes.collectionText
+                      ].join(' ')}>
+                      Collection
+                      {currentHead === 'collection_name' && <ShowOrder />}
+                    </Typography>
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
