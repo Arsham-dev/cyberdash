@@ -51,7 +51,7 @@ const UpcomingSinglePage = () => {
       <div className={classes.root}>
         <Paper elevation={14} className={classes.leftPaper}>
           <div className={classes.headerContainer}>
-            <div
+            {/* <div
               className={[
                 classes.img,
                 data.collection_image ? classes.collection_imageContainer : ''
@@ -63,6 +63,11 @@ const UpcomingSinglePage = () => {
                   className={classes.collection_image}
                 />
               )}
+            </div> */}
+            <div>
+              <Typography className={classes.title}>
+                {data.collection_name}
+              </Typography>
             </div>
             <div className={classes.statusContianer}>
               <div className={classes.buttonContainer}>
@@ -107,11 +112,11 @@ const UpcomingSinglePage = () => {
               </div>
             </div>
           </div>
-          <div>
+          {/* <div>
             <Typography className={classes.title}>
               {data.collection_name}
             </Typography>
-          </div>
+          </div> */}
 
           <div>
             {/* <ButtonBase className={classes.upcomingButton}>
@@ -170,6 +175,19 @@ const UpcomingSinglePage = () => {
             presale_mint_timestamp={data.presale_mint_timestamp}
           />
         </Paper>
+        <div
+          className={[
+            classes.img,
+            data.collection_image ? classes.collection_imageContainer : ''
+          ].join(' ')}>
+          {data.collection_image && (
+            <img
+              alt="collection_image"
+              src={data.collection_image}
+              className={classes.collection_image}
+            />
+          )}
+        </div>
         <div className={classes.rightPart}>
           <Typography className={classes.rightPartTitle}>
             Expected PnL
