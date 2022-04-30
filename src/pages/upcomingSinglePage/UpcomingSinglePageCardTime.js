@@ -16,22 +16,46 @@ const month = [
   'November',
   'December'
 ]
-const UpcomingSinglePageCardTime = ({ dateTime }) => {
+const UpcomingSinglePageCardTime = ({
+  publicsale_mint_timestamp,
+  presale_mint_timestamp
+}) => {
   const [time, settime] = useState()
-  const isNumber = /^-?\d+$/.test(dateTime)
+  const isNumber = /^-?\d+$/.test(publicsale_mint_timestamp)
   const date = new Date(time)
   useEffect(() => {
-    if (dateTime) {
-      settime(Math.floor((Number(dateTime) - new Date().getTime()) / 1000))
+    if (publicsale_mint_timestamp) {
+      settime(
+        Math.floor(
+          (Number(publicsale_mint_timestamp) - new Date().getTime()) / 1000
+        )
+      )
       setInterval(() => settime((value) => value - 1), 1000)
     }
-  }, [dateTime])
+  }, [publicsale_mint_timestamp])
+  const status = /^-?\d+$/.test(presale_mint_timestamp)
+    ? Number(presale_mint_timestamp) - new Date().getTime() < 0
+      ? 0
+      : /^-?\d+$/.test(publicsale_mint_timestamp)
+      ? Number(publicsale_mint_timestamp) - new Date().getTime() < 0
+        ? 1
+        : 3
+      : 2
+    : 2
 
   const classes = useStyles()
   return (
     <div className={classes.root}>
       <div>
-        <Typography className={classes.title}>Public Sale In</Typography>
+        <Typography className={classes.title}>
+          {status === 0
+            ? 'Presale In'
+            : status === 1
+            ? 'Public Sale In'
+            : status === 2
+            ? presale_mint_timestamp
+            : 'Upcoming In'}
+        </Typography>
       </div>
       <div className={classes.timeContainer}>
         <AccessAlarmIcon className={classes.timeIcon} />

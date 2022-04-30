@@ -186,17 +186,26 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     color: 'rgb(197,197,224)',
     fontWeight: 'bold',
-    position: 'relative'
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   orderSort: {
     position: 'absolute',
     // marginLeft: 5,
-    top: -6,
+    // top: '50%',
     right: -25,
     fontSize: 10
   },
   tableBodyRow: {
     cursor: 'grab'
+  },
+  collectionText: {
+    display: 'flex',
+    alignItems: 'center',
+    position: 'relative'
   },
   selectedHead: {
     // paddingBottom: 3,
@@ -219,6 +228,10 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: 32,
     height: 26
+  },
+  websiteIcon: {
+    color: '#E2E8F0',
+    padding: 4
   }
 }))
 export default useStyles

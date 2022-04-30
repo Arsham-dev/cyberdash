@@ -33,7 +33,7 @@ const Upcoming = () => {
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <h1 className={classes.pageTitle}>Drops</h1>
+        <Typography className={classes.pageTitle}>Drops</Typography>
         <Typography className={classes.pageTitleDescription}>
           We only include the project that are worth mentioning
         </Typography>

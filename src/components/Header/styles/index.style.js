@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     textTransform: 'none'
   },
+  searchInputContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flex: 2
+  },
   headerButtonContainer: {
     // width: '100%',
     display: 'flex',

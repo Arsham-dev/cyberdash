@@ -8,10 +8,13 @@ const useStyles = makeStyles((theme) => ({
     columnGap: 40,
     flex: 1,
     width: 'calc(100% - 100px)',
-    marginTop: -80,
+    position: 'relative',
+    marginTop: -40,
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
-      width: 'calc(100% - 10px)'
+      width: 'calc(100% - 10px)',
+      justifyContent: 'center',
+      alignItems: 'center'
     }
   },
   backgroundImageContainer: {
@@ -21,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
     height: 150,
     backgroundColor: 'rgb(127, 127, 239)',
     display: 'flex',
+    // width: '100%',
+    // padding: '0 50px',
     width: 'calc(100% - 100px)',
     borderRadius: 5,
     [theme.breakpoints.down('sm')]: {
@@ -46,11 +51,19 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row-reverse'
   },
   img: {
-    width: 120,
+    position: 'absolute',
+    top: 30,
+    width: 130,
     height: 130,
-    borderRadius: 5,
+    left: 'calc(50%)',
+    borderRadius: 65,
     marginTop: -35,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    [theme.breakpoints.down('sm')]: {
+      // top: '100%',
+      top: -50,
+      left: 'calc(50% - 65px)'
+    }
   },
   buttonBase: {
     borderRadius: 20

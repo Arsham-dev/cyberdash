@@ -8,13 +8,15 @@ import {
   TableRow,
   withStyles,
   ButtonBase,
-  CircularProgress
+  CircularProgress,
+  Typography
 } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import logo from '../../assets/images/logoNoBackground.svg'
 import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
 import discordNoBackground from '../../assets/images/discordNoBackground.svg'
+import WebsiteIcon from '@material-ui/icons/Language'
 import useStyles from './styles/UpcomingHeadTable.style'
 import { useEffect, useState } from 'react'
 import UpcomingShowTimeStamp from './UpcomingShowTimeStamp'
@@ -94,14 +96,20 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   <ButtonBase
                     className={[
                       classes.textButton,
-                      classes.collectionName,
-                      currentHead === 'collection_name'
-                        ? classes.selectedHead
-                        : ''
+                      classes.collectionName
                     ].join(' ')}
                     onClick={() => sortFunction('collection_name')}>
-                    Collection
-                    {currentHead === 'collection_name' && <ShowOrder />}
+                    <Typography
+                      variant="inherit"
+                      className={[
+                        currentHead === 'collection_name'
+                          ? classes.selectedHead
+                          : '',
+                        classes.collectionText
+                      ].join(' ')}>
+                      Collection
+                      {currentHead === 'collection_name' && <ShowOrder />}
+                    </Typography>
                   </ButtonBase>
                 </CustomTableCell>
                 <CustomTableCell align="center">
@@ -326,7 +334,10 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                           onClick={() => {
                             window.open(row.opensea_link, '_blank')
                           }}>
-                          <img src={logo} alt="logo" className={classes.logo} />
+                          <WebsiteIcon
+                            // color="#E2E8F0"
+                            className={classes.websiteIcon}
+                          />
                         </ButtonBase>
                         <ButtonBase
                           className={classes.buttonBase}
