@@ -96,7 +96,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                   align="center"
                   className={classes.collectionName}>
                   <ButtonBase
-                    className={[classes.textButton].join(' ')}
+                    className={classes.textButton}
                     onClick={() => sortFunction('collection_name')}>
                     <Typography
                       variant="inherit"
