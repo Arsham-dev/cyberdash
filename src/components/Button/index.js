@@ -1,20 +1,23 @@
-import { Button } from '@material-ui/core'
+import { Button, makeStyles } from '@material-ui/core'
 
 const CardBox = ({ onClickConfirmButton, content }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    onClickConfirmButton()
-  }
+  // const handleSubmit = (event) => {
+  //   event.preventDefault()
+  //   onClickConfirmButton()
+  // }
+  const useStyles = makeStyles(() => ({
+    root: {
+      borderRadius: 30,
+      backgroundColor: '#D50166',
+      padding: '16px',
+      fontSize: '13px'
+    }
+  }))
+  const classes = useStyles()
   return (
     <>
       <Button
-        style={{
-          borderRadius: 30,
-          backgroundColor: '#D50166',
-          padding: '16px',
-          fontSize: '13px'
-        }}
+        className={classes.root}
         variant="contained"
         onClick={onClickConfirmButton}>
         {content}

@@ -316,7 +316,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                         e.stopPropagation()
                       }}
                       align="center"
-                      style={{ position: 'relative' }}>
+                      className={classes.categoriesContainer}>
                       <UpcomingBodyTableCategory
                         categories={row.categories}
                         index={index}

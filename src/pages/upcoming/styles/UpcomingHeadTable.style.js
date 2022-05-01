@@ -246,6 +246,9 @@ const useStyles = makeStyles((theme) => ({
   websiteIcon: {
     color: '#E2E8F0',
     padding: 4
+  },
+  categoriesContainer: {
+    position: 'relative'
   }
 }))
 export default useStyles

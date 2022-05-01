@@ -118,7 +118,7 @@ const ResponsiveAppBar = () => {
                 variant="outlined"
                 placeholder="Search"
                 size="small"
-                style={{ backgroundColor: 'rgb(36, 70, 118)', borderRadius: 5 }}
+                className={classes.searchInput}
               />
             </div>
           </Hidden>
@@ -217,15 +217,8 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' }
               }}>
               {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  style={{ fontFamily: 'Roboto' }}
-                  onClick={handleCloseNavMenu}>
-                  <Typography
-                    style={{ fontFamily: 'Roboto' }}
-                    textalign="center">
-                    {page}
-                  </Typography>
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textalign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
