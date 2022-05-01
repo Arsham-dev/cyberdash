@@ -178,7 +178,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center'
   },
   collectionName: {
-    display: 'block',
+    // display: 'block',
     width: 250,
     textAlign: 'left'
   },
