@@ -93,10 +93,10 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
             <TableHead>
               <TableRow>
                 <CustomTableCell
-                  align="center"
+                  align="left"
                   className={classes.collectionName}>
                   <ButtonBase
-                    className={classes.textButton}
+                    className={classes.collectionNameTextButton}
                     onClick={() => sortFunction('collection_name')}>
                     <Typography
                       variant="inherit"

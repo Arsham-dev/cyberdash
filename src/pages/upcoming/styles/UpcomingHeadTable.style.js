@@ -182,6 +182,18 @@ const useStyles = makeStyles((theme) => ({
     width: 250,
     textAlign: 'left'
   },
+  collectionNameTextButton: {
+    margin: 'unset',
+    fontSize: 14,
+    color: 'rgb(197,197,224)',
+    fontWeight: 'bold',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
   textButton: {
     fontSize: 14,
     color: 'rgb(197,197,224)',
@@ -190,7 +202,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'center',
+    textAlign: 'center',
+    margin: 'auto'
   },
   orderSort: {
     position: 'absolute',
