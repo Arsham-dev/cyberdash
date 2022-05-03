@@ -1,6 +1,6 @@
 {
   "name": "cyberdash",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@flashbots/ethers-provider-bundle": "^0.4.3",
