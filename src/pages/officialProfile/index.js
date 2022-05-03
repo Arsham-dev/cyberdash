@@ -1,4 +1,5 @@
 import OfficialProfileTopPart from './OfficialProfileTopPart'
+import OfficialProfileTopPartSocialMediaContainer from './OfficialProfileTopPartSocialMediaContainer'
 import useStyles from './styles/index.style'
 
 const OfficialProfile = () => {
@@ -6,6 +7,7 @@ const OfficialProfile = () => {
   return (
     <div className={classes.root}>
       <OfficialProfileTopPart />
+      <OfficialProfileTopPartSocialMediaContainer />
     </div>
   )
 }
