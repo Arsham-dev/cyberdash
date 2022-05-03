@@ -1,10 +1,12 @@
 import { Paper, Tab, Tabs } from '@material-ui/core'
 import { useState } from 'react'
+import { TabPanel } from '../officialProfile/components/CustomTabPanel'
+import FilterBoxTabPrice from './FilterBoxTabs/FilterBoxTabPrice'
 import useStyles from './styles/OfficialProfileTradingDashboardFilterBox.style'
 
 const OfficialProfileTradingDashboardFilterBox = () => {
   const classes = useStyles()
-  const [tabsValue, settabsValue] = useState()
+  const [tabsValue, settabsValue] = useState(0)
 
   return (
     <Paper className={classes.paper}>
@@ -64,6 +66,9 @@ const OfficialProfileTradingDashboardFilterBox = () => {
         />
         {/* <Tab label="Item Three" /> */}
       </Tabs>
+      <TabPanel value={tabsValue} index={0}>
+        <FilterBoxTabPrice />
+      </TabPanel>
     </Paper>
   )
 }

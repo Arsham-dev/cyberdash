@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'red'
   },
   tabs: {
-    borderBottom: '1.5px solid rgb(25, 86, 226)',
+    // borderBottom: '1.5px solid rgb(25, 86, 226)',
     color: '#FFF'
   },
   tabLabel: {

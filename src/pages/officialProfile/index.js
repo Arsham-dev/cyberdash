@@ -11,7 +11,7 @@ import { TabPanel } from './components/CustomTabPanel'
 
 const OfficialProfile = () => {
   const classes = useStyles()
-  const [tabsValue, settabsValue] = useState()
+  const [tabsValue, settabsValue] = useState(0)
   return (
     <div className={classes.root}>
       <OfficialProfileTopPart />
