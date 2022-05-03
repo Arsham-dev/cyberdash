@@ -6,6 +6,8 @@ import ChartIcon from '@material-ui/icons/BarChart'
 import OfficialProfileTopPartSocialMediaContainer from './OfficialProfileTopPartSocialMediaContainer'
 import DashboardIcon from '@material-ui/icons/DashboardOutlined'
 import useStyles from './styles/index.style'
+import OfficialProfileTradingDashboard from '../officialProfileTradingDashboard'
+import { TabPanel } from './components/CustomTabPanel'
 
 const OfficialProfile = () => {
   const classes = useStyles()
@@ -44,6 +46,9 @@ const OfficialProfile = () => {
           />
           {/* <Tab label="Item Three" /> */}
         </Tabs>
+        <TabPanel value={tabsValue} index={0}>
+          <OfficialProfileTradingDashboard />
+        </TabPanel>
       </Paper>
     </div>
   )
