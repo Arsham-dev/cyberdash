@@ -19,7 +19,13 @@ const useStyles = makeStyles(() => ({
     rowGap: 10,
     // maxWidth: 280,
     borderRadius: 10,
-    overflowY: 'auto'
+    overflowY: 'auto',
+    '&::-webkit-scrollbar-thumb': {
+      width: 0
+    },
+    '&::-webkit-scrollbar': {
+      width: 0
+    }
     // flex: 1
     // maxWidth: 300
   }
