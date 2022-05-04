@@ -1,5 +1,6 @@
 import OfficialProfileTradingDashboardFilterBox from './OfficialProfileTradingDashboardFilterBox'
 import OfficialProfileTradingDashboardListing from './OfficialProfileTradingDashboardListing'
+import OfficialProfileTradingDashboardTrade from './OfficialProfileTradingDashboardTrade'
 import useStyles from './styles/index.style'
 
 const OfficialProfileTradingDashboard = () => {
@@ -9,6 +10,7 @@ const OfficialProfileTradingDashboard = () => {
       <OfficialProfileTradingDashboardFilterBox />
       <div className={classes.main}>
         <OfficialProfileTradingDashboardListing />
+        <OfficialProfileTradingDashboardTrade />
       </div>
     </div>
   )

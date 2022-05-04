@@ -67,7 +67,8 @@ const useStyles = makeStyles(() => ({
   },
   ether: {
     width: 8,
-    height: 13
+    height: 13,
+    marginRight: 2
   },
   moreOptions: {
     display: 'flex',
@@ -79,11 +80,11 @@ const useStyles = makeStyles(() => ({
     rowGap: 6,
     marginLeft: 15
   },
-  linkdin: {
-    width: 23,
-    height: 23,
-    fontSize: 23,
-    color: '#244677'
+  openSea: {
+    fontSize: 30,
+    color: '#244677',
+    width: 16,
+    height: 14
   },
   moreOptionsButtonContainer: {
     display: 'flex',
@@ -102,6 +103,12 @@ const useStyles = makeStyles(() => ({
   timeText: {
     font: 'normal normal normal 10px/11px Roboto',
     color: '#D1D1D1'
+  },
+  openSeaButton: {
+    backgroundColor: '#5C86C3',
+    width: 23,
+    height: 23,
+    borderRadius: 11.5
   }
 }))
 export default useStyles

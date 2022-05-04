@@ -1,9 +1,11 @@
 import useStyles from './styles/index.style'
 import userProfileImage from '../../../assets/images/userProfileImage.jpg'
-import { Button, IconButton, Typography } from '@material-ui/core'
+import { Button, ButtonBase, IconButton, Typography } from '@material-ui/core'
 import linkdin from '../../../assets/images/linkdin.svg'
+import etherIcon from '../../../assets/images/etherIcon.svg'
+import openSeaNoBackground from '../../../assets/images/openSeaNoBackground.svg'
 
-const OfficialProfileUsersProfile = () => {
+const OfficialProfileListingUsersProfile = () => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -27,7 +29,7 @@ const OfficialProfileUsersProfile = () => {
         <Typography className={classes.priceText}>Price</Typography>
         <div className={classes.priceValue}>
           {/* <img /> */}
-          <div className={classes.ether} />
+          <img alt="etherIcon" src={etherIcon} className={classes.ether} />
           <Typography variant="inherit">0.280</Typography>
         </div>
       </div>
@@ -42,9 +44,13 @@ const OfficialProfileUsersProfile = () => {
             </Button>
           </div>
           <div>
-            <IconButton size="small">
-              <img src={linkdin} alt="linkdin" className={classes.linkdin} />
-            </IconButton>
+            <ButtonBase size="small" className={classes.openSeaButton}>
+              <img
+                src={openSeaNoBackground}
+                alt="openSea"
+                className={classes.openSea}
+              />
+            </ButtonBase>
           </div>
         </div>
         <div>
@@ -54,4 +60,4 @@ const OfficialProfileUsersProfile = () => {
     </div>
   )
 }
-export default OfficialProfileUsersProfile
+export default OfficialProfileListingUsersProfile
