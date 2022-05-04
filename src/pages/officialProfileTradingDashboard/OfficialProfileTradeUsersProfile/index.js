@@ -1,6 +1,6 @@
 import useStyles from './styles/index.style'
 import userProfileImage from '../../../assets/images/userProfileImage.jpg'
-import { ButtonBase, IconButton, Typography } from '@material-ui/core'
+import { ButtonBase, Typography } from '@material-ui/core'
 import etherscanLogo from '../../../assets/images/etherscanLogo.svg'
 import etherIcon from '../../../assets/images/etherIcon.svg'
 import openSeaNoBackground from '../../../assets/images/openSeaNoBackground.svg'

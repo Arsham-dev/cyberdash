@@ -1,7 +1,6 @@
 import useStyles from './styles/index.style'
 import userProfileImage from '../../../assets/images/userProfileImage.jpg'
-import { Button, ButtonBase, IconButton, Typography } from '@material-ui/core'
-import linkdin from '../../../assets/images/linkdin.svg'
+import { Button, ButtonBase, Typography } from '@material-ui/core'
 import etherIcon from '../../../assets/images/etherIcon.svg'
 import openSeaNoBackground from '../../../assets/images/openSeaNoBackground.svg'
 
