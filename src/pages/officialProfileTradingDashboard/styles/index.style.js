@@ -5,6 +5,9 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     margin: '70px 93px 68px 93px'
+  },
+  main: {
+    display: 'flex'
   }
 }))
 export default useStyles

@@ -1,4 +1,5 @@
 import OfficialProfileTradingDashboardFilterBox from './OfficialProfileTradingDashboardFilterBox'
+import OfficialProfileTradingDashboardListing from './OfficialProfileTradingDashboardListing'
 import useStyles from './styles/index.style'
 
 const OfficialProfileTradingDashboard = () => {
@@ -6,6 +7,9 @@ const OfficialProfileTradingDashboard = () => {
   return (
     <div className={classes.root}>
       <OfficialProfileTradingDashboardFilterBox />
+      <div className={classes.main}>
+        <OfficialProfileTradingDashboardListing />
+      </div>
     </div>
   )
 }

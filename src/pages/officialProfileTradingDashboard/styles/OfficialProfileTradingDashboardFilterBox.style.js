@@ -5,7 +5,8 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
     backgroundColor: 'rgb(0, 15, 36)',
     border: '1px solid rgb(11, 30, 57)',
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 68
   },
   indicator: {
     // backgroundColor: 'rgb(11, 30, 57) !important',
