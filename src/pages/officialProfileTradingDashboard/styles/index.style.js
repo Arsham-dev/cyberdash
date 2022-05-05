@@ -7,7 +7,8 @@ const useStyles = makeStyles(() => ({
     margin: '70px 93px 68px 93px'
   },
   main: {
-    display: 'flex'
+    display: 'flex',
+    columnGap: 20
   }
 }))
 export default useStyles
