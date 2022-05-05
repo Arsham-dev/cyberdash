@@ -51,6 +51,27 @@ const useStyles = makeStyles(() => ({
     width: 111,
     backgroundColor: '#244677',
     padding: '0 8.5px 0 10.5px'
+  },
+  bottomText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginTop: 16,
+    textAlign: 'center'
+  },
+  chartContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: 10,
+    width: '100%'
+  },
+  ETHPriceText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginTop: 16,
+    writingMode: 'vertical-lr',
+    textOrientation: 'mixed'
   }
 }))
 export default useStyles

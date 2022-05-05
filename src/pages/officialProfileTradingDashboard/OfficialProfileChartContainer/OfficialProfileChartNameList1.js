@@ -104,68 +104,74 @@ const OfficialProfileChartNameList1 = () => {
           </Select>
         </div>
       </div>
-      <Scatter
-        height={75}
-        width="100%"
-        options={{
-          // maintainAspectRatio: false,
-
-          scales: {
-            y: {
-              suggestedMin: 0,
-              suggestedMax: 0.5,
-              // stackWeight: 0.5
-              type: 'linear',
-              display: true,
-              // weight: 0.1,
-              // grace: 1,
-              beginAtZero: true
-            },
-            x: {
-              // suggestedMin: 0,
-              // suggestedMax: 0.5,
-              // stackWeight: 0.5
-              type: 'linear',
-              display: true,
-              // weight: 0.1,
-              // grace: 1,
-              beginAtZero: true,
-              // weight: 1
-              // labels: ['asd', 'asd', 'asdads']
+      <div className={classes.chartContainer}>
+        <Typography className={classes.ETHPriceText}>ETH Price</Typography>
+        <Scatter
+          height={75}
+          width={'100%'}
+          options={{
+            // maintainAspectRatio: false,
+            scales: {
+              y: {
+                suggestedMin: 0,
+                suggestedMax: 0.5,
+                // stackWeight: 0.5
+                type: 'linear',
+                display: true,
+                // weight: 0.1,
+                // grace: 1,
+                beginAtZero: true
+              },
+              x: {
+                // suggestedMin: 0,
+                // suggestedMax: 0.5,
+                // stackWeight: 0.5
+                type: 'linear',
+                display: true,
+                suggestedMin: 0,
+                suggestedMax: 1.5,
+                // weight: 0.1,
+                // grace: 1,
+                beginAtZero: true
+                // weight: 1
+                // labels: ['asd', 'asd', 'asdads']
+              }
             }
-          }
-        }}
-        data={{
-          labels: ['6:55 AM', '9:55 AM', '10:55 AM', '11:55 AM', '12:55 AM'],
-          // yAxisID: 'y',
-          datasets: [
-            {
-              label: '',
-              yAxisID: 'y',
-              data: [
-                {
-                  x: 2,
-                  y: 0.5
-                },
-                {
-                  x: 1,
-                  y: 0.4
-                },
-                {
-                  x: 0.5,
-                  y: 0.2
-                },
-                {
-                  x: 0.5,
-                  y: 0
-                }
-              ],
-              // showLine: false,
-              backgroundColor: 'rgb(255, 99, 132)'
-            }
-          ]
-        }}
-      />
+          }}
+          data={{
+            labels: ['6:55 AM', '9:55 AM', '10:55 AM', '11:55 AM', '12:55 AM'],
+            // yAxisID: 'y',
+            datasets: [
+              {
+                label: '',
+                yAxisID: 'y',
+                xAxisID: 'x',
+                data: [
+                  {
+                    x: 1.4,
+                    y: 0.5
+                  },
+                  {
+                    x: 1,
+                    y: 0.4
+                  },
+                  {
+                    x: 0.5,
+                    y: 0.2
+                  },
+                  {
+                    x: 0.5,
+                    y: 0
+                  }
+                ],
+                // showLine: false,
+                backgroundColor: 'rgb(255, 99, 132)'
+              }
+            ]
+          }}
+        />
+      </div>
+      <Typography className={classes.bottomText}>Time</Typography>
     </Paper>
   )
 }
