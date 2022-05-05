@@ -110,13 +110,38 @@ const OfficialProfileChartNameList1 = () => {
         options={{
           // maintainAspectRatio: false,
 
-          scales: {}
+          scales: {
+            y: {
+              suggestedMin: 0,
+              suggestedMax: 0.5,
+              // stackWeight: 0.5
+              type: 'linear',
+              display: true,
+              // weight: 0.1,
+              // grace: 1,
+              beginAtZero: true
+            },
+            x: {
+              // suggestedMin: 0,
+              // suggestedMax: 0.5,
+              // stackWeight: 0.5
+              type: 'linear',
+              display: true,
+              // weight: 0.1,
+              // grace: 1,
+              beginAtZero: true,
+              // weight: 1
+              // labels: ['asd', 'asd', 'asdads']
+            }
+          }
         }}
         data={{
           labels: ['6:55 AM', '9:55 AM', '10:55 AM', '11:55 AM', '12:55 AM'],
+          // yAxisID: 'y',
           datasets: [
             {
               label: '',
+              yAxisID: 'y',
               data: [
                 {
                   x: 2,

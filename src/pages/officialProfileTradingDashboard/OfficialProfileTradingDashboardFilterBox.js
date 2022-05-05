@@ -2,6 +2,7 @@ import { Paper, Tab, Tabs } from '@material-ui/core'
 import { useState } from 'react'
 import { TabPanel } from '../officialProfile/components/CustomTabPanel'
 import FilterBoxTabPrice from './FilterBoxTabs/FilterBoxTabPrice'
+import FilterBoxTabTrait from './FilterBoxTabs/FilterBoxTabTrait'
 import useStyles from './styles/OfficialProfileTradingDashboardFilterBox.style'
 
 const OfficialProfileTradingDashboardFilterBox = () => {
@@ -68,6 +69,9 @@ const OfficialProfileTradingDashboardFilterBox = () => {
       </Tabs>
       <TabPanel value={tabsValue} index={0}>
         <FilterBoxTabPrice />
+      </TabPanel>
+      <TabPanel value={tabsValue} index={3}>
+        <FilterBoxTabTrait />
       </TabPanel>
     </Paper>
   )

@@ -46,7 +46,49 @@ const useStyles = makeStyles(() => ({
       //   padding: '16.5px 14px'
     }
   },
+  selector: {
+    color: '#FFF',
+    width: 220,
+    // height: 52,
+    marginRight: 54,
+    borderRadius: 14,
+    '& label.Mui-focused': {
+      color: '#FFF'
+    },
+    '& .MuiInputLabel-outlined': {
+      color: '#FFF'
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#FFF'
+    },
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '14px !important',
+      '& fieldset': {
+        borderColor: '#FFF'
+      },
+      '&:hover fieldset': {
+        borderColor: '#FFF'
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#FFF'
+      }
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#FFF'
 
+      //   padding: '16.5px 14px'
+    },
+    '&:hover': {
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#FFF'
+      }
+    },
+    '&:focused': {
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#FFF'
+      }
+    }
+  },
   textFieldInput: {
     color: '#FFF'
   },
@@ -68,6 +110,22 @@ const useStyles = makeStyles(() => ({
     '&:hover': {
       backgroundColor: 'rgba(25, 86, 226,0.7)'
     }
+  },
+  menuPaper: {
+    width: 111,
+    backgroundColor: '#244677',
+    padding: '0 8.5px 0 10.5px'
+  },
+  menuItem: {
+    height: 34,
+    backgroundColor: '#244677',
+    borderBottom: '1px solid #0B1E39',
+    display: 'flex',
+    textAlign: 'center',
+    alignItems: 'cener',
+    justifyContent: 'center',
+    color: '#D1D1D1',
+    fontSize: 14
   }
 }))
 export default useStyles
