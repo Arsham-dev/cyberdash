@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: '29px 26px 36px 19px',
     display: 'flex',
@@ -9,12 +9,20 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     backgroundColor: 'rgb(11, 30, 57)',
     borderRadius: '0 0 10px 10px',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      rowGap: 15
+    }
   },
   title: {
     color: '#D1D1D1',
     font: 'normal normal normal 16px/19px Roboto',
-    marginRight: 76
+    marginRight: 76,
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0
+    }
   },
   textField: {
     color: '#FFF',
@@ -44,6 +52,10 @@ const useStyles = makeStyles(() => ({
     },
     '& .MuiOutlinedInput-input': {
       //   padding: '16.5px 14px'
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0,
+      width: '100%'
     }
   },
   selector: {
@@ -87,6 +99,10 @@ const useStyles = makeStyles(() => ({
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: '#FFF'
       }
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0,
+      width: '100%'
     }
   },
   textFieldInput: {
@@ -95,10 +111,16 @@ const useStyles = makeStyles(() => ({
   andText: {
     color: '#D1D1D1',
     font: 'normal normal normal 16px/19px Roboto',
-    marginRight: 56
+    marginRight: 56,
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0
+    }
   },
   textFieldMax: {
-    marginRight: 73
+    marginRight: 73,
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0
+    }
   },
   saveButton: {
     width: 241,
@@ -109,6 +131,10 @@ const useStyles = makeStyles(() => ({
     borderRadius: 27,
     '&:hover': {
       backgroundColor: 'rgba(25, 86, 226,0.7)'
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 15,
+      width: '100%'
     }
   },
   menuPaper: {
