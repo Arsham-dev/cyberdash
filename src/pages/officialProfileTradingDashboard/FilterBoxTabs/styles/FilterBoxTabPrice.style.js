@@ -54,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
       //   padding: '16.5px 14px'
     },
     [theme.breakpoints.down('sm')]: {
-      marginRight: 0
+      marginRight: 0,
+      width: '100%'
     }
   },
 
@@ -84,6 +85,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 27,
     '&:hover': {
       backgroundColor: 'rgba(25, 86, 226,0.7)'
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginTop: 15
     }
   }
 }))
