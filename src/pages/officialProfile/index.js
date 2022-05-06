@@ -44,7 +44,7 @@ const OfficialProfile = () => {
           />
         </Tabs>
         <TabPanel value={tabsValue} index={0}>
-          {/* <OfficialProfileTradingDashboard /> */}
+          <OfficialProfileTradingDashboard />
         </TabPanel>
       </Paper>
     </div>
