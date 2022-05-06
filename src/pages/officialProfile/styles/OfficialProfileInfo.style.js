@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -28,7 +28,10 @@ const useStyles = makeStyles(() => ({
   cardContainer: {
     marginTop: 24,
     display: 'grid',
-    gridTemplateColumns: 'repeat(4 , 1fr)'
+    gridTemplateColumns: 'repeat(4 , 1fr)',
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: 'repeat(2 , 1fr)'
+    }
   },
   cardValue: {
     font: 'normal normal bold 26px/30px Roboto',
