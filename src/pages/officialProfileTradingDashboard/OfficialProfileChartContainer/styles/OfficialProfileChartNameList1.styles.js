@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       columnGap: 18,
       // width: '100%',
-      flex: 1,
+      // flex: 1,
       [theme.breakpoints.down('sm')]: {
         justifyContent: 'space-between'
       }
