@@ -1,10 +1,15 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: 540
+    width: 540,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      // width: 300,
+      marginTop: 20
+    }
   },
   title: {
     color: '#FFF',

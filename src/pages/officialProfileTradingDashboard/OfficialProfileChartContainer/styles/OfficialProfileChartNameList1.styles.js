@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     padding: '14px 14px 16px 13px',
     borderRadius: '0 0 10px 10px',
@@ -19,9 +19,19 @@ const useStyles = makeStyles(() => ({
     '& div': {
       display: 'flex',
       alignItems: 'center',
-      columnGap: 18
+      columnGap: 18,
+      // width: '100%',
+      flex: 1,
+      [theme.breakpoints.down('sm')]: {
+        justifyContent: 'space-between'
+      }
 
       // justifyContent: 'space-between',
+    },
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      rowGap: 20,
+      marginBottom: 15
     }
   },
   topPartTitle: {
@@ -63,7 +73,10 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     columnGap: 10,
-    width: '100%'
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 300
+    }
   },
   ETHPriceText: {
     color: '#FFF',

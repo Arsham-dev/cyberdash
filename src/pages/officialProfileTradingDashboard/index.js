@@ -13,8 +13,8 @@ const OfficialProfileTradingDashboard = () => {
       <div className={classes.main}>
         <OfficialProfileTradingDashboardListing />
         <div>
-          {/* <OfficialProfileChartName />
-          <OfficialProfileMomentumIndex /> */}
+          <OfficialProfileChartName />
+          {/* <OfficialProfileMomentumIndex /> */}
         </div>
         <OfficialProfileTradingDashboardTrade />
       </div>
