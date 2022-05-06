@@ -1,9 +1,12 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 25
+    }
   },
   title: {
     color: '#FFF',
@@ -25,7 +28,11 @@ const useStyles = makeStyles(() => ({
     },
     '&::-webkit-scrollbar': {
       width: 0
+    },
+    [theme.breakpoints.down('sm')]: {
+      maxHeight: 500
     }
+
     // flex: 1
     // maxWidth: 300
   }

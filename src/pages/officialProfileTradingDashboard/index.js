@@ -10,14 +10,14 @@ const OfficialProfileTradingDashboard = () => {
   return (
     <div className={classes.root}>
       <OfficialProfileTradingDashboardFilterBox />
-      {/* <div className={classes.main}>
+      <div className={classes.main}>
         <OfficialProfileTradingDashboardListing />
         <div>
-          <OfficialProfileChartName />
-          <OfficialProfileMomentumIndex />
+          {/* <OfficialProfileChartName />
+          <OfficialProfileMomentumIndex /> */}
         </div>
         <OfficialProfileTradingDashboardTrade />
-      </div> */}
+      </div>
     </div>
   )
 }

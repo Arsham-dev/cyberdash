@@ -22,8 +22,6 @@ const OfficialProfileTradingDashboardFilterBox = () => {
         }}
         classes={{ indicator: classes.indicator }}
         sele
-        // classes={{}}
-        // TabIndicatorProps={{className:}}
         textColor="primary">
         <Tab
           label="Price"
@@ -65,7 +63,6 @@ const OfficialProfileTradingDashboardFilterBox = () => {
             selected: classes.selectedTab
           }}
         />
-        {/* <Tab label="Item Three" /> */}
       </Tabs>
       <TabPanel value={tabsValue} index={0}>
         <FilterBoxTabPrice />
