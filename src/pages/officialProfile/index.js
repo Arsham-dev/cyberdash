@@ -24,8 +24,6 @@ const OfficialProfile = () => {
           indicatorColor="secondary"
           className={classes.tabs}
           classes={{ indicator: classes.indicator }}
-          // classes={{}}
-          // TabIndicatorProps={{className:}}
           textColor="primary"
           centered>
           <Tab
@@ -44,10 +42,9 @@ const OfficialProfile = () => {
               </div>
             }
           />
-          {/* <Tab label="Item Three" /> */}
         </Tabs>
         <TabPanel value={tabsValue} index={0}>
-          <OfficialProfileTradingDashboard />
+          {/* <OfficialProfileTradingDashboard /> */}
         </TabPanel>
       </Paper>
     </div>

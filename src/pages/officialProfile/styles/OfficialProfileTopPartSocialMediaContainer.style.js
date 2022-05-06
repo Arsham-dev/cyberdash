@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 'calc(100% - 114px)',
     display: 'flex',
@@ -8,7 +8,12 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     columnGap: 30,
-    marginTop: 30
+    marginTop: 30,
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 70,
+      justifyContent: 'center',
+      width: '100%'
+    }
   },
   buttonBase: {
     borderRadius: 20
