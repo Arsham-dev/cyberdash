@@ -1,5 +1,6 @@
 import OfficialProfileChartName from './OfficialProfileChartContainer/OfficialProfileChartName'
 import OfficialProfileMomentumIndex from './OfficialProfileChartContainer/OfficialProfileMomentumIndex'
+import OfficialProfileOfficialProfileSellWall from './OfficialProfileChartContainer/OfficialProfileOfficialProfileSellWall'
 import OfficialProfileTradingDashboardFilterBox from './OfficialProfileTradingDashboardFilterBox'
 import OfficialProfileTradingDashboardListing from './OfficialProfileTradingDashboardListing'
 import OfficialProfileTradingDashboardTrade from './OfficialProfileTradingDashboardTrade'
@@ -15,6 +16,7 @@ const OfficialProfileTradingDashboard = () => {
         <div>
           <OfficialProfileChartName />
           <OfficialProfileMomentumIndex />
+          <OfficialProfileOfficialProfileSellWall />
         </div>
         <OfficialProfileTradingDashboardTrade />
       </div>
