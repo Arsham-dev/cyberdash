@@ -13,7 +13,6 @@ import {
 } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import logo from '../../assets/images/logoNoBackground.svg'
 import twitterNoBackground from '../../assets/images/twitterNoBackground.svg'
 import discordNoBackground from '../../assets/images/discordNoBackground.svg'
 import WebsiteIcon from '@material-ui/icons/Language'
@@ -92,12 +91,11 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <CustomTableCell align="center">
+                <CustomTableCell
+                  align="left"
+                  className={classes.collectionName}>
                   <ButtonBase
-                    className={[
-                      classes.textButton,
-                      classes.collectionName
-                    ].join(' ')}
+                    className={classes.collectionNameTextButton}
                     onClick={() => sortFunction('collection_name')}>
                     <Typography
                       variant="inherit"
@@ -318,7 +316,7 @@ const UpcomingHeadTable = ({ tableData, isNormal }) => {
                         e.stopPropagation()
                       }}
                       align="center"
-                      style={{ position: 'relative' }}>
+                      className={classes.categoriesContainer}>
                       <UpcomingBodyTableCategory
                         categories={row.categories}
                         index={index}

@@ -75,6 +75,10 @@ const useStyles = makeStyles((theme) => ({
   logoContainer: {
     padding: 5,
     borderRadius: 5
+  },
+  searchInput: {
+    backgroundColor: 'rgb(36, 70, 118) !important',
+    borderRadius: 5
   }
 }))
 export default useStyles
