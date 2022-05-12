@@ -1,7 +1,13 @@
-import { MenuItem, Paper, Select, Typography } from '@material-ui/core'
+import {
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography
+} from '@material-ui/core'
 import { useState } from 'react'
 import useStyles from './styles/OfficialProfileOfficialProfileSellWall.style'
-import { Line, Scatter } from 'react-chartjs-2'
+import { Bar, Line, Scatter } from 'react-chartjs-2'
 import 'chart.js/auto'
 
 import {
@@ -33,34 +39,7 @@ const OfficialProfileOfficialProfileSellWall = () => {
     <Paper className={classes.paper}>
       <div className={classes.topPart}>
         <div>
-          <Typography className={classes.topPartTitle}>Time Frame</Typography>
-          <Select
-            value={timeFrameValue}
-            variant="outlined"
-            className={classes.selector}
-            MenuProps={{
-              PaperProps: { className: classes.menuPaper },
-              getContentAnchorEl: null,
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left'
-              }
-            }}
-            onChange={(e) => settimeFrameValue(e.target.value)}>
-            {Array(5)
-              .fill(null)
-              .map((item, index) => (
-                <MenuItem
-                  value={index + 1}
-                  className={classes.menuItem}
-                  key={index.toString()}>
-                  {`${index + 1} Hour`}
-                </MenuItem>
-              ))}
-          </Select>
-        </div>
-        <div>
-          <Typography className={classes.topPartTitle}>Floor Var</Typography>
+          <Typography className={classes.topPartTitle}>Price Range</Typography>
           <Select
             value={floorVar}
             variant="outlined"
@@ -87,9 +66,10 @@ const OfficialProfileOfficialProfileSellWall = () => {
           </Select>
         </div>
         <div>
-          <Typography className={classes.topPartTitle}>Raity</Typography>
+          <Typography className={classes.topPartTitle}>Floor Var</Typography>
+
           <Select
-            value={raity}
+            value={timeFrameValue}
             variant="outlined"
             className={classes.selector}
             MenuProps={{
@@ -100,207 +80,228 @@ const OfficialProfileOfficialProfileSellWall = () => {
                 horizontal: 'left'
               }
             }}
-            onChange={(e) => setraity(e.target.value)}>
-            {Array(11)
+            onChange={(e) => settimeFrameValue(e.target.value)}>
+            {Array(5)
               .fill(null)
               .map((item, index) => (
                 <MenuItem
-                  value={index * 10}
+                  value={index + 1}
                   className={classes.menuItem}
                   key={index.toString()}>
-                  {`${index * 10}x`}
+                  {`${index + 1} Hour`}
                 </MenuItem>
               ))}
           </Select>
+        </div>
+        <div className={classes.inputContainer}>
+          <Typography className={classes.topPartTitle}>Threshold</Typography>
+          <input
+            // variant="outlined"
+            // placeholder="Search"
+
+            // size="small"
+            className={classes.input}
+            // InputProps={{ className: classes.searchInput }}
+          />
         </div>
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.smallChartContainer}>
           <Typography className={classes.ETHPriceText}>Count</Typography>
-          <Line
-            height={120}
-            width="200px"
-            options={{
-              elements: {
-                line: {
-                  tension: 0
-                }
-              },
-              scales: {
-                y1: {
-                  type: 'linear',
-                  display: true,
-                  position: 'left',
-                  suggestedMin: 0,
-                  suggestedMax: 50
+          <div className={classes.chart}>
+            <Bar
+              height={120}
+              width="100px"
+              options={{
+                elements: {
+                  line: {
+                    tension: 0,
+                    borderWidth: 0,
+                    hoverBorderWidth: 0
+                  }
                 },
-                y2: {
-                  type: 'linear',
-                  display: false,
-                  position: 'left',
-                  suggestedMin: 0,
-                  suggestedMax: 50,
-                  grid: {
-                    drawOnChartArea: false
+                scales: {
+                  y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    suggestedMin: 0,
+                    suggestedMax: 50
+                  },
+                  y2: {
+                    type: 'linear',
+                    display: false,
+                    position: 'left',
+                    suggestedMin: 0,
+                    suggestedMax: 50,
+                    grid: {
+                      drawOnChartArea: false
+                    }
                   }
                 }
-              }
-            }}
-            data={{
-              labels: ['', '6:55 AM', '12:55 AM', ''],
-              datasets: [
-                {
-                  label: 'y1',
-                  data: [
-                    {
-                      x: 0,
-                      y: 2
-                    },
-                    {
-                      x: 1,
-                      y: 3
-                    },
-                    {
-                      x: 2,
-                      y: 4
-                    },
-                    {
-                      x: 3,
-                      y: 9
-                    },
-                    {
-                      x: 4,
-                      y: 17
-                    }
-                  ],
-                  borderColor: '#FD8F25',
-                  yAxisID: 'y1'
-                },
-                {
-                  yAxisID: 'y2',
-                  label: 'y2',
-                  data: [
-                    {
-                      x: 0,
-                      y: 12
-                    },
-                    {
-                      x: 1,
-                      y: 23
-                    },
-                    {
-                      x: 2,
-                      y: 34
-                    },
-                    {
-                      x: 3,
-                      y: 39
-                    },
-                    {
-                      x: 4,
-                      y: 40
-                    }
-                  ],
-                  borderColor: 'red'
-                }
-              ]
-            }}
-          />
+              }}
+              data={{
+                labels: [0, 50, 90, 130],
+                datasets: [
+                  {
+                    label: 'y1',
+                    data: [
+                      {
+                        x: 0,
+                        y: 2
+                      },
+                      {
+                        x: 1,
+                        y: 3
+                      },
+                      {
+                        x: 2,
+                        y: 4
+                      },
+                      {
+                        x: 3,
+                        y: 9
+                      },
+                      {
+                        x: 4,
+                        y: 17
+                      }
+                    ],
+                    backgroundColor: '#FD8F25',
+                    yAxisID: 'y1'
+                  },
+                  {
+                    yAxisID: 'y2',
+                    label: 'y2',
+                    data: [
+                      {
+                        x: 0,
+                        y: 12
+                      },
+                      {
+                        x: 1,
+                        y: 23
+                      },
+                      {
+                        x: 2,
+                        y: 34
+                      },
+                      {
+                        x: 3,
+                        y: 39
+                      },
+                      {
+                        x: 4,
+                        y: 40
+                      }
+                    ],
+                    backgroundColor: '#AB7CE1'
+                  }
+                ]
+              }}
+            />
+          </div>
         </div>
         <div className={classes.smallChartContainer}>
           <Typography className={classes.ETHPriceText}>Price in ETH</Typography>
-          <Line
-            height={120}
-            width="200px"
-            options={{
-              elements: {
-                line: {
-                  tension: 0
-                }
-              },
-              scales: {
-                y1: {
-                  type: 'linear',
-                  display: true,
-                  position: 'left',
-                  suggestedMin: 0,
-                  suggestedMax: 50
+          <div className={classes.chart}>
+            <Scatter
+              height={120}
+              width="100px"
+              options={{
+                elements: {
+                  line: {
+                    tension: 0
+                  }
                 },
-                y2: {
-                  type: 'linear',
-                  display: false,
-                  position: 'left',
-                  suggestedMin: 0,
-                  suggestedMax: 50,
-                  grid: {
-                    drawOnChartArea: false
+                scales: {
+                  y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    suggestedMin: 0,
+                    suggestedMax: 50
+                  },
+                  y2: {
+                    type: 'linear',
+                    display: false,
+                    position: 'left',
+                    suggestedMin: 0,
+                    suggestedMax: 50,
+                    grid: {
+                      drawOnChartArea: false
+                    }
                   }
                 }
-              }
-            }}
-            data={{
-              labels: ['', '6:55 AM', '12:55 AM', ''],
-              datasets: [
-                {
-                  label: 'y1',
-                  data: [
-                    {
-                      x: 0,
-                      y: 2
-                    },
-                    {
-                      x: 1,
-                      y: 3
-                    },
-                    {
-                      x: 2,
-                      y: 4
-                    },
-                    {
-                      x: 3,
-                      y: 9
-                    },
-                    {
-                      x: 4,
-                      y: 17
-                    }
-                  ],
-                  borderColor: '#FD8F25',
-                  yAxisID: 'y1'
-                },
-                {
-                  yAxisID: 'y2',
-                  label: 'y2',
-                  data: [
-                    {
-                      x: 0,
-                      y: 12
-                    },
-                    {
-                      x: 1,
-                      y: 23
-                    },
-                    {
-                      x: 2,
-                      y: 34
-                    },
-                    {
-                      x: 3,
-                      y: 39
-                    },
-                    {
-                      x: 4,
-                      y: 40
-                    }
-                  ],
-                  borderColor: 'red'
-                }
-              ]
-            }}
-          />
+              }}
+              data={{
+                labels: ['', '6:55 AM', '12:55 AM', ''],
+                datasets: [
+                  {
+                    label: 'y1',
+                    data: [
+                      {
+                        x: 0,
+                        y: 2
+                      },
+                      {
+                        x: 1,
+                        y: 3
+                      },
+                      {
+                        x: 2,
+                        y: 4
+                      },
+                      {
+                        x: 3,
+                        y: 9
+                      },
+                      {
+                        x: 4,
+                        y: 17
+                      }
+                    ],
+                    backgroundColor: '#FD8F25',
+                    borderColor: '#FD8F25',
+                    yAxisID: 'y1'
+                  },
+                  {
+                    yAxisID: 'y2',
+                    label: 'y2',
+                    data: [
+                      {
+                        x: 0,
+                        y: 12
+                      },
+                      {
+                        x: 1,
+                        y: 23
+                      },
+                      {
+                        x: 2,
+                        y: 34
+                      },
+                      {
+                        x: 3,
+                        y: 39
+                      },
+                      {
+                        x: 4,
+                        y: 40
+                      }
+                    ],
+                    backgroundColor: 'rgb(255, 99, 132)'
+                  }
+                ]
+              }}
+            />
+          </div>
         </div>
       </div>
-      <Typography className={classes.bottomText}>Time Period</Typography>
+      <div className={classes.bottomPartText}>
+        <Typography className={classes.bottomText}>Price</Typography>
+        <Typography className={classes.bottomText}>Rarity Rank</Typography>
+      </div>
     </Paper>
   )
 }

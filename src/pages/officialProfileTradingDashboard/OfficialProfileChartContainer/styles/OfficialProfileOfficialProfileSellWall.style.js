@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     // height: 200
   },
   topPart: {
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 2fr',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
@@ -24,20 +25,19 @@ const useStyles = makeStyles((theme) => ({
       rowGap: 6,
       // width: '100%',
       // flex: 1,
-      [theme.breakpoints.down('sm')]: {
-        justifyContent: 'space-between'
-      }
+      [theme.breakpoints.down('sm')]: {}
 
       // justifyContent: 'space-between',
     },
     [theme.breakpoints.down('sm')]: {
+      display: 'flex',
       flexDirection: 'column',
       rowGap: 20,
       marginBottom: 15
     }
   },
   topPartTitle: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#FFF'
   },
@@ -76,7 +76,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontSize: 14,
     marginTop: 16,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginLeft: 15
   },
   chartContainer: {
     display: 'grid',
@@ -85,7 +86,8 @@ const useStyles = makeStyles((theme) => ({
     columnGap: 20,
     width: 510,
     [theme.breakpoints.down('sm')]: {
-      maxWidth: 300
+      maxWidth: 300,
+      gridTemplateColumns: '1fr'
     }
   },
   ETHPriceText: {
@@ -98,9 +100,43 @@ const useStyles = makeStyles((theme) => ({
   },
   smallChartContainer: {
     display: 'flex',
+    flex: 1,
     alignItems: 'center',
+    // height: 400,
+    // alignItems: 'center',
+    // display: 'grid',
+    // gridTemplateRows: '1fr',
     columnGap: 10,
+    height: '100%',
     width: '100%'
+
+    // backgroundColor: 'red'
+  },
+  chart: {
+    width: '100%',
+    height: '100%'
+  },
+  input: {
+    borderRadius: 10,
+    // height: 30,
+    padding: '0 5px',
+    height: 30,
+    backgroundColor: '#244677',
+    color: '#D1D1D1',
+    outline: 'none',
+    border: 'none',
+    width: '100%'
+  },
+  inputContainer: {
+    display: 'flex',
+    columnGap: 8,
+    alignItems: 'center',
+    flexDirection: 'row !important'
+  },
+  bottomPartText: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    alignItems: 'center'
   }
 }))
 export default useStyles
