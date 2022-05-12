@@ -8,6 +8,7 @@ import DashboardIcon from '@material-ui/icons/DashboardOutlined'
 import useStyles from './styles/index.style'
 import OfficialProfileTradingDashboard from '../officialProfileTradingDashboard'
 import { TabPanel } from './components/CustomTabPanel'
+import OfficialProfileAnalyticalCharts from '../officialProfileAnalyticalCharts'
 
 const OfficialProfile = () => {
   const classes = useStyles()
@@ -21,9 +22,9 @@ const OfficialProfile = () => {
         <Tabs
           value={tabsValue}
           onChange={(event, newValue) => settabsValue(newValue)}
-          indicatorColor="secondary"
+          indicatorColor="primary"
           className={classes.tabs}
-          classes={{ indicator: classes.indicator }}
+          classes={{ indicator: classes.indicatore }}
           textColor="primary"
           centered>
           <Tab
@@ -33,6 +34,7 @@ const OfficialProfile = () => {
                 Trading Dashboard
               </div>
             }
+            color="red"
           />
           <Tab
             label={
@@ -45,6 +47,9 @@ const OfficialProfile = () => {
         </Tabs>
         <TabPanel value={tabsValue} index={0}>
           <OfficialProfileTradingDashboard />
+        </TabPanel>
+        <TabPanel value={tabsValue} index={1}>
+          <OfficialProfileAnalyticalCharts />
         </TabPanel>
       </Paper>
     </div>

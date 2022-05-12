@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 16,
     writingMode: 'vertical-lr',
     textOrientation: 'mixed'
-  }
+  },
+  
 }))
 export default useStyles

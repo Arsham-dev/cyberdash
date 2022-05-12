@@ -1,13 +1,7 @@
-import {
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-  Typography
-} from '@material-ui/core'
+import { MenuItem, Paper, Select, Typography } from '@material-ui/core'
 import { useState } from 'react'
 import useStyles from './styles/OfficialProfileOfficialProfileSellWall.style'
-import { Bar, Line, Scatter } from 'react-chartjs-2'
+import { Bar, Scatter } from 'react-chartjs-2'
 import 'chart.js/auto'
 
 import {
@@ -34,7 +28,7 @@ const OfficialProfileOfficialProfileSellWall = () => {
   const classes = useStyles()
   const [timeFrameValue, settimeFrameValue] = useState(1)
   const [floorVar, setfloorVar] = useState(0)
-  const [raity, setraity] = useState(0)
+  const [raity, setraity] = useState('')
   return (
     <Paper className={classes.paper}>
       <div className={classes.topPart}>
@@ -100,6 +94,8 @@ const OfficialProfileOfficialProfileSellWall = () => {
             // placeholder="Search"
 
             // size="small"
+            value={raity}
+            onChange={(event) => setraity(event.target.value)}
             className={classes.input}
             // InputProps={{ className: classes.searchInput }}
           />
