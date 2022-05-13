@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   clockIcon: {
     fontSize: 19,
     color: '#1956E2'
@@ -56,7 +56,11 @@ const useStyles = makeStyles(() => ({
   topPartContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      rowGap: 15
+    }
   },
   floorVarSelectorTitle: {
     fontSize: 16,

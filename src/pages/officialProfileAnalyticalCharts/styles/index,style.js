@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    margin: '0 93px'
+    margin: '0 93px',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0 5px'
+    }
   },
   chartContainer: {
     display: 'flex',

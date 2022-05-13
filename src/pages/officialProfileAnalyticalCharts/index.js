@@ -13,10 +13,10 @@ const OfficialProfileAnalyticalCharts = () => {
         </Typography>
         <OfficialProfileAnalyticalChartsGeneralChart />
       </div>
-      <div className={classes.chartContainer}>
+      {/* <div className={classes.chartContainer}>
         <Typography className={classes.chartTitle}>Chart Name</Typography>
         <OfficialProfileAnalyticalChartsChartName />
-      </div>
+      </div> */}
     </div>
   )
 }
