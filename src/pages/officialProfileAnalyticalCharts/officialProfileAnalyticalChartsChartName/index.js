@@ -114,6 +114,9 @@ const OfficialProfileAnalyticalChartsChartName = () => {
           }}
         />
       </div>
+      <div className={classes.bottomTextContainer}>
+        <Typography className={classes.bottomText}>Time</Typography>
+      </div>
     </div>
   )
 }
