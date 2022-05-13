@@ -6,7 +6,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'rgb(0, 15, 36)',
     border: '1px solid rgb(11, 30, 57)',
     borderRadius: 10,
-    marginBottom: 68
+    marginBottom: 68,
+    width: 1180
   },
   indicator: {
     // backgroundColor: 'rgb(11, 30, 57) !important',

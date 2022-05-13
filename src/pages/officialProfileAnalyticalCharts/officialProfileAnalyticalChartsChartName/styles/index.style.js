@@ -1,44 +1,43 @@
 import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: '14px 30px 16px 13px',
-    borderRadius: '0 0 10px 10px',
+  root: {
+    padding: '19px 34px 29px 15px',
     display: 'flex',
-    backgroundColor: 'rgb(11, 30, 57)',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: '#0B1E39'
+    // height: 361
   },
-  topPart: {
+  clockIcon: {
+    fontSize: 19,
+    color: '#1956E2'
+  },
+  daySelectorContainer: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginLeft: 3,
-    '& div': {
-      display: 'flex',
-      alignItems: 'center',
-      columnGap: 18,
-      [theme.breakpoints.down('sm')]: {
-        justifyContent: 'space-between'
-      }
+    columnGap: 10,
+    alignItems: 'center'
+  },
+  daySelectorItem: {
+    width: 30,
+    height: 20,
+    borderRadius: 10,
+    fontSize: 12,
+    color: '#D1D1D1',
+    '&:hover': {
+      backgroundColor: 'rgba(25, 86, 226,0.5)'
     },
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      rowGap: 20,
-      marginBottom: 15
-    }
+    transition: 'all 0.3s ease-in-out'
   },
-  topPartTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFF'
+  daySelectorItemSelected: {
+    backgroundColor: '#1956e2'
   },
   selector: {
     height: 30,
     borderRadius: 10,
     backgroundColor: '#244677',
     color: '#D1D1D1',
-    fontSize: 14
+    fontSize: 14,
+    width: 100
   },
   menuItem: {
     height: 34,
@@ -49,19 +48,28 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'cener',
     justifyContent: 'center',
     color: '#D1D1D1',
+
     fontSize: 14
+  },
+  floorVarSelectorContainer: {
+    display: 'flex',
+    alignItems: 'center'
   },
   menuPaper: {
     width: 111,
     backgroundColor: '#244677',
     padding: '0 8.5px 0 10.5px'
   },
-  bottomText: {
-    color: '#FFF',
+  topPartContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  floorVarSelectorTitle: {
+    fontSize: 16,
     fontWeight: 'bold',
-    fontSize: 14,
-    marginTop: 16,
-    textAlign: 'center'
+    color: '#FFF',
+    marginRight: 18
   },
   chartContainer: {
     display: 'flex',

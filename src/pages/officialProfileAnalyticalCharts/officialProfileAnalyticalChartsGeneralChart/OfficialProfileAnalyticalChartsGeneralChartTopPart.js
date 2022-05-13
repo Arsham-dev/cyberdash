@@ -2,7 +2,6 @@ import useStyles from './styles/OfficialProfileAnalyticalChartsGeneralChartTopPa
 import ClockIcon from '@material-ui/icons/Schedule'
 import { ButtonBase, MenuItem, Select, Typography } from '@material-ui/core'
 import IOSSwitch from '../components/IOSSwitch'
-import { useState } from 'react'
 
 const daySelectorArray = ['1d', '7d', '30d', '90d', '1y']
 const timeSelectorArray = ['5m', '30m', '1h', '6h', '12h', '1d']

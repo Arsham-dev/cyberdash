@@ -1,8 +1,5 @@
 import useStyles from './styles/index.style'
-import ClockIcon from '@material-ui/icons/Schedule'
 import { useState } from 'react'
-import { ButtonBase, MenuItem, Select, Typography } from '@material-ui/core'
-import IOSSwitch from '../components/IOSSwitch'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from './OfficialProfileAnalyticalChartsGeneralChartTopPart'
 const OfficialProfileAnalyticalChartsGeneralChart = () => {
   const classes = useStyles()
