@@ -22,8 +22,8 @@ ChartJS.register(
   Legend,
   Tooltip
 )
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-
+const label = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+const labels = [...label, ...label, ...label, ...label]
 const data = {
   labels,
   datasets: [
@@ -38,10 +38,10 @@ const data = {
       xAxisID: 'x'
     },
     {
-      type: 'bar',
+      type: 'line',
       label: 'Dataset 2',
       backgroundColor: 'rgb(75, 192, 192)',
-      data: labels.map(() => Math.floor(Math.random() * 100)),
+      data: labels.map(() => Math.floor(Math.random() * 100 + 10)),
       borderColor: 'white',
       borderWidth: 2,
       yAxisID: 'y',
@@ -52,6 +52,7 @@ const data = {
       xAxisID: 'x',
       type: 'bar',
       label: 'Dataset 3',
+
       backgroundColor: 'rgb(53, 162, 235)',
       data: labels.map(() => Math.floor(Math.random() * 100))
     }
@@ -88,6 +89,7 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
           height={20}
           width={'100%'}
           options={{
+            elements: {},
             scales: {
               y: {
                 // suggestedMin: 0,
