@@ -32,44 +32,31 @@ const OfficialProfileAnalyticalChartsChartName = () => {
           height={20}
           width={'100%'}
           options={{
-            // maintainAspectRatio: false,
             scales: {
               y: {
                 suggestedMin: 0,
                 suggestedMax: 0.5,
-                // stackWeight: 0.5
                 type: 'linear',
                 display: true,
-                // weight: 0.1,
-                // grace: 1,
                 beginAtZero: true,
                 grid: {
                   color: '#244677'
-                } 
+                }
               },
               x: {
-                // suggestedMin: 0,
-                // suggestedMax: 0.5,
-                // stackWeight: 0.5
                 type: 'linear',
                 display: true,
                 suggestedMin: 0,
                 suggestedMax: 1.5,
-                // weight: 0.1,
-                // grace: 1,
                 beginAtZero: true,
                 grid: {
-                  // color: 'rgba(0,0,0,0)',
                   display: false
                 }
-                // weight: 1
-                // labels: ['asd', 'asd', 'asdads']
               }
             }
           }}
           data={{
             labels: ['6:55 AM', '9:55 AM', '10:55 AM', '11:55 AM', '12:55 AM'],
-            // yAxisID: 'y',
             datasets: [
               {
                 label: 'y',
@@ -94,7 +81,6 @@ const OfficialProfileAnalyticalChartsChartName = () => {
                   }
                 ],
                 showLine: false,
-                // showLine: false,
                 backgroundColor: 'rgb(255, 99, 132)'
               },
               {
@@ -120,7 +106,6 @@ const OfficialProfileAnalyticalChartsChartName = () => {
                   }
                 ],
                 showLine: false,
-                // showLine: false,
                 backgroundColor: 'red'
               }
             ]

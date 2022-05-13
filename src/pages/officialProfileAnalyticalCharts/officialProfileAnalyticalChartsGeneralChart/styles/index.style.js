@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: '19px 34px 29px 15px',
     display: 'flex',
@@ -69,6 +69,23 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
     color: '#FFF',
     marginRight: 18
+  },
+  chartContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: 10,
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 300
+    }
+  },
+  ETHPriceText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginTop: 16,
+    writingMode: 'vertical-lr',
+    textOrientation: 'mixed'
   }
 }))
 export default useStyles
