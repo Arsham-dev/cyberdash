@@ -2,13 +2,11 @@ import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: '14px 14px 16px 13px',
+    padding: '14px 30px 16px 13px',
     borderRadius: '0 0 10px 10px',
     display: 'flex',
     backgroundColor: 'rgb(11, 30, 57)',
     flexDirection: 'column'
-    // width: '100%',
-    // height: 200
   },
   topPart: {
     display: 'flex',
@@ -20,13 +18,9 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       alignItems: 'center',
       columnGap: 18,
-      // width: '100%',
-      // flex: 1,
       [theme.breakpoints.down('sm')]: {
         justifyContent: 'space-between'
       }
-
-      // justifyContent: 'space-between',
     },
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',

@@ -1,12 +1,16 @@
 import { makeStyles } from '@material-ui/core'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     flexGrow: 1,
     backgroundColor: 'rgb(0, 15, 36)',
     border: '1px solid rgb(11, 30, 57)',
     borderRadius: 10,
-    marginBottom: 68
+    marginBottom: 68,
+    width: 1180,
+    [theme.breakpoints.down('sm')]: {
+      width: 'unset'
+    }
   },
   indicator: {
     // backgroundColor: 'rgb(11, 30, 57) !important',
