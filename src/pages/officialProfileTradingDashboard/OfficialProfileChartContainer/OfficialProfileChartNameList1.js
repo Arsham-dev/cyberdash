@@ -17,7 +17,7 @@ ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend)
 const OfficialProfileChartNameList1 = () => {
   const classes = useStyles()
   const [timeFrameValue, settimeFrameValue] = useState(1)
-  const [floorVar, setfloorVar] = useState(0)
+  // const [floorVar, setfloorVar] = useState(0)
   const [raity, setraity] = useState(0)
   return (
     <Paper className={classes.paper}>
@@ -49,7 +49,7 @@ const OfficialProfileChartNameList1 = () => {
               ))}
           </Select>
         </div>
-        <div>
+        {/* <div>
           <Typography className={classes.topPartTitle}>Floor Var</Typography>
           <Select
             value={floorVar}
@@ -75,7 +75,7 @@ const OfficialProfileChartNameList1 = () => {
                 </MenuItem>
               ))}
           </Select>
-        </div>
+        </div> */}
         <div>
           <Typography className={classes.topPartTitle}>Raity</Typography>
           <Select
