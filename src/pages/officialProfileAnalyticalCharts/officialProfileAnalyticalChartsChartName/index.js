@@ -1,7 +1,7 @@
 import useStyles from './styles/index.style'
 import { useState } from 'react'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from '../officialProfileAnalyticalChartsGeneralChart/OfficialProfileAnalyticalChartsGeneralChartTopPart'
-import { Typography } from '@material-ui/core'
+import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import { Scatter } from 'react-chartjs-2'
 const OfficialProfileAnalyticalChartsChartName = () => {
   const classes = useStyles()
@@ -12,6 +12,8 @@ const OfficialProfileAnalyticalChartsChartName = () => {
     floorVarSelectorContainerIsActive,
     setfloorVarSelectorContainerIsActive
   ] = useState(false)
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <div className={classes.root}>
       <OfficialProfileAnalyticalChartsGeneralChartTopPart
@@ -29,7 +31,7 @@ const OfficialProfileAnalyticalChartsChartName = () => {
       <div className={classes.chartContainer}>
         <Typography className={classes.ETHPriceText}>ETH Price</Typography>
         <Scatter
-          height={20}
+          height={isSmallScreen ? 120 : 20}
           width={'100%'}
           options={{
             scales: {

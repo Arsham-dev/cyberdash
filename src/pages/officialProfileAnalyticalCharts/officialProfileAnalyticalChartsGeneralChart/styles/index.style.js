@@ -86,6 +86,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 16,
     writingMode: 'vertical-lr',
     textOrientation: 'mixed'
+  },
+  bottomTextContainer: {
+    margin: 5,
+    width: '100%',
+    display: 'grid',
+    placeItems: 'center'
+  },
+  bottomText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#FFF'
   }
 }))
 export default useStyles

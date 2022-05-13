@@ -1,7 +1,7 @@
 import useStyles from './styles/index.style'
 import { useState } from 'react'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from './OfficialProfileAnalyticalChartsGeneralChartTopPart'
-import { Typography } from '@material-ui/core'
+import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import {
   Chart as ChartJS,
   LinearScale,
@@ -67,6 +67,8 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
     floorVarSelectorContainerIsActive,
     setfloorVarSelectorContainerIsActive
   ] = useState(false)
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <div className={classes.root}>
       <OfficialProfileAnalyticalChartsGeneralChartTopPart
@@ -86,7 +88,7 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
         <Chart
           type="bar"
           data={data}
-          height={20}
+          height={isSmallScreen ? 120 : 20}
           width={'100%'}
           options={{
             elements: {},
@@ -116,6 +118,9 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
             }
           }}
         />
+      </div>
+      <div className={classes.bottomTextContainer}>
+        <Typography className={classes.bottomText}>Time</Typography>
       </div>
     </div>
   )
