@@ -1,6 +1,6 @@
 import useStyles from './styles/OfficialProfileAnalyticalChartsGeneralChartTopPart.style'
 import ClockIcon from '@material-ui/icons/Schedule'
-import { ButtonBase, MenuItem, Select, Typography } from '@material-ui/core'
+import { ButtonBase, Typography } from '@material-ui/core'
 import IOSSwitch from '../components/IOSSwitch'
 
 const daySelectorArray = ['1d', '7d', '30d', '90d', '1y']
@@ -34,9 +34,9 @@ const OfficialProfileAnalyticalChartsGeneralChartTopPart = ({
       </div>
       <div className={classes.floorVarSelectorContainer}>
         <Typography className={classes.floorVarSelectorTitle}>
-          Floor Var
+          Outliers
         </Typography>
-        <Select
+        {/* <Select
           disabled={!floorVarSelectorContainerIsActive}
           value={floorVar}
           variant="outlined"
@@ -60,7 +60,7 @@ const OfficialProfileAnalyticalChartsGeneralChartTopPart = ({
                 {`${index * 10}%`}
               </MenuItem>
             ))}
-        </Select>
+        </Select> */}
         <IOSSwitch
           checked={floorVarSelectorContainerIsActive}
           onChange={(event) =>
