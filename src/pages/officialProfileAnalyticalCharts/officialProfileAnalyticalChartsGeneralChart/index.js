@@ -1,5 +1,5 @@
 import useStyles from './styles/index.style'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from './OfficialProfileAnalyticalChartsGeneralChartTopPart'
 import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
 import {
@@ -58,7 +58,7 @@ const data = {
     }
   ]
 }
-const OfficialProfileAnalyticalChartsGeneralChart = () => {
+const OfficialProfileAnalyticalChartsGeneralChart = ({ isSmallScreen }) => {
   const classes = useStyles()
   const [dayValue, setdayValue] = useState('1y')
   const [timeValue, settimeValue] = useState('5m')
@@ -67,14 +67,7 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
     floorVarSelectorContainerIsActive,
     setfloorVarSelectorContainerIsActive
   ] = useState(false)
-  const theme = useTheme()
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
-  const [smallScreen, setsmallScreen] = useState(isSmallScreen)
-  useEffect(() => {
-    setsmallScreen(isSmallScreen)
-  }, [isSmallScreen])
 
-  console.log(isSmallScreen)
   return (
     <div className={classes.root}>
       <OfficialProfileAnalyticalChartsGeneralChartTopPart
@@ -91,64 +84,36 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
       />
       <div className={classes.chartContainer}>
         <Typography className={classes.ETHPriceText}>ETH Price</Typography>
-        {smallScreen ? (
-          <Chart
-            type="bar"
-            data={data}
-            height={120}
-            width={'100%'}
-            options={{
-              maintainAspectRatio: false,
-              elements: {},
-              scales: {
-                y: {
-                  display: true,
-                  beginAtZero: true,
-                  grid: {
-                    color: '#244677'
-                  },
-                  categorySpacing: 0.4
+        <Chart
+          type="bar"
+          data={data}
+          // style={{ minHeight: 250, width: 'auto' }}
+          height={isSmallScreen ? 120 : 20}
+          width={'100%'}
+          options={{
+            responsive: true,
+            // maintainAspectRatio: false,
+            elements: {},
+            scales: {
+              y: {
+                display: true,
+                beginAtZero: true,
+                grid: {
+                  color: '#244677'
                 },
-                x: {
-                  display: true,
-                  beginAtZero: true,
-                  grid: {
-                    display: false
-                  },
-                  categorySpacing: 0.4
-                }
-              }
-            }}
-          />
-        ) : (
-          <Chart
-            type="bar"
-            data={data}
-            height={20}
-            width={'100%'}
-            options={{
-              elements: {},
-              scales: {
-                y: {
-                  display: true,
-                  beginAtZero: true,
-                  grid: {
-                    color: '#244677'
-                  },
-                  categorySpacing: 0.4
+                categorySpacing: 0.4
+              },
+              x: {
+                display: true,
+                beginAtZero: true,
+                grid: {
+                  display: false
                 },
-                x: {
-                  display: true,
-                  beginAtZero: true,
-                  grid: {
-                    display: false
-                  },
-                  categorySpacing: 0.4
-                }
+                categorySpacing: 0.4
               }
-            }}
-          />
-        )}
+            }
+          }}
+        />
       </div>
     </div>
   )
