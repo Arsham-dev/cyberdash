@@ -1,4 +1,4 @@
-import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import OfficialProfileAnalyticalChartsChartName from './officialProfileAnalyticalChartsChartName'
 import OfficialProfileAnalyticalChartsGeneralChart from './officialProfileAnalyticalChartsGeneralChart'
 import useStyles from './styles/index,style'

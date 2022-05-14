@@ -1,7 +1,7 @@
 import useStyles from './styles/index.style'
 import { useState } from 'react'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from './OfficialProfileAnalyticalChartsGeneralChartTopPart'
-import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import {
   Chart as ChartJS,
   LinearScale,
