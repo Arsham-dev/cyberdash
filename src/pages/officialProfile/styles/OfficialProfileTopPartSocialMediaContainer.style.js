@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     height: 20,
     padding: 6
   },
+  logomarkWhite:{
+    width: 32,
+    height: 32,
+  },
   websiteIcon: {
     color: '#E2E8F0',
     padding: 4
