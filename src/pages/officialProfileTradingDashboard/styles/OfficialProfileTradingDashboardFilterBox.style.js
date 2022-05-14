@@ -49,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
   },
   tabTextColorPrimary: {
     color: '#3666AC'
+  },
+  tabsOptions: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    columnGap: 10,
+    marginRight: 10
   }
 }))
 export default useStyles
