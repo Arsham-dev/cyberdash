@@ -1,9 +1,9 @@
 import useStyles from './styles/index.style'
 import { useState } from 'react'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from '../officialProfileAnalyticalChartsGeneralChart/OfficialProfileAnalyticalChartsGeneralChartTopPart'
-import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { Scatter } from 'react-chartjs-2'
-const OfficialProfileAnalyticalChartsChartName = () => {
+const OfficialProfileAnalyticalChartsChartName = ({ isSmallScreen }) => {
   const classes = useStyles()
   const [dayValue, setdayValue] = useState('1y')
   const [timeValue, settimeValue] = useState('5m')
@@ -12,8 +12,6 @@ const OfficialProfileAnalyticalChartsChartName = () => {
     floorVarSelectorContainerIsActive,
     setfloorVarSelectorContainerIsActive
   ] = useState(false)
-  const theme = useTheme()
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <div className={classes.root}>
       <OfficialProfileAnalyticalChartsGeneralChartTopPart

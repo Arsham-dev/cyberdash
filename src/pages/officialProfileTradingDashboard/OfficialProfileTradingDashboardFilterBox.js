@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs } from '@material-ui/core'
+import { Button, Paper, Tab, Tabs } from '@material-ui/core'
 import { useState } from 'react'
 import { TabPanel } from '../officialProfile/components/CustomTabPanel'
 import FilterBoxTabPrice from './FilterBoxTabs/FilterBoxTabPrice'
@@ -21,7 +21,6 @@ const OfficialProfileTradingDashboardFilterBox = () => {
           style: { backgrouncColor: 'red' }
         }}
         classes={{ indicator: classes.indicator }}
-        sele
         textColor="primary">
         <Tab
           label="Price"
@@ -63,6 +62,14 @@ const OfficialProfileTradingDashboardFilterBox = () => {
             selected: classes.selectedTab
           }}
         />
+        <div className={classes.tabsOptions}>
+          <Button variant="contained" color="primary">
+            Reset All
+          </Button>
+          <Button variant="contained" color="secondary">
+            Reset
+          </Button>
+        </div>
       </Tabs>
       <TabPanel value={tabsValue} index={0}>
         <FilterBoxTabPrice />

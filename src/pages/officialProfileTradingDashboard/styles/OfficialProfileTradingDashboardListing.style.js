@@ -29,6 +29,15 @@ const useStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar': {
       width: 0
     },
+    '&::-moz-scrollbar-thumb': {
+      width: 0
+    },
+    '&::-moz-scrollbar': {
+      width: 0
+    },
+    scrollbarWidth: 'none',
+
+    // overflowY: 'scroll',
     [theme.breakpoints.down('sm')]: {
       maxHeight: 500
     }

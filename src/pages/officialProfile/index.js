@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs } from '@material-ui/core'
+import { Paper, Tab, Tabs, useMediaQuery, useTheme } from '@material-ui/core'
 import { useState } from 'react'
 import OfficialProfileInfo from './OfficialProfileInfo'
 import OfficialProfileTopPart from './OfficialProfileTopPart'
@@ -13,6 +13,8 @@ import OfficialProfileAnalyticalCharts from '../officialProfileAnalyticalCharts'
 const OfficialProfile = () => {
   const classes = useStyles()
   const [tabsValue, settabsValue] = useState(0)
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <div className={classes.root}>
       <OfficialProfileTopPart />
@@ -49,7 +51,7 @@ const OfficialProfile = () => {
           <OfficialProfileTradingDashboard />
         </TabPanel>
         <TabPanel value={tabsValue} index={1}>
-          <OfficialProfileAnalyticalCharts />
+          <OfficialProfileAnalyticalCharts isSmallScreen={isSmallScreen} />
         </TabPanel>
       </Paper>
     </div>

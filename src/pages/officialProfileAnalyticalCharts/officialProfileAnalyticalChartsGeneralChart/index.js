@@ -1,7 +1,7 @@
 import useStyles from './styles/index.style'
 import { useState } from 'react'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from './OfficialProfileAnalyticalChartsGeneralChartTopPart'
-import { Typography, useMediaQuery, useTheme } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import {
   Chart as ChartJS,
   LinearScale,
@@ -58,7 +58,7 @@ const data = {
     }
   ]
 }
-const OfficialProfileAnalyticalChartsGeneralChart = () => {
+const OfficialProfileAnalyticalChartsGeneralChart = ({ isSmallScreen }) => {
   const classes = useStyles()
   const [dayValue, setdayValue] = useState('1y')
   const [timeValue, settimeValue] = useState('5m')
@@ -67,8 +67,7 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
     floorVarSelectorContainerIsActive,
     setfloorVarSelectorContainerIsActive
   ] = useState(false)
-  const theme = useTheme()
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <div className={classes.root}>
       <OfficialProfileAnalyticalChartsGeneralChartTopPart
@@ -88,15 +87,15 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
         <Chart
           type="bar"
           data={data}
+          // style={{ minHeight: 250, width: 'auto' }}
           height={isSmallScreen ? 120 : 20}
           width={'100%'}
           options={{
+            responsive: true,
+            // maintainAspectRatio: false,
             elements: {},
             scales: {
               y: {
-                // suggestedMin: 0,
-                // suggestedMax: 0.5,
-                // type: 'linear',
                 display: true,
                 beginAtZero: true,
                 grid: {
@@ -105,10 +104,7 @@ const OfficialProfileAnalyticalChartsGeneralChart = () => {
                 categorySpacing: 0.4
               },
               x: {
-                // type: 'linear',
                 display: true,
-                // suggestedMin: 0,
-                // suggestedMax: 1.5,
                 beginAtZero: true,
                 grid: {
                   display: false
