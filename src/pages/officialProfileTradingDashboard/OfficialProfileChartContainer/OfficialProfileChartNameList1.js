@@ -12,13 +12,14 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import IOSSwitch from '../../officialProfileAnalyticalCharts/components/IOSSwitch'
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend)
 
 const OfficialProfileChartNameList1 = () => {
   const classes = useStyles()
   const [timeFrameValue, settimeFrameValue] = useState(1)
   // const [floorVar, setfloorVar] = useState(0)
-  const [raity, setraity] = useState(0)
+  const [outliers, setoutliers] = useState(false)
   return (
     <Paper className={classes.paper}>
       <div className={classes.topPart}>
@@ -76,7 +77,7 @@ const OfficialProfileChartNameList1 = () => {
               ))}
           </Select>
         </div> */}
-        <div>
+        {/* <div>
           <Typography className={classes.topPartTitle}>Raity</Typography>
           <Select
             value={raity}
@@ -102,6 +103,38 @@ const OfficialProfileChartNameList1 = () => {
                 </MenuItem>
               ))}
           </Select>
+        </div> */}
+        <div>
+          <Typography className={classes.topPartTitle}>Outliers</Typography>
+          {/* <Select
+          disabled={!floorVarSelectorContainerIsActive}
+          value={floorVar}
+          variant="outlined"
+          className={classes.selector}
+          MenuProps={{
+            PaperProps: { className: classes.menuPaper },
+            getContentAnchorEl: null,
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'left'
+            }
+          }}
+          onChange={(e) => setfloorVar(e.target.value)}>
+          {Array(11)
+            .fill(null)
+            .map((item, index) => (
+              <MenuItem
+                value={index * 10}
+                className={classes.menuItem}
+                key={index.toString()}>
+                {`${index * 10}%`}
+              </MenuItem>
+            ))}
+        </Select> */}
+          <IOSSwitch
+            checked={outliers}
+            onChange={(event) => setoutliers(event.target.checked)}
+          />
         </div>
       </div>
       <div className={classes.chartContainer}>
