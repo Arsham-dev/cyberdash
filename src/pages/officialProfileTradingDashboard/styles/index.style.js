@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'column',
       alignItems: 'center'
     }
+  },
+  tabsOptions: {
+    display: 'flex',
+    columnGap: 10,
+    marginBottom: 10
   }
 }))
 export default useStyles

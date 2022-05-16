@@ -1,3 +1,4 @@
+import { Button, Hidden } from '@material-ui/core'
 import OfficialProfileChartName from './OfficialProfileChartContainer/OfficialProfileChartName'
 import OfficialProfileMomentumIndex from './OfficialProfileChartContainer/OfficialProfileMomentumIndex'
 import OfficialProfileOfficialProfileSellWall from './OfficialProfileChartContainer/OfficialProfileOfficialProfileSellWall'
@@ -10,6 +11,16 @@ const OfficialProfileTradingDashboard = ({ isSmallScreen }) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
+      <Hidden mdUp>
+        <div className={classes.tabsOptions}>
+          <Button variant="contained" color="primary">
+            Reset All
+          </Button>
+          <Button variant="contained" color="secondary">
+            Reset
+          </Button>
+        </div>
+      </Hidden>
       <OfficialProfileTradingDashboardFilterBox />
       <div className={classes.main}>
         <OfficialProfileTradingDashboardListing />
