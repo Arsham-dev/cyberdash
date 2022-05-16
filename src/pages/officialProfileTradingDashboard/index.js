@@ -6,7 +6,7 @@ import OfficialProfileTradingDashboardListing from './OfficialProfileTradingDash
 import OfficialProfileTradingDashboardTrade from './OfficialProfileTradingDashboardTrade'
 import useStyles from './styles/index.style'
 
-const OfficialProfileTradingDashboard = () => {
+const OfficialProfileTradingDashboard = ({ isSmallScreen }) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -16,7 +16,9 @@ const OfficialProfileTradingDashboard = () => {
         <div>
           <OfficialProfileChartName />
           <OfficialProfileMomentumIndex />
-          <OfficialProfileOfficialProfileSellWall />
+          <OfficialProfileOfficialProfileSellWall
+            isSmallScreen={isSmallScreen}
+          />
         </div>
         <OfficialProfileTradingDashboardTrade />
       </div>

@@ -48,7 +48,7 @@ const OfficialProfile = () => {
           />
         </Tabs>
         <TabPanel value={tabsValue} index={0}>
-          <OfficialProfileTradingDashboard />
+          <OfficialProfileTradingDashboard isSmallScreen={isSmallScreen}/>
         </TabPanel>
         <TabPanel value={tabsValue} index={1}>
           <OfficialProfileAnalyticalCharts isSmallScreen={isSmallScreen} />
