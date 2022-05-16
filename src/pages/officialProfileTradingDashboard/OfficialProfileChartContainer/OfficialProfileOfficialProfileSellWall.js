@@ -1,5 +1,5 @@
 import { MenuItem, Paper, Select, Typography } from '@material-ui/core'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useStyles from './styles/OfficialProfileOfficialProfileSellWall.style'
 import { Bar, Scatter } from 'react-chartjs-2'
 import 'chart.js/auto'
@@ -24,11 +24,17 @@ ChartJS.register(
   Legend
 )
 
-const OfficialProfileOfficialProfileSellWall = () => {
+const OfficialProfileOfficialProfileSellWall = ({ isSmallScreen }) => {
   const classes = useStyles()
   const [timeFrameValue, settimeFrameValue] = useState(1)
   const [floorVar, setfloorVar] = useState(0)
   const [raity, setraity] = useState('')
+  const [showChart, setshowChart] = useState(true)
+  useEffect(() => {
+    setshowChart(false)
+    setTimeout(() => setshowChart(true), 5)
+  }, [isSmallScreen])
+
   return (
     <div className={classes.root}>
       <div>
@@ -107,201 +113,207 @@ const OfficialProfileOfficialProfileSellWall = () => {
             />
           </div>
         </div>
-        <div className={classes.chartContainer}>
-          <div className={classes.smallChartContainer}>
-            <Typography className={classes.ETHPriceText}>Count</Typography>
-            <div className={classes.chart}>
-              <Bar
-                height={120}
-                width="100px"
-                options={{
-                  elements: {
-                    line: {
-                      tension: 0,
-                      borderWidth: 0,
-                      hoverBorderWidth: 0
-                    }
-                  },
-                  scales: {
-                    y1: {
-                      type: 'linear',
-                      display: true,
-                      position: 'left',
-                      suggestedMin: 0,
-                      suggestedMax: 50
+        {showChart && (
+          <div className={classes.chartContainer}>
+            <div className={classes.smallChartContainer}>
+              <Typography className={classes.ETHPriceText}>Count</Typography>
+              <div className={classes.chart}>
+                <Bar
+                  height={120}
+                  width="100px"
+                  options={{
+                    elements: {
+                      line: {
+                        tension: 0,
+                        borderWidth: 0,
+                        hoverBorderWidth: 0
+                      }
                     },
-                    y2: {
-                      type: 'linear',
-                      display: false,
-                      position: 'left',
-                      suggestedMin: 0,
-                      suggestedMax: 50,
-                      grid: {
-                        drawOnChartArea: false
+                    scales: {
+                      y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        suggestedMin: 0,
+                        suggestedMax: 50
+                      },
+                      y2: {
+                        type: 'linear',
+                        display: false,
+                        position: 'left',
+                        suggestedMin: 0,
+                        suggestedMax: 50,
+                        grid: {
+                          drawOnChartArea: false
+                        }
                       }
                     }
-                  }
-                }}
-                data={{
-                  labels: [0, 50, 90, 130],
-                  datasets: [
-                    {
-                      label: 'y1',
-                      data: [
-                        {
-                          x: 0,
-                          y: 2
-                        },
-                        {
-                          x: 1,
-                          y: 3
-                        },
-                        {
-                          x: 2,
-                          y: 4
-                        },
-                        {
-                          x: 3,
-                          y: 9
-                        },
-                        {
-                          x: 4,
-                          y: 17
-                        }
-                      ],
-                      backgroundColor: '#FD8F25',
-                      yAxisID: 'y1'
-                    },
-                    {
-                      yAxisID: 'y2',
-                      label: 'y2',
-                      data: [
-                        {
-                          x: 0,
-                          y: 12
-                        },
-                        {
-                          x: 1,
-                          y: 23
-                        },
-                        {
-                          x: 2,
-                          y: 34
-                        },
-                        {
-                          x: 3,
-                          y: 39
-                        },
-                        {
-                          x: 4,
-                          y: 40
-                        }
-                      ],
-                      backgroundColor: '#AB7CE1'
-                    }
-                  ]
-                }}
-              />
+                  }}
+                  data={{
+                    labels: [0, 50, 90, 130],
+                    datasets: [
+                      {
+                        label: 'y1',
+                        data: [
+                          {
+                            x: 0,
+                            y: 2
+                          },
+                          {
+                            x: 1,
+                            y: 3
+                          },
+                          {
+                            x: 2,
+                            y: 4
+                          },
+                          {
+                            x: 3,
+                            y: 9
+                          },
+                          {
+                            x: 4,
+                            y: 17
+                          }
+                        ],
+                        backgroundColor: '#FD8F25',
+                        yAxisID: 'y1'
+                      },
+                      {
+                        yAxisID: 'y2',
+                        label: 'y2',
+                        data: [
+                          {
+                            x: 0,
+                            y: 12
+                          },
+                          {
+                            x: 1,
+                            y: 23
+                          },
+                          {
+                            x: 2,
+                            y: 34
+                          },
+                          {
+                            x: 3,
+                            y: 39
+                          },
+                          {
+                            x: 4,
+                            y: 40
+                          }
+                        ],
+                        backgroundColor: '#AB7CE1'
+                      }
+                    ]
+                  }}
+                />
+              </div>
             </div>
-          </div>
-          <div className={classes.smallChartContainer}>
-            <Typography className={classes.ETHPriceText}>
-              Price in ETH
-            </Typography>
-            <div className={classes.chart}>
-              <Scatter
-                height={120}
-                width="100px"
-                options={{
-                  elements: {
-                    line: {
-                      tension: 0
-                    }
-                  },
-                  scales: {
-                    y1: {
-                      type: 'linear',
-                      display: true,
-                      position: 'left',
-                      suggestedMin: 0,
-                      suggestedMax: 50
+            <div className={classes.smallChartContainer}>
+              <Typography className={classes.ETHPriceText}>
+                Price in ETH
+              </Typography>
+              <div className={classes.chart}>
+                <Scatter
+                  height={120}
+                  width="100%"
+                  options={{
+                    // responsive: true,
+                    // resizeDelay: true,
+                    // maintainAspectRatio: false,
+
+                    elements: {
+                      line: {
+                        tension: 0
+                      }
                     },
-                    y2: {
-                      type: 'linear',
-                      display: false,
-                      position: 'left',
-                      suggestedMin: 0,
-                      suggestedMax: 50,
-                      grid: {
-                        drawOnChartArea: false
+                    scales: {
+                      y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        suggestedMin: 0,
+                        suggestedMax: 50
+                      },
+                      y2: {
+                        type: 'linear',
+                        display: false,
+                        position: 'left',
+                        suggestedMin: 0,
+                        suggestedMax: 50,
+                        grid: {
+                          drawOnChartArea: false
+                        }
                       }
                     }
-                  }
-                }}
-                data={{
-                  labels: ['', '6:55 AM', '12:55 AM', ''],
-                  datasets: [
-                    {
-                      label: 'y1',
-                      data: [
-                        {
-                          x: 0,
-                          y: 2
-                        },
-                        {
-                          x: 1,
-                          y: 3
-                        },
-                        {
-                          x: 2,
-                          y: 4
-                        },
-                        {
-                          x: 3,
-                          y: 9
-                        },
-                        {
-                          x: 4,
-                          y: 17
-                        }
-                      ],
-                      backgroundColor: '#FD8F25',
-                      borderColor: '#FD8F25',
-                      yAxisID: 'y1'
-                    },
-                    {
-                      yAxisID: 'y2',
-                      label: 'y2',
-                      data: [
-                        {
-                          x: 0,
-                          y: 12
-                        },
-                        {
-                          x: 1,
-                          y: 23
-                        },
-                        {
-                          x: 2,
-                          y: 34
-                        },
-                        {
-                          x: 3,
-                          y: 39
-                        },
-                        {
-                          x: 4,
-                          y: 40
-                        }
-                      ],
-                      backgroundColor: 'rgb(255, 99, 132)'
-                    }
-                  ]
-                }}
-              />
+                  }}
+                  data={{
+                    labels: ['', '6:55 AM', '12:55 AM', ''],
+                    datasets: [
+                      {
+                        label: 'y1',
+                        data: [
+                          {
+                            x: 0,
+                            y: 2
+                          },
+                          {
+                            x: 1,
+                            y: 3
+                          },
+                          {
+                            x: 2,
+                            y: 4
+                          },
+                          {
+                            x: 3,
+                            y: 9
+                          },
+                          {
+                            x: 4,
+                            y: 17
+                          }
+                        ],
+                        backgroundColor: '#FD8F25',
+                        borderColor: '#FD8F25',
+                        yAxisID: 'y1'
+                      },
+                      {
+                        yAxisID: 'y2',
+                        label: 'y2',
+                        data: [
+                          {
+                            x: 0,
+                            y: 12
+                          },
+                          {
+                            x: 1,
+                            y: 23
+                          },
+                          {
+                            x: 2,
+                            y: 34
+                          },
+                          {
+                            x: 3,
+                            y: 39
+                          },
+                          {
+                            x: 4,
+                            y: 40
+                          }
+                        ],
+                        backgroundColor: 'rgb(255, 99, 132)'
+                      }
+                    ]
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <div className={classes.bottomPartText}>
           <Typography className={classes.bottomText}>Price</Typography>
           <Typography className={classes.bottomText}>Rarity Rank</Typography>

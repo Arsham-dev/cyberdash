@@ -1,5 +1,5 @@
 import useStyles from './styles/index.style'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import OfficialProfileAnalyticalChartsGeneralChartTopPart from './OfficialProfileAnalyticalChartsGeneralChartTopPart'
 import { Typography } from '@material-ui/core'
 import {
@@ -67,6 +67,11 @@ const OfficialProfileAnalyticalChartsGeneralChart = ({ isSmallScreen }) => {
     floorVarSelectorContainerIsActive,
     setfloorVarSelectorContainerIsActive
   ] = useState(false)
+  const [showChart, setshowChart] = useState(true)
+  useEffect(() => {
+    setshowChart(false)
+    setTimeout(() => setshowChart(true), 5)
+  }, [isSmallScreen])
 
   return (
     <div className={classes.root}>
@@ -84,36 +89,38 @@ const OfficialProfileAnalyticalChartsGeneralChart = ({ isSmallScreen }) => {
       />
       <div className={classes.chartContainer}>
         <Typography className={classes.ETHPriceText}>ETH Price</Typography>
-        <Chart
-          type="bar"
-          data={data}
-          // style={{ minHeight: 250, width: 'auto' }}
-          height={isSmallScreen ? 120 : 20}
-          width={'100%'}
-          options={{
-            responsive: true,
-            // maintainAspectRatio: false,
-            elements: {},
-            scales: {
-              y: {
-                display: true,
-                beginAtZero: true,
-                grid: {
-                  color: '#244677'
+        {showChart && (
+          <Chart
+            type="bar"
+            data={data}
+            // style={{ minHeight: 250, width: 'auto' }}
+            height={isSmallScreen ? 120 : 20}
+            width={'100%'}
+            options={{
+              responsive: true,
+              // maintainAspectRatio: false,
+              elements: {},
+              scales: {
+                y: {
+                  display: true,
+                  beginAtZero: true,
+                  grid: {
+                    color: '#244677'
+                  },
+                  categorySpacing: 0.4
                 },
-                categorySpacing: 0.4
-              },
-              x: {
-                display: true,
-                beginAtZero: true,
-                grid: {
-                  display: false
-                },
-                categorySpacing: 0.4
+                x: {
+                  display: true,
+                  beginAtZero: true,
+                  grid: {
+                    display: false
+                  },
+                  categorySpacing: 0.4
+                }
               }
-            }
-          }}
-        />
+            }}
+          />
+        )}
       </div>
     </div>
   )
